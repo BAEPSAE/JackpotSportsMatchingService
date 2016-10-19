@@ -1,6 +1,6 @@
 package vo;
 
-public class User {
+public class Player {
 
 	private String user_Id;	//유저아이디 (테이블 주키)
 	private String user_Name;	//유저 이름
@@ -16,7 +16,7 @@ public class User {
 	private double bl_Score;	//볼링 승점
 	
 		
-	public User() {
+	public Player() {
 		// TODO Auto-generated constructor stub
 	}
 
