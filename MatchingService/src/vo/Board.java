@@ -1,12 +1,12 @@
 package vo;
 
 public class Board {
-	private int boardNum; // ���� pk(sequence)
-	private String title; //������
-	private String content;	//�۳���
-	private String user_Id;	//�ۼ���ID
-	private String inputDate;	//�ۼ���
-	private String category;	//ī�װ�(���Ӹ�)
+	private int boardNum; // 글번호 pk(sequence)
+	private String title; //글제목
+	private String content;	//글내용
+	private String user_Id;	//글쓴 유저 아이디(fk)
+	private String inputDate;	//시간
+	private String category;	//카테고리
 	
 	public Board() {
 		// TODO Auto-generated constructor stub

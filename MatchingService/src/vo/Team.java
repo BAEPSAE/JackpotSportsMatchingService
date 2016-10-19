@@ -10,17 +10,16 @@ package vo;
  */
 public class Team {
 
-	private int team_Id;	//�� ������ȣ
-	private String team_Name;	//�� �̸�
-	private String team_Leader;	//���� ���̵�
-	private int team_Score;	//����
-	private int tema_Manner;	//�ų�
-	private String team_GameType;	//�� ������
-	private int team_TotalGame;	//��ü ���Ӽ�
-	private int team_WinGame;	//�¸��� ���Ӽ�
-	private int team_Draw;	//���º��� ���Ӽ�
-	private boolean team_Open;	//���� ���� ����
-	private String team_Waiting; // ���δ������ ��� ID ������ �ִ�string Ÿ��
+	private int team_Id;	//team table 주키
+	private String team_Name;	//팀 이름
+	private String team_Leader;	//팀장(회원아이디fk)
+	private int team_Score;	//팀 승점
+	private int tema_Manner;	//매너점수
+	private String team_GameType;	//경기종목
+	private int team_TotalGame;	//총 경기수
+	private int team_WinGame;	//이긴 경기수
+	private int team_Draw;	//무승부 경기 수
+	private boolean team_Open;	//팀원 모집중인지 여부
 	
 	public Team() {
 		// TODO Auto-generated constructor stub
@@ -106,22 +105,14 @@ public class Team {
 		this.team_Open = team_Open;
 	}
 
-	public String getteam_Waiting() {
-		return team_Waiting;
-	}
-
-	public void setteam_Waiting(String team_Waiting) {
-		this.team_Waiting = team_Waiting;
-	}
-
 	@Override
 	public String toString() {
 		return "Team [team_Id=" + team_Id + ", team_Name=" + team_Name + ", team_Leader=" + team_Leader
-				+ ", team_Score=" + team_Score + ", tema_Manner=" + tema_Manner + ", team_GameType="
-				+ team_GameType + ", team_TotalGame=" + team_TotalGame + ", team_WinGame=" + team_WinGame
-				+ ", team_Draw=" + team_Draw + ", team_Open=" + team_Open + ", team_Waiting=" + team_Waiting + "]";
+				+ ", team_Score=" + team_Score + ", tema_Manner=" + tema_Manner + ", team_GameType=" + team_GameType
+				+ ", team_TotalGame=" + team_TotalGame + ", team_WinGame=" + team_WinGame + ", team_Draw=" + team_Draw
+				+ ", team_Open=" + team_Open + "]";
 	}
-	
+
 	
 	
 }
