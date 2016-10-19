@@ -2,12 +2,14 @@ package vo;
 
 public class Grounds {
 	
-	private int ground_Id;	//����� ����Ű(��Ű)-sequence
-	private String location;	//����� ����
-	private String ground_Name;	//����� �̸�
-	private int ground_Own;	//���� ����?�ʵ�? ��
-	private String ground_Phone;	//����ó
-	private String ground_Address;
+	private int ground_Id;	//경기장 고유번호(pk)-sequence
+	private String location;	//지역
+	private String ground_Name;	//경기장이름
+	private int ground_Own;	//경기장 보유 몇개?
+	private String ground_Phone;	//경기장 연락처
+	private String ground_Address;	//경기장 주소
+	
+	
 	public int getGround_Id() {
 		return ground_Id;
 	}

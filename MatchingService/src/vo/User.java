@@ -2,18 +2,18 @@ package vo;
 
 public class User {
 
-	private String user_Id;	//���� ���̵�(��Ű)
-	private String user_Name;	//���� �̸�
-	private String user_Pw;	//���
-	private String user_Location;	//���� ����������
-	private String user_Phone;	//���� ����ó
-	private int record_Id;	//���� ���� id(�ܷ�Ű)
-	private String team1;	//�Ҽ� �౸��
-	private int team1_Flag;	//�� ���� ���ο���(0:�̽���/1:����)
-	private String team2;	//�Ҽ� ����
-	private int team2_Flag;	//�� ���� ���ο���(0:�̽���/1:����)
-	private double pp_Score;	//Ź�� ����
-	private double bl_Score;	//���� ����
+	private String user_Id;	//유저아이디 (테이블 주키)
+	private String user_Name;	//유저 이름
+	private String user_Pw;	//패스워드
+	private String user_Location;	//유저가 등록한 활동지역
+	private String user_Phone;	//연락처
+	private int record_Id;	//전적테이블ID(record테이블 fk)
+	private String team1;	//소속 축구팀 id(fk)
+	private int team1_Flag;	//승인여부(0:미승인/1:승인)
+	private String team2;	//소속 농구팀 id(fk)
+	private int team2_Flag;	//승인여부(0:미승인/1:승인)
+	private double pp_Score;	//탁구 승점
+	private double bl_Score;	//볼링 승점
 	
 		
 	public User() {
