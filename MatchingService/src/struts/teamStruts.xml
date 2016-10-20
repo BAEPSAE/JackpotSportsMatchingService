@@ -8,14 +8,13 @@
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
     <constant name="struts.devMode" value="true" />
 
-    <package name="team" namespace="/" extends="default">
+    <package name="team" namespace="/team" extends="default">
 
-        <action name="index">
-            <result type="redirectAction">
-                <param name="actionName">HelloWorld</param>
-                <param name="namespace">/example</param>
-            </result>
-        </action>
+       
+       
+       
+       
+       
     </package>
 
 
