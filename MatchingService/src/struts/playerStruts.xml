@@ -8,11 +8,19 @@
     <constant name="struts.devMode" value="true" />
 
     <package name="player" namespace="/player" extends="default">
-
-       
-       
-       
-       
-       
+		<!-- 종목별 전적 가져오기 -->
+		<action name="getUserInfo" class="action.PlayerAction" method="getUserInfo">
+			<result></result>
+		</action>
+		
+		<!-- 종목별 전적 가져오기 -->
+		<action name="getUserRecord" class="action.PlayerAction" method="getUserRecord">
+			<result></result>
+		</action>
+		
+		<!-- 종목별 경기장 정보 가져오기 -->
+		<action name="getUserGround" class="action.PlayerAction" method="getUserGround">
+			<result></result>
+		</action>
     </package>
 </struts>

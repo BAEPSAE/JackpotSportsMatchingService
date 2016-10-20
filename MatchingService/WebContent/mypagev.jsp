@@ -23,12 +23,7 @@
     </script>
 </head>
 <body>
-<!--
-  Main sidebar seen on the left. may be static or collapsing depending on selected state.
-
-    * Collapsing - navigation automatically collapse when mouse leaves it and expand when enters.
-    * Static - stays always open.
--->
+<!-- 왼쪽 사이트 바 -->
 <nav id="sidebar" class="sidebar" role="navigation">
     <!-- need this .js class to initiate slimscroll -->
     <div class="js-sidebar-content">
@@ -198,13 +193,10 @@
         </div>
     </div>
 </nav>
-
+<!-- 전적 페이지 -->
 <div class="content-wrap">
-    <!-- main page content. the place to put widgets in. usually consists of .row > .col-md-* > .widget.  -->
     <main id="content" class="content" role="main">
-        <!-- jquery ui sortable chrome overflow-x fix. when set to hidden does not behaves as expected. resetting back
-             just for this page.
-             http://bugs.jqueryui.com/ticket/9588 -->
+        <!-- 화면 좌우이동 -->
         <style>
             body{
                 overflow-x: visible;
