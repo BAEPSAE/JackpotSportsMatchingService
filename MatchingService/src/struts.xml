@@ -29,7 +29,7 @@
     </package>
 
     <include file="struts/teamStruts.xml"/>
-
+	<include file="struts/playerStruts.xml"/>
     <!-- Add packages here -->
 
 </struts>
