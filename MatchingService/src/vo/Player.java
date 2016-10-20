@@ -8,9 +8,9 @@ public class Player {
 	private String user_Location;	//유저가 등록한 활동지역
 	private String user_Phone;	//연락처
 	private int record_Id;	//전적테이블ID(record테이블 fk)
-	private String team1;	//소속 축구팀 id(fk)
+	private int team1;	//소속 축구팀 id(fk)
 	private int team1_Flag;	//승인여부(0:미승인/1:승인)
-	private String team2;	//소속 농구팀 id(fk)
+	private int team2;	//소속 농구팀 id(fk)
 	private int team2_Flag;	//승인여부(0:미승인/1:승인)
 	private double pp_Score;	//탁구 승점
 	private double bl_Score;	//볼링 승점
@@ -60,11 +60,11 @@ public class Player {
 		this.user_Phone = user_Phone;
 	}
 
-	public String getTeam1() {
+	public int getTeam1() {
 		return team1;
 	}
 
-	public void setTeam1(String team1) {
+	public void setTeam1(int team1) {
 		this.team1 = team1;
 	}
 
@@ -76,11 +76,11 @@ public class Player {
 		this.team1_Flag = team1_Flag;
 	}
 
-	public String getTeam2() {
+	public int getTeam2() {
 		return team2;
 	}
 
-	public void setTeam2(String team2) {
+	public void setTeam2(int team2) {
 		this.team2 = team2;
 	}
 
