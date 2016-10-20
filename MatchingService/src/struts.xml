@@ -6,8 +6,9 @@
 <struts>
 	<constant name="struts.devMode" value="true" />
 	<package name="default" namespace="/" extends="struts-default">
-	<action name="t_searchv">
-		<result>t_searchv.jsp</result>
-	</action>
+	
+		<action name="t_searchv">
+			<result>t_searchv.jsp</result>
+		</action>
 	</package>
 </struts>
