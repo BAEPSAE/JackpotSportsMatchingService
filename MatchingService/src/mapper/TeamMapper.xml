@@ -29,5 +29,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteTeam" parameterType="int">
 		delete from team where team_id=#{team_Id}
 	</delete>
+	<!-- <update id="t_joinApply" parameterType="Player">
+		update player 
+	</update> -->
 	
 </mapper>

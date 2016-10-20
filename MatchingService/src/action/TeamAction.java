@@ -72,15 +72,14 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	}
 	
 	public String getTeamList(){
-	     // teamlist = new TeamDAO().getTeamList(team);
+	    teamlist = new TeamDAO().getTeamList(team);
 	      return SUCCESS;
-	   }
+	}
 	   
-	   public String t_joinApply(){
-	      System.out.println(player);
-	      //int result = new TeamDAO().t_joinApply(player, team);
-	      return SUCCESS;
-	   }
+	public String t_joinApply(){
+	   int result = new TeamDAO().t_joinApply(player);
+	   return SUCCESS;
+	}
 	   
 	//getter&setter
 	

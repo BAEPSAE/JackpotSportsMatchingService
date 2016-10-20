@@ -29,19 +29,18 @@ user 테이블 전부 돌아서 해당 팀 id 가지고 있는 애들 목록 긁
 	
 	//승민
 	public List<Team> getTeamList(Team team){
-		teamList = session.selectList("TeamMapper.getTeamList", team.getTeam_Name());
+		System.out.println("aaaaaaa");
+		teamList = session.selectList("mapper.TeamMapper.getTeamList", team.getTeam_Name());
 		session.commit();
 		session.close();
 		
 		return teamList;
 	}
-	public int t_joinApply(Player player, Team team){
+	public int t_joinApply(Player player){
 		int result = 0;
-
-//		result += session.update("TeamMapper.t_joinApply1", player);
-//		result += session.update("TeamMapper.t_joinApply2", team);
-//		session.commit();
-//		session.close();
+		result = session.update("mapper.TeamMapper.t_joinApply", player);
+		session.commit();
+		session.close();
 		
 		return result;
 	}

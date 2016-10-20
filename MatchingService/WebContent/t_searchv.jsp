@@ -46,7 +46,7 @@
 					url: 't_joinApply',
 					method: 'post',
 					dataType: 'json',
-					data: {'player.user_Id' : 1, 'player.team1' : teamId},
+					data: {'player.user_Id' : 1, 'player.team1' : teamId}, /*플레이어아이디는 나중에 세션에서 받는걸로  */
 					success: function(response) {
 						alert("ㄴㅇㄻㄴㅇㄻㄴㅇㄻㄴㅇㄹㄴ");
 					}
