@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TeamMapper">
+	
+	<select id="getTeam" resultType="Team" parameterType="int">
+		select * from Team where team_id=#{team_Id}
+	</select>
+	
+	<select id="getTeamList" resultType="Team" parameterType="String">
+	
+	</select>
+	
+	<insert id="insertTeam" parameterType="Team">
+	
+	</insert>
+	
+	<update id="updateTeam" parameterType="Team">
+	
+	</update>
+	
+	<delete id="deleteTeam" parameterType="int">
+	
+	</delete>
+	
+	
+</mapper>

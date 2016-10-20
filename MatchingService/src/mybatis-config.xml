@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- DB접속정보 및 TypeAlias Setting -->
+	<properties resource="db.properties"></properties>
+	<typeAliases>
+		<typeAlias type="vo.Board" alias="Board"/>
+		<typeAlias type="vo.Games" alias="Games"/>
+		<typeAlias type="vo.Ground_Review" alias="Ground_Review"/>
+		<typeAlias type="vo.Grounds" alias="Grounds"/>
+		<typeAlias type="vo.Matching" alias="Matching"/>
+		<typeAlias type="vo.Message" alias="Message"/>
+		<typeAlias type="vo.Player" alias="Player"/>
+		<typeAlias type="vo.Record" alias="Record"/>
+		<typeAlias type="vo.Reply" alias="Reply"/>
+		<typeAlias type="vo.Team" alias="Team"/>
+	</typeAliases>
+	
+	
+	<!-- DB접속 정보 셋팅 -->
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<!-- 매퍼 파일 포함 -->
+	<mappers>
+		<mapper resource="TeamMapper.xml"/>
+	</mappers>
+	
+</configuration>
