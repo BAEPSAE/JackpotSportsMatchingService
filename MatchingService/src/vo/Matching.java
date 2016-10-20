@@ -14,8 +14,8 @@ public class Matching {
 	public int getMatching_Id() {
 		return matching_Id;
 	}
-	public void setMatching_Id(int maching_Id) {
-		this.matching_Id = maching_Id;
+	public void setMatching_Id(int matching_Id) {
+		this.matching_Id = matching_Id;
 	}
 	public String getPlayer() {
 		return player;
@@ -35,8 +35,8 @@ public class Matching {
 	public String getMatching_StartTime() {
 		return matching_StartTime;
 	}
-	public void setMatching_StartTime(String maching_StartTime) {
-		this.matching_StartTime = maching_StartTime;
+	public void setMatching_StartTime(String matching_StartTime) {
+		this.matching_StartTime = matching_StartTime;
 	}
 	public void setPlayer(String player) {
 		this.player = player;
@@ -63,13 +63,13 @@ public class Matching {
 	public String getmatching_StartTime() {
 		return matching_StartTime;
 	}
-	public void setmatching_StartTime(String maching_StartTime) {
-		this.matching_StartTime = maching_StartTime;
+	public void setmatching_StartTime(String matching_StartTime) {
+		this.matching_StartTime = matching_StartTime;
 	}
 
 	@Override
 	public String toString() {
-		return "Maching [matching_Id=" + matching_Id + ", player=" + player + ", game_Type=" + game_Type + ", game_Date="
+		return "Matching [matching_Id=" + matching_Id + ", player=" + player + ", game_Type=" + game_Type + ", game_Date="
 				+ game_Date + ", ground_hold=" + ground_Hold + ", location=" + location + ", matching_StartTime="
 				+ matching_StartTime + "]";
 	}
