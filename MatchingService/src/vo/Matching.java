@@ -1,21 +1,21 @@
 package vo;
 
-public class Maching {
+public class Matching {
 	
-	int maching_Id;		//primary key
+	int matching_Id;		//primary key
 	String player;		//유저 id or Team_id 자바에서 처리해서 저장
 	int player_Score;	//유저 승점 유저테이블에서 받아오게.
 	String game_Type;	//게임 타입 (축구,야구,볼링,당구)
 	String game_Date;	//게임 날짜
 	String ground_Hold;	//경기장 보유여부
 	String location;	//지역
-	String maching_StartTime;	//게임 시작시간
+	String matching_StartTime;	//게임 시작시간
 	
-	public int getMaching_Id() {
-		return maching_Id;
+	public int getMatching_Id() {
+		return matching_Id;
 	}
-	public void setMaching_Id(int maching_Id) {
-		this.maching_Id = maching_Id;
+	public void setMatching_Id(int maching_Id) {
+		this.matching_Id = maching_Id;
 	}
 	public String getPlayer() {
 		return player;
@@ -32,11 +32,11 @@ public class Maching {
 	public void setGround_Hold(String ground_Hold) {
 		this.ground_Hold = ground_Hold;
 	}
-	public String getMaching_StartTime() {
-		return maching_StartTime;
+	public String getMatching_StartTime() {
+		return matching_StartTime;
 	}
-	public void setMaching_StartTime(String maching_StartTime) {
-		this.maching_StartTime = maching_StartTime;
+	public void setMatching_StartTime(String maching_StartTime) {
+		this.matching_StartTime = maching_StartTime;
 	}
 	public void setPlayer(String player) {
 		this.player = player;
@@ -60,18 +60,18 @@ public class Maching {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public String getmaching_StartTime() {
-		return maching_StartTime;
+	public String getmatching_StartTime() {
+		return matching_StartTime;
 	}
-	public void setmaching_StartTime(String maching_StartTime) {
-		this.maching_StartTime = maching_StartTime;
+	public void setmatching_StartTime(String maching_StartTime) {
+		this.matching_StartTime = maching_StartTime;
 	}
 
 	@Override
 	public String toString() {
-		return "Maching [maching_Id=" + maching_Id + ", player=" + player + ", game_Type=" + game_Type + ", game_Date="
-				+ game_Date + ", ground_hold=" + ground_Hold + ", location=" + location + ", maching_StartTime="
-				+ maching_StartTime + "]";
+		return "Maching [matching_Id=" + matching_Id + ", player=" + player + ", game_Type=" + game_Type + ", game_Date="
+				+ game_Date + ", ground_hold=" + ground_Hold + ", location=" + location + ", matching_StartTime="
+				+ matching_StartTime + "]";
 	}
 	
 }
