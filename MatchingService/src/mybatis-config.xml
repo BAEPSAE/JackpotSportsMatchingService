@@ -34,6 +34,7 @@
 	<!-- 매퍼 파일 포함 -->
 	<mappers>
 		<mapper resource="mapper/TeamMapper.xml"/>
+		<mapper resource="mapper/PlayerMapper.xml"/>
 	</mappers>
 	
 </configuration>

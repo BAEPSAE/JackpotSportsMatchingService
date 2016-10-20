@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Sing - List Groups</title>
-    <link href="css/application.min.css" rel="stylesheet">
+    <link href="../css/application.min.css" rel="stylesheet">
     <!-- as of IE9 cannot parse css files with more that 4K classes separating in two files -->
     <!--[if IE 9]>
     <link href="css/application-ie9-part2.css" rel="stylesheet">
@@ -96,9 +97,9 @@
                 <ul id="sidebar-maps" class="collapse">
                     <!-- data-no-pjax turns off pjax loading for this link. Use in case of complicated js loading on the
                          target page -->
-                    <li><a href="maps_google.html" data-no-pjax>팀 관리 - 축구</a></li>
-                    <li><a href="maps_google.html" data-no-pjax>팀 관리 - 야구</a></li>
-                    <li><a href="maps_vector.html">팀 모집</a></li>
+                    <li><a href="/team/teamPage?selector=1" data-no-pjax>팀 관리 - 축구</a></li>
+                    <li><a href="/team/teamPage?selector=2" data-no-pjax>팀 관리 - 야구</a></li>
+                    <li><a href="index.jsp">팀 모집</a></li>
                 </ul>
             </li>
             <li>
@@ -213,9 +214,9 @@ body {
 				<h3>
 					팀원 <span class="fw-semi-bold">목록</span>
 					<div style="float: right;">
-						<select class="btn btn-danger">
-							<option>모집 가능</option>
-							<option>모집 불가</option>
+						<select class="btn btn-danger" id=team_open>
+							<option value=1>모집 가능</option>
+							<option value=2>모집 불가</option>
 						</select>
 					</div>
 				</h3>
@@ -240,15 +241,15 @@ body {
 										<br>
 										<div style="float: right;">
 											<div class="stat-item">
-												<p class="value text-xs-right">91.5%</p>
+												<p class="value text-xs-right"><s:property value="team_winrate" />%</p>
 												<h6 class="name">승률</h6>
 											</div>
 											<div class="stat-item">
-												<p class="value text-xs-right">938</p>
+												<p class="value text-xs-right"><s:property value="team.team_Score" /></p>
 												<h6 class="name">승점</h6>
 											</div>
 											<div class="stat-item">
-												<p class="value text-xs-right">300</p>
+												<p class="value text-xs-right"><s:property value="team.team_Manner" /></p>
 												<h6 class="name">매너점수</h6>
 											</div>
 										</div>
@@ -273,6 +274,7 @@ body {
 						</tr>
 					</thead>
 					<tbody>
+					<s:iterator value="memberList">
 						<tr>
 							<td>
 								<div class="checkbox abc-checkbox">
@@ -280,10 +282,11 @@ body {
 										for="checkbox2"></label>
 								</div>
 							</td>
-							<td>백윤석</td>
-							<td>paik</td>
+							<td><s:property value="user_Name" /></td>
+							<td><s:property value="user_Id" /></td>
 							<td><span class="label label-danger">Online</span></td>
 						</tr>
+					</s:iterator>
 						<tr>
 							<td>
 								<div class="checkbox abc-checkbox">
@@ -327,34 +330,34 @@ body {
 </div>
 
 <!-- common libraries. required for every page-->
-<script src="vendor/jquery/dist/jquery.min.js"></script>
-<script src="vendor/jquery-pjax/jquery.pjax.js"></script>
-<script src="vendor/tether/dist/js/tether.js"></script>
-<script src="vendor/bootstrap/js/dist/util.js"></script>
-<script src="vendor/bootstrap/js/dist/collapse.js"></script>
-<script src="vendor/bootstrap/js/dist/dropdown.js"></script>
-<script src="vendor/bootstrap/js/dist/button.js"></script>
-<script src="vendor/bootstrap/js/dist/tooltip.js"></script>
-<script src="vendor/bootstrap/js/dist/alert.js"></script>
-<script src="vendor/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="vendor/widgster/widgster.js"></script>
-<script src="vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
-<script src="vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
-<script src="js/bootstrap-fix/button.js"></script>
+<script src="../vendor/jquery/dist/jquery.min.js"></script>
+<script src="../vendor/jquery-pjax/jquery.pjax.js"></script>
+<script src="../vendor/tether/dist/js/tether.js"></script>
+<script src="../vendor/bootstrap/js/dist/util.js"></script>
+<script src="../vendor/bootstrap/js/dist/collapse.js"></script>
+<script src="../vendor/bootstrap/js/dist/dropdown.js"></script>
+<script src="../vendor/bootstrap/js/dist/button.js"></script>
+<script src="../vendor/bootstrap/js/dist/tooltip.js"></script>
+<script src="../vendor/bootstrap/js/dist/alert.js"></script>
+<script src="../vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="../vendor/widgster/widgster.js"></script>
+<script src="../vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
+<script src="../vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
+<script src="../js/bootstrap-fix/button.js"></script>
 
 <!-- common app js -->
-<script src="js/settings.js"></script>
-<script src="js/app.js"></script>
+<script src="../js/settings.js"></script>
+<script src="../js/app.js"></script>
 
 <!-- page specific libs -->
-<script src="vendor/jquery-ui/ui/core.js"></script>
-<script src="vendor/jquery-ui/ui/widget.js"></script>
-<script src="vendor/jquery-ui/ui/mouse.js"></script>
-<script src="vendor/jquery-ui/ui/sortable.js"></script>
-<script src="vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-<script src="vendor/jquery.nestable/jquery.nestable.js"></script>
+<script src="../vendor/jquery-ui/ui/core.js"></script>
+<script src="../vendor/jquery-ui/ui/widget.js"></script>
+<script src="../vendor/jquery-ui/ui/mouse.js"></script>
+<script src="../vendor/jquery-ui/ui/sortable.js"></script>
+<script src="../vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+<script src="../vendor/jquery.nestable/jquery.nestable.js"></script>
 
 <!-- page specific js -->
-<script src="js/ui-list-groups.js"></script>
+<script src="../js/ui-list-groups.js"></script>
 </body>
 </html>

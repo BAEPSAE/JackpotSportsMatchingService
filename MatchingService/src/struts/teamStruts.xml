@@ -8,9 +8,27 @@
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
     <constant name="struts.devMode" value="true" />
 
-    <package name="team" namespace="/team" extends="default">
+    <package name="team" namespace="/team" extends="default, json-default">
 
+       <action name="teamPage" class="action.TeamAction" method="teamPage">
+       		<result>../teamPage.jsp</result>
+       </action>
        
+       <action name="t_delete"  class="action.TeamAction" method="t_delete">
+       		<result type="redirect">/team/teamPage</result>
+       </action>
+       
+       <action name="t_open"  class="action.TeamAction" method="t_open">
+       		<result type="json"></result>
+       </action>
+       
+       <action name="t_close"  class="action.TeamAction" method="t_close">
+       		<result type="json"></result>
+       </action>
+       
+       <action name="t_giveLeader"  class="action.TeamAction" method="t_giveLeader">
+       		<result type="redirect">/team/teamPage</result>
+       </action>
        
        
        
