@@ -12,6 +12,7 @@
 
        <action name="teamPage" class="action.TeamAction" method="teamPage">
        		<result>../teamPage.jsp</result>
+       		
        </action>
        
        <action name="t_delete"  class="action.TeamAction" method="t_delete">

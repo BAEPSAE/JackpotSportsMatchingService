@@ -1,18 +1,15 @@
 package dao;
 
-<<<<<<< HEAD
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import vo.Player;
 import vo.Team;
-=======
 import org.apache.ibatis.session.SqlSession;
 
 import vo.Team;
 
 public class TeamDAO {
->>>>>>> branch 'master' of https://github.com/BAEPSAE/JackpotSportsMatchingService.git
 /*
 
 팀만들기- insert() Team
@@ -24,9 +21,8 @@ public class TeamDAO {
 팀에 가입한 유저목록표시- select() User 테이블에서 teamId 검색
 user 테이블 전부 돌아서 해당 팀 id 가지고 있는 애들 목록 긁어오기로함-좀더 좋은방법있으면 개선가능.
 
-<<<<<<< HEAD
 */
-public class TeamDAO {
+	
 	SqlSession session = MybatisConfig.getSqlSessionFactory().openSession();
 	List<Team> teamList;
 	
@@ -63,23 +59,5 @@ public class TeamDAO {
 	    session.selectOne("mapper.TeamMapper.updateTeam", team);
 	    session.close();
 	}
-=======
-*/	
 	
-	SqlSession sqlSession=MybatisConfig.getSqlSessionFactory().openSession();
-	
-	public Team getTeam(int team_Id){
-		Team team = sqlSession.selectOne("mapper.TeamMapper.getTeam", team_Id);
-		sqlSession.close();
-		return team;
-	}
-	
-	public void updateTeam(Team team){
-		sqlSession.selectOne("mapper.TeamMapper.updateTeam", team);
-		sqlSession.close();
-	}
-	
-	
->>>>>>> branch 'master' of https://github.com/BAEPSAE/JackpotSportsMatchingService.git
-		
 }
