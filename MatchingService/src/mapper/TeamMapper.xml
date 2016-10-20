@@ -6,24 +6,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="TeamMapper">
 	
 	<select id="getTeam" resultType="Team" parameterType="int">
-		select * from Team where team_id=#{team_Id}
-	</select>
-	
-	<select id="getTeamList" resultType="Team" parameterType="String">
-	
-	</select>
-	
-	<insert id="insertTeam" parameterType="Team">
-	
-	</insert>
-	
-	<update id="updateTeam" parameterType="Team">
-	
-	</update>
-	
-	<delete id="deleteTeam" parameterType="int">
-	
-	</delete>
+      select * from TEAM where team_id=#{team_Id}
+   </select>
+   
+   <select id="getTeamList" resultType="Team" parameterType="String">
+      <!-- 정렬기준? -->
+      select * from Team where team_name=#{team_name} order by team_Id
+   </select>
+   
+   <insert id="insertTeam" parameterType="Team">
+      insert into team (team_id, team_name) values (team_seq.nextval, #{team_name})
+   </insert>
+   
+   <update id="updateTeam" parameterType="Team">
+      update team set 
+      team_leader=#{team_Leader}, team_score=#{team_Score},
+      team_totalgame=#{team_TotalGame}, team_wingame=#{team_WinGame},
+      team_draw=#{team_Draw}, team_open=#{team_Open}
+      where team_id=#{team_Id}
+   </update>
+   
+   <delete id="deleteTeam" parameterType="int">
+      delete from team where team_id=#{team_Id}
+   </delete>
 	
 	
 </mapper>

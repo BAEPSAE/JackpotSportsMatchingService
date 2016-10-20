@@ -1,6 +1,10 @@
 package dao;
 
-public class TeamDAO {
+import java.util.List;
+import org.apache.ibatis.session.SqlSession;
+
+import vo.Player;
+import vo.Team;
 /*
 
 팀만들기- insert() Team
@@ -12,6 +16,43 @@ public class TeamDAO {
 팀에 가입한 유저목록표시- select() User 테이블에서 teamId 검색
 user 테이블 전부 돌아서 해당 팀 id 가지고 있는 애들 목록 긁어오기로함-좀더 좋은방법있으면 개선가능.
 
-*/	
+*/
+public class TeamDAO {
+	SqlSession session = MybatisConfig.getSqlSessionFactory().openSession();
+	List<Team> teamList;
+	
+	
+	//승민
+	public List<Team> getTeamList(Team team){
+		teamList = session.selectList("TeamMapper.getTeamList", team.getTeam_Name());
+		session.commit();
+		session.close();
+		
+		return teamList;
+	}
+	public int t_joinApply(Player player, Team team){
+		int result = 0;
+
+//		result += session.update("TeamMapper.t_joinApply1", player);
+//		result += session.update("TeamMapper.t_joinApply2", team);
+//		session.commit();
+//		session.close();
+		
+		return result;
+	}
+	
+	
+	
+	//하연
+	public Team getTeam(int team_Id){
+		Team team = session.selectOne("mapper.TeamMapper.getTeam", team_Id);
+	    session.close();
+	    return team;
+	}
+	   
+	public void updateTeam(Team team){
+	    session.selectOne("mapper.TeamMapper.updateTeam", team);
+	    session.close();
+	}
 		
 }
