@@ -1,6 +1,6 @@
 package action;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
@@ -19,7 +19,8 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	int selector;	//축구팀인지 야구팀인지.. 축구1 야구2
 	Team team;
 	int team_Id;
-	ArrayList<Player> memberList;	//멤버리스트
+	List<Player> memberList;	//멤버리스트
+	List<Team> teamlist;
 	double team_winrate;	//승률
 	
 	@Override
@@ -44,7 +45,7 @@ public class TeamAction extends ActionSupport implements SessionAware {
 		team = tdao.getTeam(team_Id);
 		team_winrate = Math.round(team.getTeam_WinGame()/(double)team.getTeam_TotalGame()*100/100);
 		//팀원 목록 가져오기
-		memberList = (ArrayList<Player>) pdao.getPlayerList(selector, team_Id);
+		
 		return SUCCESS;
 	}
 	
@@ -70,55 +71,78 @@ public class TeamAction extends ActionSupport implements SessionAware {
 		
 		return SUCCESS;
 	}
-
-	public Player getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-
-	public int getSelector() {
-		return selector;
-	}
-
-	public void setSelector(int selector) {
-		this.selector = selector;
-	}
-
-	public Team getTeam() {
-		return team;
-	}
-
-	public void setTeam(Team team) {
-		this.team = team;
-	}
-
-	public int getTeam_Id() {
-		return team_Id;
-	}
-
-	public void setTeam_Id(int team_Id) {
-		this.team_Id = team_Id;
-	}
-
-	public ArrayList<Player> getMemberList() {
-		return memberList;
-	}
-
-	public void setMemberList(ArrayList<Player> memberList) {
-		this.memberList = memberList;
-	}
-
-	public double getTeam_winrate() {
-		return team_winrate;
-	}
-
-	public void setTeam_winrate(double team_winrate) {
-		this.team_winrate = team_winrate;
-	}
 	
+	public String getTeamList(){
+	      teamlist = new TeamDAO().getTeamList(team);
+	      return SUCCESS;
+	   }
+	   
+	   public String t_joinApply(){
+	      System.out.println(player);
+	      //int result = new TeamDAO().t_joinApply(player, team);
+	      return SUCCESS;
+	   }
+	   
+	//getter&setter
+	
+	   
+	   public Player getPlayer() {
+		   return player;
+	   }
+	   
+	   public void setPlayer(Player player) {
+		   this.player = player;
+	   }
+	   
+	   public int getSelector() {
+		   return selector;
+	   }
+	   
+	   public void setSelector(int selector) {
+		   this.selector = selector;
+	   }
+	   
+	   public Team getTeam() {
+		   return team;
+	   }
+	   
+	   public void setTeam(Team team) {
+		   this.team = team;
+	   }
+	   
+	   public int getTeam_Id() {
+		   return team_Id;
+	   }
+	   
+	   public void setTeam_Id(int team_Id) {
+		   this.team_Id = team_Id;
+	   }
+	   
+	   public List<Player> getMemberList() {
+		   return memberList;
+	   }
+	   
+	   public void setMemberList(List<Player> memberList) {
+		   this.memberList = memberList;
+	   }
+	   
+	   public List<Team> getTeamlist() {
+		   return teamlist;
+	   }
+	   
+	   public void setTeamlist(List<Team> teamlist) {
+		   this.teamlist = teamlist;
+	   }
+	   
+	   public double getTeam_winrate() {
+		   return team_winrate;
+	   }
+	   
+	   public void setTeam_winrate(double team_winrate) {
+		   this.team_winrate = team_winrate;
+	   }
+	   
+	   
 	
 	
 	
