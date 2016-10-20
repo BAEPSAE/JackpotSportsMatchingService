@@ -32,21 +32,20 @@ CREATE SEQUENCE SEQ_TEAM INCREMENT BY 1 START WITH 1;
 
 CREATE TABLE BOARD
 (
-	BOARDNUM number NOT NULL,
+	BOARDNUM number primary key,
 	TITLE varchar2(500 char) NOT NULL,
 	CONTENT varchar2(4000 char) NOT NULL,
 	-- 회원ID
 	USER_ID varchar2(100 char) NOT NULL UNIQUE,
 	INPUTDATE date NOT NULL,
-	CATEGORY varchar2(100 char) NOT NULL,
-	PRIMARY KEY (BOARDNUM)
+	CATEGORY varchar2(100 char) NOT NULL
 );
 
 
 CREATE TABLE GAMES
 (
 	-- 경기ID
-	GAME_ID number(10) NOT NULL,
+	GAME_ID number(10) primary key,
 	-- 경기종류
 	GAME_TYPE varchar2(15) NOT NULL,
 	LOCATION varchar2(20 char) NOT NULL,
@@ -63,15 +62,14 @@ CREATE TABLE GAMES
 	-- 결과입력 인증키(유저1)
 	PLAYER1_KEY varchar2(6 char),
 	-- 결과입력 인증키(유저2)
-	PLAYER2_KEY varchar2(6 char),
-	PRIMARY KEY (GAME_ID)
+	PLAYER2_KEY varchar2(6 char)
 );
 
 
 CREATE TABLE GROUNDS
 (
 	-- 경기장ID
-	GROUND_ID number(10) NOT NULL,
+	GROUND_ID number(10) primary key,
 	-- 경기장_지역
 	LOCATION varchar2(20 char) NOT NULL,
 	-- 경기장_이름
@@ -81,27 +79,25 @@ CREATE TABLE GROUNDS
 	-- 경기장_전화번호
 	GROUND_PHONE varchar2(15 char) NOT NULL,
 	-- 경기장_주소
-	GROUND_ADDRESS varchar2(50 char) NOT NULL,
-	PRIMARY KEY (GROUND_ID)
+	GROUND_ADDRESS varchar2(50 char) NOT NULL
 );
 
 
 CREATE TABLE GROUND_REVIEW
 (
-	RVNUM number NOT NULL,
+	RVNUM number primary key,
 	-- 경기장ID
 	GROUND_ID number(10) NOT NULL,
 	CONTENT varchar2(500 char) NOT NULL,
 	-- 회원ID
-	USER_ID varchar2(100 char) NOT NULL UNIQUE,
-	PRIMARY KEY (RVNUM)
+	USER_ID varchar2(100 char) NOT NULL UNIQUE
 );
 
 
 CREATE TABLE MATCHING
 (
 	-- 매칭_ID
-	MATCHING_ID number(10) NOT NULL,
+	MATCHING_ID number(10) primary key,
 	PLAYER varchar2(100 char) NOT NULL,
 	SCORE number,
 	-- 운동종류
@@ -115,56 +111,43 @@ CREATE TABLE MATCHING
 	-- 경기지역
 	LOCATION varchar2(20 char),
 	-- 매칭시작시간
-	MACHING_STARTTIME number(6) NOT NULL,
-	PRIMARY KEY (MATCHING_ID)
+	MACHING_STARTTIME number(6) NOT NULL
 );
 
 
 CREATE TABLE MESSAGE
 (
-	MSGNUM number NOT NULL,
+	MSGNUM number primary key,
 	CONTENT varchar2(2000 char),
 	-- 회원ID
 	USER_ID varchar2(100 char) NOT NULL UNIQUE,
 	-- 경기ID
 	GAME_ID number(10) NOT NULL,
-	INPUTDATE date,
-	PRIMARY KEY (MSGNUM)
+	INPUTDATE date
 );
 
 
 CREATE TABLE PLAYER
 (
-	-- 회원ID
-	USER_ID varchar2(100 char) NOT NULL UNIQUE,
-	-- 회원이름
-	USER_NAME varchar2(100 char) NOT NULL,
-	-- 회원비밀번호
-	USER_PW varchar2(30 char) NOT NULL,
-	-- 회원지역
-	USER_LOCATION varchar2(20 char) NOT NULL,
-	-- 회원전화번호
-	USER_PHONE varchar2(15 char) NOT NULL,
-	-- 승패ID
+	USER_ID varchar2(100) primary key,
+	USER_NAME varchar2(100) NOT NULL,
+	USER_PW varchar2(30) NOT NULL,
+	USER_LOCATION varchar2(20) NOT NULL,
+	USER_PHONE varchar2(15) NOT NULL,
 	RECORD_ID number(5) NOT NULL,
-	-- 팀ID
 	TEAM1 number UNIQUE,
-	-- 0 미승인
-	-- 1 승인
 	TEAM1_FLAG number(1),
-	-- 팀ID
-	TEAM2 number NOT NULL UNIQUE,
+	TEAM2 number UNIQUE,
 	TEAM2_FLAG number(1),
 	PP_SCORE number,
-	BL_SCORE number,
-	PRIMARY KEY (USER_ID)
+	BL_SCORE number
 );
 
 
 CREATE TABLE RECORD
 (
 	-- 승패ID
-	RECORD_ID number(5) NOT NULL,
+	RECORD_ID number(5) primary key,
 	-- 축구_토탈
 	FB_TOTAL number DEFAULT 0,
 	-- 축구_승
@@ -188,27 +171,25 @@ CREATE TABLE RECORD
 	-- 볼링_승
 	BL_WIN number DEFAULT 0,
 	-- 볼링_무승부
-	BL_DRAW number DEFAULT 0,
-	PRIMARY KEY (RECORD_ID)
+	BL_DRAW number DEFAULT 0
 );
 
 
 CREATE TABLE REPLY
 (
-	REPLYNUM number NOT NULL,
+	REPLYNUM number primary key,
 	BOARDNUM number NOT NULL,
 	-- 회원ID
 	USER_ID varchar2(100 char) NOT NULL UNIQUE,
 	CONTENT varchar2(2000),
-	INPUTDATE date,
-	PRIMARY KEY (REPLYNUM)
+	INPUTDATE date
 );
 
 
 CREATE TABLE TEAM
 (
 	-- 팀ID
-	TEAM_ID number NOT NULL UNIQUE,
+	TEAM_ID number primary key,
 	-- 팀이름
 	TEAM_NAME varchar2(500 char) NOT NULL,
 	TEAM_LEADER varchar2(100 char) NOT NULL,
@@ -222,8 +203,7 @@ CREATE TABLE TEAM
 	TEAM_WINGAME number,
 	TEAM_DRAW number,
 	-- 팀 모집여부
-	TEAM_OPEN number(1),
-	PRIMARY KEY (TEAM_ID)
+	TEAM_OPEN number(1)
 );
 
 
