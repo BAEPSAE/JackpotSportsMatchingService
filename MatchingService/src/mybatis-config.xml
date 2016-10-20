@@ -33,7 +33,7 @@
 	
 	<!-- 매퍼 파일 포함 -->
 	<mappers>
-		<mapper resource="TeamMapper.xml"/>
+		<mapper resource="mapper/TeamMapper.xml"/>
 	</mappers>
 	
 </configuration>
