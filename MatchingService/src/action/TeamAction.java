@@ -73,7 +73,7 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	}
 	
 	public String getTeamList(){
-	      teamlist = new TeamDAO().getTeamList(team);
+	     // teamlist = new TeamDAO().getTeamList(team);
 	      return SUCCESS;
 	   }
 	   
