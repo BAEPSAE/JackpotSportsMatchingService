@@ -8,7 +8,7 @@
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
     <constant name="struts.devMode" value="true" />
 
-    <package name="default" namespace="/" extends="struts-default">
+    <package name="default" namespace="/" extends="struts-default, json-default">
 
         <default-action-ref name="index" />
 
@@ -26,6 +26,19 @@
                 <param name="namespace">/example</param>
             </result>
         </action>
+        
+        <action name="t_searchv">
+			<result>t_searchv.jsp</result>
+		</action>
+		<action name="t_search" class="action.TeamAction" method="getTeamList">
+			<result type="json"></result>
+		</action>
+		<action name="t_joinApply" class="action.TeamAction" method="t_joinApply">
+			<result type="json"></result>
+		</action>
+		
+		
+		
     </package>
 
     <include file="struts/teamStruts.xml"/>

@@ -15,12 +15,45 @@
     <meta name="author" content="">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <script>
-        /* yeah we need this empty stylesheet here. It's cool chrome & chromium fix
-         chrome fix https://code.google.com/p/chromium/issues/detail?id=167083
-         https://code.google.com/p/chromium/issues/detail?id=332189
-         */
-    </script>
+
+    <script src="js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#searchbtn').click(function() {
+				var teamname = $('#search-input').val();
+				$.ajax({
+					url:'t_search',
+					data: {'team.team_Name':teamname},
+					method: 'post',
+					success: function(resp) {
+						$('#teamlistbody').empty();
+						var tlist = resp.teamlist;
+						$.each(tlist, function(index) {
+							var lose = tlist[index].team_TotalGame - tlist[index].team_WinGame - tlist[index].team_Draw;
+							var flag = '<button class="btn btn-success width-100 mb-xs" role="button">팀 참가</button>';
+							if(tlist[index].team_Open == false){
+								flag = '<button class="btn btn-gray width-100 mb-xs" role="button">참가 불가</button>';
+							}
+							$('#teamlistbody').append('<tr><td>'+tlist[index].team_Id+'</td><td><span class="fw-semi-bold">'+tlist[index].team_Name+'</span></td><td><span class="fw-semi-bold">'+tlist[index].team_Leader+'</span></td><td class="hidden-sm-down">'+tlist[index].team_TotalGame + '전 - ' + tlist[index].team_WinGame+'승 '+ tlist[index].team_Draw + "무 "+ lose + "패 " +'</td><td class="hidden-sm-down">'+tlist[index].team_Score+'</td><td class="width-150">'+flag+'</td></tr>')
+						});
+					}
+				});
+			});
+			$('#teamlistbody').on('click', 'button', function(index) {
+				var here=$(this);
+				var teamId=$(this).parent().parent().children().first().text();
+				$.ajax({
+					url: 't_joinApply',
+					method: 'post',
+					dataType: 'json',
+					data: {'player.user_Id' : 1, 'player.team1' : teamId},
+					success: function(response) {
+						alert("ㄴㅇㄻㄴㅇㄻㄴㅇㄻㄴㅇㄹㄴ");
+					}
+				});
+			});
+		});
+	</script>
 </head>
 <body>
 <!--
@@ -210,11 +243,13 @@
 			<header>
 				<h4>
 					<span class="fw-semi-bold"></span>
+					
 				</h4>
 				<div class="input-group">
+				
 					<input class="form-control" id="search-input" type="search"
 						placeholder="팀명으로 검색"> <span class="input-group-btn">
-						<button class="btn btn-secondary" type="button">Search</button>
+						<button class="btn btn-secondary" id="searchbtn" type="button">Search</button>
 					</span>
 				</div>
 
@@ -240,6 +275,7 @@
 			</header>
 			<div class="widget-body">
 				<div class="mt">
+				
 					<table id="datatable-table" class="table table-striped table-hover">
 						<thead>
 							<tr>
@@ -247,67 +283,12 @@
 								<th>팀명</th>
 								<th class="no-sort hidden-sm-down">팀 리더</th>
 								<th class="hidden-sm-down">전적</th>
-								<th class="hidden-sm-down">최근 전적</th>
+								<th class="hidden-sm-down">승점</th>
 								<th class="no-sort">팀 참가</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td><span class="fw-semi-bold">우리 동네 골목대장</span></td>
-								<td><span class="fw-semi-bold">백윤석</span></td>
-								<td class="hidden-sm-down">2승 11패</td>
-								<td class="hidden-sm-down">June 27, 2013</td>
-								<td class="width-150">
-									<button class="btn btn-success width-100 mb-xs" role="button">
-										팀 참가</button>
-								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td><span class="fw-semi-bold">우리 동네 골목대장</span></td>
-								<td><span class="fw-semi-bold">백윤석</span></td>
-								<td class="hidden-sm-down">2승 11패</td>
-								<td class="hidden-sm-down">June 27, 2013</td>
-								<td class="width-150">
-									<button class="btn btn-gray width-100 mb-xs" role="button">
-                                참가 불가
-                            </button>
-								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td><span class="fw-semi-bold">우리 동네 골목대장</span></td>
-								<td><span class="fw-semi-bold">백윤석</span></td>
-								<td class="hidden-sm-down">2승 11패</td>
-								<td class="hidden-sm-down">June 27, 2013</td>
-								<td class="width-150">
-									<button class="btn btn-success width-100 mb-xs" role="button">
-										팀 참가</button>
-								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td><span class="fw-semi-bold">우리 동네 골목대장</span></td>
-								<td><span class="fw-semi-bold">백윤석</span></td>
-								<td class="hidden-sm-down">2승 11패</td>
-								<td class="hidden-sm-down">June 27, 2013</td>
-								<td class="width-150">
-									<button class="btn btn-success width-100 mb-xs" role="button">
-										팀 참가</button>
-								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td><span class="fw-semi-bold">우리 동네 골목대장</span></td>
-								<td><span class="fw-semi-bold">백윤석</span></td>
-								<td class="hidden-sm-down">2승 11패</td>
-								<td class="hidden-sm-down">June 27, 2013</td>
-								<td class="width-150">
-									<button class="btn btn-success width-100 mb-xs" role="button">
-										팀 참가</button>
-								</td>
-							</tr>
+						<tbody id="teamlistbody">
+							
 						</tbody>
 					</table>
 				</div>

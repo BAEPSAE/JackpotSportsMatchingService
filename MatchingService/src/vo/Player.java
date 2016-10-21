@@ -16,7 +16,6 @@ public class Player {
 	private double bl_Score;	//볼링 승점
 	
 		
-	
 	public Player() {
 		// TODO Auto-generated constructor stub
 	}
@@ -149,6 +148,8 @@ public class Player {
 				+ ", team1_Flag=" + team1_Flag + ", team2=" + team2 + ", team2_Flag=" + team2_Flag + ", pp_Score="
 				+ pp_Score + ", bl_Score=" + bl_Score + "]";
 	}
+
+	
 	
 	
 	

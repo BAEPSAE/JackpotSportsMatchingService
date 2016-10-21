@@ -3,32 +3,31 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="mapper.teamMapper">
+<mapper namespace="mapper.TeamMapper">
 	
-	<!-- <select id="getTeam" resultType="Team" parameterType="int">
-		select * from Team where team_id=#{team_Id}
+	<select id="getTeam" resultType="Team" parameterType="int">
+      select * from TEAM where team_id=#{team_Id}
 	</select>
 	
 	<select id="getTeamList" resultType="Team" parameterType="String">
-		정렬기준?
-		select * from Team where location=#{location} order by team_Id
+		<!-- 정렬기준? -->
+		select * from TEAM where team_name like '%'||#{keyword}||'%' order by team_Id
 	</select>
 	
 	<insert id="insertTeam" parameterType="Team">
-		insert into team (team_id, team_name) values (team_seq.nextval, #{team_Name})
+		insert into team (team_id, team_name) values (team_seq.nextval, #{team_name})
 	</insert>
 	
 	<update id="updateTeam" parameterType="Team">
 		update team set 
-		team_leader=#{team_Leader], team_score=#{team_Score},
-		team_totalgame=#{team_Totalgame}, team_wingame=#{team_Wingame},
+		team_leader=#{team_Leader}, team_score=#{team_Score},
+		team_totalgame=#{team_TotalGame}, team_wingame=#{team_WinGame},
 		team_draw=#{team_Draw}, team_open=#{team_Open}
 		where team_id=#{team_Id}
 	</update>
 	
 	<delete id="deleteTeam" parameterType="int">
 		delete from team where team_id=#{team_Id}
-	</delete> -->
-	
+	</delete>
 	
 </mapper>
