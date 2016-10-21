@@ -4,12 +4,12 @@
 <html>
 <head>
     <title>Sing - List Groups</title>
-    <link href="css/application.min.css" rel="stylesheet">
+    <link href="../css/application.min.css" rel="stylesheet">
     <!-- as of IE9 cannot parse css files with more that 4K classes separating in two files -->
     <!--[if IE 9]>
     <link href="css/application-ie9-part2.css" rel="stylesheet">
     <![endif]-->
-    <link rel="shortcut icon" href="img/favicon.png">
+    <link rel="shortcut icon" href="../img/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -176,7 +176,7 @@
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle dropdown-toggle-notifications nav-link" id="notifications-dropdown-toggle" data-toggle="dropdown">
                         <span class="thumb-sm avatar pull-xs-left">
-                            <img class="img-circle" src="demo/img/people/a5.jpg" alt="...">
+                            <img class="img-circle" src="../demo/img/people/a5.jpg" alt="...">
                         </span>
                         &nbsp;
                         <strong>마스터도넛</strong>&nbsp;
@@ -216,7 +216,7 @@
                 <section class="widget">
                     <!-- 회원가입 폼 -->
                     <div class="widget-body">
-                        <form class="form-horizontal" role="form">
+                        <form class="form-horizontal" role="form" action="join" method="post">
                             <fieldset>
                             <legend style="height: 25px;"><strong></strong></legend>
                                 <!-- 아이디 -->
@@ -225,7 +225,7 @@
                                     <div class="col-md-7">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                            <input id="id" class="form-control" size="16" type="text" placeholder="4자리 이상">
+                                            <input id="user_id" name="player.user_Id" class="form-control" size="16" type="text" placeholder="4자리 이상">
                                         </div>
                                     </div>
                                 </div>
@@ -235,7 +235,7 @@
                                     <div class="col-md-7">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                            <input type="password" class="form-control" id="password-field" placeholder="8자리 이상">
+                                            <input type="password"  class="form-control" id="user_Pw" name="player.user_Pw" placeholder="8자리 이상">
                                         </div>
                                     </div>
                                 </div>
@@ -243,25 +243,25 @@
                                 <div class="form-group row">
                                     <label for="normal-field" class="col-md-4 form-control-label text-md-right">이름</label>
                                     <div class="col-md-7">
-                                        <input type="text" id="name" class="form-control">
+                                        <input type="text" id="user_Name" name="player.user_Name" class="form-control">
                                     </div>
                                 </div>
                                 <!-- 연락처 -->
                                 <div class="form-group row">
                                    <label for="normal-field" class="col-md-4 form-control-label text-md-right">연락처</label>
                                    	<div class="col-md-7">
-                                        <input id="phone" type="text" class="form-control">
+                                        <input id="user_Phone" name="player.user_Phone" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <!-- 거주지역 -->
                                 <div class="form-group row">
                                     <label for="normal-field" class="col-md-4 form-control-label text-md-right">거주지역</label>
                                     <div class="col-md-7">
-                                        <select id="location"
+                                        <select id="user_Location"
                                                 data-placeholder="지역선택"
                                                 class="select2 form-control"
                                                 tabindex="-1"
-                                                name="country">
+                                                name="player.user_Location">
                                             <option value=""></option>
                                             <option value="Gangnam">강남구</option>
                                             <option value="Gangdong">강동구</option>
@@ -328,34 +328,34 @@
 </div>
 
 <!-- common libraries. required for every page-->
-<script src="vendor/jquery/dist/jquery.min.js"></script>
-<script src="vendor/jquery-pjax/jquery.pjax.js"></script>
-<script src="vendor/tether/dist/js/tether.js"></script>
-<script src="vendor/bootstrap/js/dist/util.js"></script>
-<script src="vendor/bootstrap/js/dist/collapse.js"></script>
-<script src="vendor/bootstrap/js/dist/dropdown.js"></script>
-<script src="vendor/bootstrap/js/dist/button.js"></script>
-<script src="vendor/bootstrap/js/dist/tooltip.js"></script>
-<script src="vendor/bootstrap/js/dist/alert.js"></script>
-<script src="vendor/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="vendor/widgster/widgster.js"></script>
-<script src="vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
-<script src="vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
-<script src="js/bootstrap-fix/button.js"></script>
+<script src="../vendor/jquery/dist/jquery.min.js"></script>
+<script src="../vendor/jquery-pjax/jquery.pjax.js"></script>
+<script src="../vendor/tether/dist/js/tether.js"></script>
+<script src="../vendor/bootstrap/js/dist/util.js"></script>
+<script src="../vendor/bootstrap/js/dist/collapse.js"></script>
+<script src="../vendor/bootstrap/js/dist/dropdown.js"></script>
+<script src="../vendor/bootstrap/js/dist/button.js"></script>
+<script src="../vendor/bootstrap/js/dist/tooltip.js"></script>
+<script src="../vendor/bootstrap/js/dist/alert.js"></script>
+<script src="../vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="../vendor/widgster/widgster.js"></script>
+<script src="../vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
+<script src="../vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
+<script src="../js/bootstrap-fix/button.js"></script>
 
 <!-- common app js -->
-<script src="js/settings.js"></script>
-<script src="js/app.js"></script>
+<script src="../js/settings.js"></script>
+<script src="../js/app.js"></script>
 
 <!-- page specific libs -->
-<script src="vendor/jquery-ui/ui/core.js"></script>
-<script src="vendor/jquery-ui/ui/widget.js"></script>
-<script src="vendor/jquery-ui/ui/mouse.js"></script>
-<script src="vendor/jquery-ui/ui/sortable.js"></script>
-<script src="vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-<script src="vendor/jquery.nestable/jquery.nestable.js"></script>
+<script src="../vendor/jquery-ui/ui/core.js"></script>
+<script src="../vendor/jquery-ui/ui/widget.js"></script>
+<script src="../vendor/jquery-ui/ui/mouse.js"></script>
+<script src="../vendor/jquery-ui/ui/sortable.js"></script>
+<script src="../vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+<script src="../vendor/jquery.nestable/jquery.nestable.js"></script>
 
 <!-- page specific js -->
-<script src="js/ui-list-groups.js"></script>
+<script src="../js/ui-list-groups.js"></script>
 </body>
 </html>

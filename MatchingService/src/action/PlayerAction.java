@@ -23,6 +23,35 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	String message;	//에러 메세지 전송용
 	
 	
+	public String join() throws Exception {
+		dao.insertUser(player);
+		
+		
+		return SUCCESS;
+	}
+	
+	public String login() throws Exception {
+		
+		System.out.println(player);
+		player = dao.getUser(player);
+		if(player == null) {
+			return INPUT;
+		} else {
+			session.put("id", player.getUser_Id());
+			session.put("name", player.getUser_Name());
+			return SUCCESS;
+		}
+		
+	}
+	
+	public String logout() throws Exception {
+		session.remove("ID");
+		session.remove("name");
+		
+		
+		return SUCCESS;
+	}
+	
 	//get, set
 	public Player getPlayer() {
 		return player;
@@ -68,7 +97,7 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	/*	player.setuser_Id((String)session.get("loginId"));
 		System.out.println(">> "+player.getuser_Id()+"로 개인정보 가져옵니다.");
 		player=dao.getUserInfo(player.getuser_Id());*/
-		player=dao.getUserInfo("TEST");
+		/*player=dao.getUserInfo("TEST");*/
 		System.out.println(">> 정보 불러오기 완료!");
 		return SUCCESS;
 	}
@@ -79,7 +108,7 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 		/*player.setuser_Id((String)session.get("loginId"));
 		System.out.println(">> "+player.getuser_Id()+"로 종목별 전적 가져옵니다.");
 		record=dao.getUserRecord(player.getuser_Id());*/
-		record=dao.getUserRecord("TEST");
+		/*record=dao.getUserRecord("TEST");*/
 		System.out.println(">> 정보 불러오기 완료!");
 		return SUCCESS;
 	}
@@ -89,7 +118,7 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 		/*player.setuser_Id((String)session.get("loginId"));
 		System.out.println(">> "+player.getuser_Id()+"로 종목별 경기장 정보 가져옵니다.");
 		grounds=dao.getUserGround(player.getuser_Id());*/
-		grounds=dao.getUserGround("TEST");
+		/*grounds=dao.getUserGround("TEST");*/
 		System.out.println(">> 정보 불러오기 완료!");
 		return SUCCESS;
 	}

@@ -38,4 +38,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM GROUNDS G, GAMES GA WHERE GA.WINNER_ID=#{user_Id}
 	</select>
 	
+	<!-- 회원 가입 -->
+	<insert id="insertRecord">
+		INSERT INTO RECORD (record_id) values (SEQ_RECORD.nextval)
+	</insert>
+	<insert id="insertPlayer" parameterType="Player">
+		INSERT INTO PLAYER (user_id, user_name,user_pw,user_location,user_phone,record_id) VALUES (#{user_Id}, #{user_Name}, #{user_Pw}, #{user_Location}, #{user_Phone},SEQ_RECORD.currval)
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id="getUser" parameterType="Player" resultType="player">
+		SELECT * FROM PLAYER WHERE USER_ID=#{user_Id} AND USER_PW=#{user_Pw}
+	</select>
+	
 </mapper>

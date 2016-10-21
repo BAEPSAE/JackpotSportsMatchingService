@@ -32,4 +32,32 @@ public class PlayerDAO {
 		getGrounds=sqlSession.selectOne("mapper.PlayerMapper.getGrounds", user_Id);
 		return getGrounds;
 	}
+	
+	//회원가입
+	public void insertUser(Player player) {
+		System.out.println("dao안player" + player);
+		try {
+			sqlSession.insert("mapper.PlayerMapper.insertRecord");
+			sqlSession.insert("mapper.PlayerMapper.insertPlayer", player);
+			sqlSession.commit();
+			sqlSession.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Player getUser(Player player) {
+		System.out.println("dao안" + player);
+		Player p = null;
+		try {
+			p = sqlSession.selectOne("mapper.PlayerMapper.getUser", player);
+			sqlSession.commit();
+			sqlSession.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return p;
+	}
 }

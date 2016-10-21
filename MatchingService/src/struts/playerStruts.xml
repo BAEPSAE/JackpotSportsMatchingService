@@ -22,5 +22,26 @@
 		<action name="getUserGround" class="action.PlayerAction" method="getUserGround">
 			<result></result>
 		</action>
+		
+		<action name="joinv">
+			<result>/joinv.jsp</result>
+		</action>
+		
+		<action name="join" class="action.PlayerAction" method="join">
+			<result type="redirect">loginv.action</result>
+		</action>
+		
+		<action name="loginv">
+			<result>/login.jsp</result>
+		</action>
+		
+		<action name="login" class="action.PlayerAction" method="login">
+			<result name="success">/index.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		
+		<action name="logout" class="action.PlayerAction" method="logout">
+			<result name="success">/index.jsp</result>
+		</action>
     </package>
 </struts>
