@@ -14,6 +14,7 @@ public class Player {
 	private int team2_Flag;	//승인여부(0:미승인/1:승인)
 	private double pp_Score;	//탁구 승점
 	private double bl_Score;	//볼링 승점
+	private String saveFileName; //프로필 사진 이름
 	
 		
 	public Player() {
@@ -138,6 +139,16 @@ public class Player {
 
 	public void setBl_Score(double bl_Score) {
 		this.bl_Score = bl_Score;
+	}
+	
+
+	public String getSaveFileName() {
+		return saveFileName;
+	}
+
+
+	public void setSaveFileName(String saveFileName) {
+		this.saveFileName = saveFileName;
 	}
 
 

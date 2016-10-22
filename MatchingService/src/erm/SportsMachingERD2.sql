@@ -338,5 +338,7 @@ COMMENT ON COLUMN TEAM.TEAM_MANNER IS '팀매너점수';
 COMMENT ON COLUMN TEAM.TEAM_GAMETYPE IS '팀종목';
 COMMENT ON COLUMN TEAM.TEAM_OPEN IS '팀 모집여부';
 
+alter table player add savefilename varchar2(100);
+
 
 

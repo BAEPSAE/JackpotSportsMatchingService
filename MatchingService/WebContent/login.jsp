@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
     <title>로그인</title>
@@ -15,6 +16,7 @@
 </head>
 <body class="login-page">
 <div class="container">
+
     <main id="content" class="widget-login-container" role="main">
         <div class="row">
             <div class="col-xl-4 col-md-6 col-xs-10 col-xl-offset-4 col-md-offset-3 col-xs-offset-1">
@@ -37,7 +39,7 @@
                             </div>
                             <div class="clearfix">
                                 <div class="btn-toolbar pull-xs-right">
-                                    <button type="button" class="btn btn-secondary btn-sm">가입하기</button>
+                                    <a href="joinv.action"><button type="button" class="btn btn-secondary btn-sm">가입하기</button></a>
                                     <input type="submit" class="btn btn-inverse btn-sm" value="로그인">
                                 </div>
                             </div>

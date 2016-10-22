@@ -1,7 +1,9 @@
 package action;
 
+import java.io.File;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -17,6 +19,9 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	Grounds grounds;
 	Map<String, Object> session;
 	PlayerDAO dao=new PlayerDAO();
+	File save;
+	String saveFileName;
+	
 	
 	String sports;
 	String loginId;	//session 확인용
@@ -24,6 +29,10 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	
 	
 	public String join() throws Exception {
+		System.out.println();
+		File copy = new File("C://Users//Mac//git//JackpotSportsMatchingService//MatchingService//WebContent//img//" + saveFileName);
+		FileUtils.copyFile(save, copy);
+		player.setSaveFileName(saveFileName);
 		dao.insertUser(player);
 		
 		
@@ -39,14 +48,14 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 		} else {
 			session.put("id", player.getUser_Id());
 			session.put("name", player.getUser_Name());
+			session.put("profile", player.getSaveFileName());
 			return SUCCESS;
 		}
 		
 	}
 	
 	public String logout() throws Exception {
-		session.remove("ID");
-		session.remove("name");
+		session.clear();
 		
 		
 		return SUCCESS;
@@ -89,8 +98,24 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
 	
+
+	public File getSave() {
+		return save;
+	}
+
+	public void setSave(File save) {
+		this.save = save;
+	}
+	
+	public String getSaveFileName() {
+		return saveFileName;
+	}
+
+	public void setSaveFileName(String saveFileName) {
+		this.saveFileName = saveFileName;
+	}
+
 	//method
 	//개인정보 가져오기
 	public String getUserInfo() {
