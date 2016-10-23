@@ -77,8 +77,28 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	}
 	   
 	public String t_joinApply(){
-	   int result = new TeamDAO().t_joinApply(player);
-	   return SUCCESS;
+	   String rst = SUCCESS;
+		int result = new TeamDAO().t_joinApply(player);
+	   if(result == 1){
+		   rst = SUCCESS;   
+	   }else{
+		   rst = ERROR;
+	   }
+	   return rst;
+	}
+	public String t_waiting(){
+		memberList = new TeamDAO().t_waiting(team);
+		
+		return SUCCESS;
+	}
+	
+	public String t_joinAccept(){
+		int result = new TeamDAO().t_joinAccept(player);
+		if(result == 1){
+			return SUCCESS;
+		}else{
+			return ERROR;
+		}
 	}
 	   
 	//getter&setter

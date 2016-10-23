@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>Sing - List Groups</title>
-    <link href="css/application.min.css" rel="stylesheet">
+    <link href="../css/application.min.css" rel="stylesheet">
     <!-- as of IE9 cannot parse css files with more that 4K classes separating in two files -->
     <!--[if IE 9]>
     <link href="css/application-ie9-part2.css" rel="stylesheet">
@@ -16,7 +16,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="../js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#searchbtn').click(function() {
@@ -43,14 +43,29 @@
 				var here=$(this);
 				var teamId=$(this).parent().parent().children().first().text();
 				$.ajax({
-					url: 't_joinApply',
-					method: 'post',
-					dataType: 'json',
-					data: {'player.user_Id' : 1, 'player.team1' : teamId}, /*플레이어아이디는 나중에 세션에서 받는걸로  */
-					success: function(response) {
-						alert("ㄴㅇㄻㄴㅇㄻㄴㅇㄻㄴㅇㄹㄴ");
+					url: 't_joinApply'
+					, method: 'post'
+					, data: {
+						"player.user_Id" : 1
+						, "player.team1" : teamId
 					}
-				});
+					, success: function(response) {
+						$(here).addClass('btn btn-gray width-100 mb-xs');
+						$(here).attr('role', 'button');
+						$(here).text("요청완료");
+						$(here).attr('disabled', 'disabled');
+					}
+					, error: function(request, status, error) {
+						console.log(request);
+						console.log(status);
+						console.log(error);
+						console.log(here);
+						$(here).addClass('btn btn-gray width-100 mb-xs');
+						$(here).attr('role', 'button');
+						$(here).text("요청완료");
+						$(here).attr('disabled', 'disabled');
+					}
+				}); //$ajax
 			});
 		});
 	</script>
@@ -304,34 +319,34 @@
 </div>
 
 <!-- common libraries. required for every page-->
-<script src="vendor/jquery/dist/jquery.min.js"></script>
-<script src="vendor/jquery-pjax/jquery.pjax.js"></script>
-<script src="vendor/tether/dist/js/tether.js"></script>
-<script src="vendor/bootstrap/js/dist/util.js"></script>
-<script src="vendor/bootstrap/js/dist/collapse.js"></script>
-<script src="vendor/bootstrap/js/dist/dropdown.js"></script>
-<script src="vendor/bootstrap/js/dist/button.js"></script>
-<script src="vendor/bootstrap/js/dist/tooltip.js"></script>
-<script src="vendor/bootstrap/js/dist/alert.js"></script>
-<script src="vendor/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="vendor/widgster/widgster.js"></script>
-<script src="vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
-<script src="vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
-<script src="js/bootstrap-fix/button.js"></script>
+<script src="../vendor/jquery/dist/jquery.min.js"></script>
+<script src="../vendor/jquery-pjax/jquery.pjax.js"></script>
+<script src="../vendor/tether/dist/js/tether.js"></script>
+<script src="../vendor/bootstrap/js/dist/util.js"></script>
+<script src="../vendor/bootstrap/js/dist/collapse.js"></script>
+<script src="../vendor/bootstrap/js/dist/dropdown.js"></script>
+<script src="../vendor/bootstrap/js/dist/button.js"></script>
+<script src="../vendor/bootstrap/js/dist/tooltip.js"></script>
+<script src="../vendor/bootstrap/js/dist/alert.js"></script>
+<script src="../vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="../vendor/widgster/widgster.js"></script>
+<script src="../vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
+<script src="../vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
+<script src="../js/bootstrap-fix/button.js"></script>
 
 <!-- common app js -->
-<script src="js/settings.js"></script>
-<script src="js/app.js"></script>
+<script src="../js/settings.js"></script>
+<script src="../js/app.js"></script>
 
 <!-- page specific libs -->
-<script src="vendor/jquery-ui/ui/core.js"></script>
-<script src="vendor/jquery-ui/ui/widget.js"></script>
-<script src="vendor/jquery-ui/ui/mouse.js"></script>
-<script src="vendor/jquery-ui/ui/sortable.js"></script>
-<script src="vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-<script src="vendor/jquery.nestable/jquery.nestable.js"></script>
+<script src="../vendor/jquery-ui/ui/core.js"></script>
+<script src="../vendor/jquery-ui/ui/widget.js"></script>
+<script src="../vendor/jquery-ui/ui/mouse.js"></script>
+<script src="../vendor/jquery-ui/ui/sortable.js"></script>
+<script src="../vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+<script src="../vendor/jquery.nestable/jquery.nestable.js"></script>
 
 <!-- page specific js -->
-<script src="js/ui-list-groups.js"></script>
+<script src="../js/ui-list-groups.js"></script>
 </body>
 </html>

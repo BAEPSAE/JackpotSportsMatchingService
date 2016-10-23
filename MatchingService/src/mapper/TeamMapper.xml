@@ -29,8 +29,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteTeam" parameterType="int">
 		delete from team where team_id=#{team_Id}
 	</delete>
-	<!-- <update id="t_joinApply" parameterType="Player">
-		update player 
-	</update> -->
+	<update id="t_joinApply" parameterType="Player">
+		update player set team1=#{team1} where user_id=#{user_Id}
+	</update>
+	<select id="t_waiting" parameterType="int" resultType="Player">
+		select * from player where team1 = #{team_Id} and team1_flag = 0 and team2 = #{team_Id} and team2_flag = 0
+	</select>
+	<update id="t_joinAccept" parameterType="Player">
+		update player set team1_flag = 1 where user_id=#{user_Id}
+	</update>
 	
 </mapper>

@@ -10,7 +10,7 @@
 
     <package name="team" namespace="/team" extends="default, json-default">
 
-       <action name="teamPage" class="action.TeamAction" method="teamPage">
+       <action name="teamPage">
        		<result>../teamPage.jsp</result>
        </action>
        
@@ -31,9 +31,23 @@
        </action>
        
        
-       
+       <action name="t_searchv">
+			<result>../t_searchv.jsp</result>
+		</action>
+		<action name="t_search" class="action.TeamAction" method="getTeamList">
+			<result type="json"></result>
+		</action>
+		<action name="t_joinApply" class="action.TeamAction" method="t_joinApply">
+			<result type="json"></result>
+		</action>
+		
+       <action name="t_waiting" class="action.TeamAction" method="t_waiting">
+       	<result type="json"></result>
+       </action>
+       <action name="t_joinAccept" class="action.TeamAction" method="t_joinAccept">
+       	<result type="json"></result>
+       </action>
        
     </package>
-
 
 </struts>

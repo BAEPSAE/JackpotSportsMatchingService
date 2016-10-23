@@ -97,8 +97,8 @@
                 <ul id="sidebar-maps" class="collapse">
                     <!-- data-no-pjax turns off pjax loading for this link. Use in case of complicated js loading on the
                          target page -->
-                    <li><a href="/team/teamPage?selector=1" data-no-pjax>팀 관리 - 축구</a></li>
-                    <li><a href="/team/teamPage?selector=2" data-no-pjax>팀 관리 - 야구</a></li>
+                    <li><a href="../team/teamPage?selector=1" data-no-pjax>팀 관리 - 축구</a></li>
+                    <li><a href="../team/teamPage?selector=2" data-no-pjax>팀 관리 - 야구</a></li>
                     <li><a href="index.jsp">팀 모집</a></li>
                 </ul>
             </li>
