@@ -11,19 +11,15 @@
     <package name="team" namespace="/team" extends="default, json-default">
 
        <action name="teamPage" class="action.TeamAction" method="teamPage">
-       		<result>../teamPage.jsp</result>
-       		
+       		<result name="success">../teamPage.jsp</result>
+       		<result name="noteam">../t_makev.jsp</result>
        </action>
        
        <action name="t_delete"  class="action.TeamAction" method="t_delete">
        		<result type="redirect">/team/teamPage</result>
        </action>
        
-       <action name="t_open"  class="action.TeamAction" method="t_open">
-       		<result type="json"></result>
-       </action>
-       
-       <action name="t_close"  class="action.TeamAction" method="t_close">
+       <action name="t_openChange"  class="action.TeamAction" method="t_openChange">
        		<result type="json"></result>
        </action>
        

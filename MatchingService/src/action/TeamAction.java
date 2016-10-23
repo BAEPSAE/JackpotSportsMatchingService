@@ -31,6 +31,7 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	public String teamPage() throws Exception{
 		//세션에서 userId가져오기
 		//String user_Id = (String) session.get("user_Id");
+		
 		String user_Id = "aaa";
 		PlayerDAO pdao = new PlayerDAO();
 		player = pdao.getUserInfo(user_Id);
@@ -39,12 +40,23 @@ public class TeamAction extends ActionSupport implements SessionAware {
 		}else if(selector==2){	//2면 야구팀
 			team_Id = player.getTeam2();
 		}
+		if(team_Id==-1) return "noteam";	//팀 없을때?
+		
 		TeamDAO tdao = new TeamDAO();
 		//팀 정보 가져오기
 		//flag가 1일때만 <<이거아직안함
 		team = tdao.getTeam(team_Id);
 		team_winrate = Math.round(team.getTeam_WinGame()/(double)team.getTeam_TotalGame()*100/100);
+		
 		//팀원 목록 가져오기
+		int type=1;	//1이면 정식 0이면 대기
+		pdao = new PlayerDAO();//?????
+		memberList = pdao.getPlayerList(selector, type, team_Id);
+		
+		
+		//팀장이면 session저장
+		if(team.getTeam_Leader().equals(user_Id)) session.put("isLeader", 1);
+		else session.remove("isLeader");
 		
 		return SUCCESS;
 	}
@@ -52,21 +64,24 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	public String t_delete() throws Exception{
 		//해체하기
 		//한번 더 확인?
-		TeamDAO tdao = new TeamDAO();
+		//세션에서 가지고 있는 유저 아이디로 불러와서?
 		
-		
+		team_Id=3;
+		System.out.println(team_Id);
+		/*TeamDAO tdao = new TeamDAO();
+		tdao.deleteTeam(team_Id);*/
 		return SUCCESS;
 	}
-	public String t_open() throws Exception{
+	public String t_openChange() throws Exception{
+		team_Id = 3;
 		TeamDAO tdao = new TeamDAO();
 		team = tdao.getTeam(team_Id);
+		team.setTeam_Open(selector);
+		tdao = new TeamDAO();
 		tdao.updateTeam(team);
 		return SUCCESS;
 	}
-	public String t_close() throws Exception{
-		
-		return SUCCESS;
-	}
+	
 	public String t_giveLeader() throws Exception{
 		
 		return SUCCESS;

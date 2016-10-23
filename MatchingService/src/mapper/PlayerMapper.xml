@@ -39,16 +39,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       FROM GROUNDS G, GAMES GA WHERE GA.WINNER_ID=#{user_Id}
    </select>
 
-   <!-- 팀 소속 멤버리스트 -->
-   <select id="getPlayerList" resultType="Player" parameterType="Map">
-   		select * from player
+  <!-- 팀 소속 멤버리스트 -->
+   <select id="getPlayerList" resultType="Player" parameterType="HashMap">
+   		select * from PLAYER 
    		<if test="selector==1">
-   			where team1=#{team_Id}
+   			where TEAM1=#{team_Id} and TEAM1_FLAG=#{type}
    		</if>
    		<if test="selector==2">
-   			where team2=#{team_Id}
+   			where TEAM2=#{team_Id} and TEAM2_FLAG=#{type}
    		</if>
    		order by user_name
+   		
    </select>
    
 	<!-- 회원 가입 -->

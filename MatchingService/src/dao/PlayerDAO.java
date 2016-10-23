@@ -33,15 +33,18 @@ public class PlayerDAO {
 		getGrounds=sqlSession.selectOne("mapper.PlayerMapper.getGrounds", user_Id);
 		return getGrounds;
 	}
-	public List<Player> getPlayerList(int selector, int team_Id) {
+	
+	public List<Player> getPlayerList(int selector, int type, int team_Id) {
 		// 팀소속 멤버 갖고오기
-		Map<String, Integer> map=new HashMap<>();
+		Map<String, Object> map=new HashMap<>();
 		map.put("selector", selector);
+		map.put("type", type);	//1이면 정식 0이면 대기
 		map.put("team_Id", team_Id);
 		
-		List<Player> result = new ArrayList<>();
-		result=sqlSession.selectList("mapper.PlayerMapper.getPlayerList", map);
+		List<Player> result = new ArrayList<Player>();
+		result = sqlSession.selectList("mapper.PlayerMapper.getPlayerList", map);
 		sqlSession.close();
+			
 		return result;
 	}
 	
