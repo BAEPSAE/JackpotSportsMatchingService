@@ -59,6 +59,14 @@ user 테이블 전부 돌아서 해당 팀 id 가지고 있는 애들 목록 긁
 		
 		return result;
 	}
+	public int t_joinDeny(Player player){
+		int result = 0;
+		result = session.update("mapper.TeamMapper.t_joinDeny", player);
+		session.commit();
+		session.close();
+		
+		return result;
+	}
 	
 	
 	

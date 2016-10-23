@@ -39,4 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="t_joinAccept" parameterType="Player">
 		update player set team1_flag = 1 where user_id=#{user_Id}
 	</update>
+	<update id="t_joinDeny" parameterType="Player">
+		update player set team1 = '' where user_id=#{user_Id}
+	</update>
 </mapper>

@@ -47,6 +47,44 @@
         			}
         		});
         	})
+        	//팀 지원자 승인 혹은 거절
+        	$('#teamapplies').on('click', 'button', function(index) {
+				var here=$(this);
+				var playerId=$(this).parent().parent().children().first().text();
+				if(here.id=='go'){
+					if(confirm("팀원으로 등록하시겠습니까?")){
+						$.ajax({
+							url: 't_joinAccept'
+							, method: 'post'
+							, data: {
+								"player.user_Id" : playerId
+							}
+							, success: function(response) {
+								location.href="teamPage";
+							}
+							, error: function(request, status, error) {
+								location.href="teamPage";
+							}
+						}); //$ajax
+					}
+				}else{
+					if(confirm("팀합류 요청을 거부하시겠습니까?")){
+						$.ajax({
+							url: 't_joinDeny'
+							, method: 'post'
+							, data: {
+								"player.user_Id" : playerId
+							}
+							, success: function(response) {
+								location.href="teamPage";
+							}
+							, error: function(request, status, error) {
+								location.href="teamPage";
+							}
+						}); //$ajax
+					}
+				}
+			});
         	
         	
         })
@@ -321,53 +359,21 @@ body {
             <table class="table table-striped">
                <thead>
                   <tr>
-                     <th>
-                        <div class="checkbox abc-checkbox">
-                           <input id="checkbox1" type="checkbox" data-check-all> <label
-                              for="checkbox1"></label>
-                        </div>
-                     </th>
-                     <th>이름</th>
                      <th>아이디</th>
-                     <th>Info</th>
+                     <th>이름</th>
+                     <th>지역</th>
+                     <th>승인/거절</th>
                   </tr>
                </thead>
-               <tbody>
-                  <s:iterator value="memberList">
+               <tbody id="teamapplies">
+                  <s:iterator value="applyList">
                      <tr>
-                        <td>
-                           <div class="checkbox abc-checkbox">
-                              <input id="checkbox2" type="checkbox"> <label
-                                 for="checkbox2"></label>
-                           </div>
-                        </td>
-                        <td><s:property value="user_Name" /></td>
                         <td><s:property value="user_Id" /></td>
-                        <td><span class="label label-danger">Online</span></td>
+                        <td><s:property value="user_Name" /></td>
+                        <td><s:property value="user_Location" /></td>
+                        <td><button class="btn btn-success width-100 mb-xs" role="button" id="go">승인</button><button class="btn btn-gray width-100 mb-xs" role="button" id="stop">거절</button></td>
                      </tr>
                   </s:iterator>
-                  <tr>
-                     <td>
-                        <div class="checkbox abc-checkbox">
-                           <input id="checkbox3" type="checkbox"> <label
-                              for="checkbox3"></label>
-                        </div>
-                     </td>
-                     <td>김규은</td>
-                     <td>kim</td>
-                     <td><span class="label bg-gray-light text-white">미승인</span></td>
-                  </tr>
-                  <tr>
-                     <td>
-                        <div class="checkbox abc-checkbox">
-                           <input id="checkbox4" type="checkbox"> <label
-                              for="checkbox4"></label>
-                        </div>
-                     </td>
-                     <td>설승민</td>
-                     <td>sul</td>
-                     <td><span class="label label-danger">승인</span></td>
-                  </tr>
                </tbody>
             </table>
          </section>

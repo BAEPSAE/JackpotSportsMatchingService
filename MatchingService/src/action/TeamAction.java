@@ -20,6 +20,8 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	Team team;
 	int team_Id;
 	List<Player> memberList;	//멤버리스트
+	List<Player> applyList;
+
 	List<Team> teamlist;
 	double team_winrate;	//승률
 	
@@ -52,7 +54,7 @@ public class TeamAction extends ActionSupport implements SessionAware {
 		int type=1;	//1이면 정식 0이면 대기
 		pdao = new PlayerDAO();//?????
 		memberList = pdao.getPlayerList(selector, type, team_Id);
-		
+		applyList = pdao.getPlayerList(selector, 0, 1);
 		
 		//팀장이면 session저장
 		if(team.getTeam_Leader().equals(user_Id)) session.put("isLeader", 1);
@@ -121,7 +123,14 @@ public class TeamAction extends ActionSupport implements SessionAware {
 			return ERROR;
 		}
 	}
-	   
+	public String t_joinDeny(){
+		int result = new TeamDAO().t_joinDeny(player);
+		if(result == 1){
+			return SUCCESS;
+		}else{
+			return ERROR;
+		}
+	}   
 	//getter&setter
 	
 	   
@@ -180,4 +189,12 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	   public void setTeam_winrate(double team_winrate) {
 		   this.team_winrate = team_winrate;
 	   }	
+		public List<Player> getApplyList() {
+			return applyList;
+		}
+
+		public void setApplyList(List<Player> applyList) {
+			this.applyList = applyList;
+		}
+
 }
