@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
     <title>로그인</title>
-    <link href="css/application.min.css" rel="stylesheet">
+    <link href="../css/application.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="img/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="">
@@ -15,6 +16,7 @@
 </head>
 <body class="login-page">
 <div class="container">
+
     <main id="content" class="widget-login-container" role="main">
         <div class="row">
             <div class="col-xl-4 col-md-6 col-xs-10 col-xl-offset-4 col-md-offset-3 col-xs-offset-1">
@@ -28,17 +30,17 @@
                         <h3>로그인</h3>
                     </header>
                     <div class="widget-body">
-                        <form class="login-form mt-lg">
+                        <form class="login-form mt-lg" action="login" method="post">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="id" placeholder="아이디">
+                                <input type="text" class="form-control" id="id" name="player.user_Id" placeholder="아이디">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="password" type="text" placeholder="비밀번호">
+                                <input class="form-control" id="password" name="player.user_Pw" type="text" placeholder="비밀번호">
                             </div>
                             <div class="clearfix">
                                 <div class="btn-toolbar pull-xs-right">
-                                    <button type="button" class="btn btn-secondary btn-sm">가입하기</button>
-                                    <a class="btn btn-inverse btn-sm" href="index.html">로그인</a>
+                                    <a href="joinv.action"><button type="button" class="btn btn-secondary btn-sm">가입하기</button></a>
+                                    <input type="submit" class="btn btn-inverse btn-sm" value="로그인">
                                 </div>
                             </div>
                             <div class="row">
@@ -67,21 +69,21 @@
 </div>
 
 <!-- common libraries. required for every page-->
-<script src="vendor/jquery/dist/jquery.min.js"></script>
-<script src="vendor/jquery-pjax/jquery.pjax.js"></script>
-<script src="vendor/tether/dist/js/tether.js"></script>
-<script src="vendor/bootstrap/js/dist/util.js"></script>
-<script src="vendor/bootstrap/js/dist/collapse.js"></script>
-<script src="vendor/bootstrap/js/dist/dropdown.js"></script>
-<script src="vendor/bootstrap/js/dist/button.js"></script>
-<script src="vendor/bootstrap/js/dist/tooltip.js"></script>
-<script src="vendor/bootstrap/js/dist/alert.js"></script>
-<script src="vendor/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="vendor/widgster/widgster.js"></script>
+<script src="../vendor/jquery/dist/jquery.min.js"></script>
+<script src="../vendor/jquery-pjax/jquery.pjax.js"></script>
+<script src="../vendor/tether/dist/js/tether.js"></script>
+<script src="../vendor/bootstrap/js/dist/util.js"></script>
+<script src="../vendor/bootstrap/js/dist/collapse.js"></script>
+<script src="../vendor/bootstrap/js/dist/dropdown.js"></script>
+<script src="../vendor/bootstrap/js/dist/button.js"></script>
+<script src="../vendor/bootstrap/js/dist/tooltip.js"></script>
+<script src="../vendor/bootstrap/js/dist/alert.js"></script>
+<script src="../vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="../vendor/widgster/widgster.js"></script>
 
 <!-- common app js -->
-<script src="js/settings.js"></script>
-<script src="js/app.js"></script>
+<script src="../js/settings.js"></script>
+<script src="../js/app.js"></script>
 
 <!-- page specific libs -->
 <!-- page specific js -->

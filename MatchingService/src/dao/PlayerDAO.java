@@ -33,15 +33,47 @@ public class PlayerDAO {
 		getGrounds=sqlSession.selectOne("mapper.PlayerMapper.getGrounds", user_Id);
 		return getGrounds;
 	}
-	public List<Player> getPlayerList(int selector, int team_Id) {
+	
+	public List<Player> getPlayerList(int selector, int type, int team_Id) {
 		// 팀소속 멤버 갖고오기
-		Map<String, Integer> map=new HashMap<>();
+		Map<String, Object> map=new HashMap<>();
 		map.put("selector", selector);
+		map.put("type", type);	//1이면 정식 0이면 대기
 		map.put("team_Id", team_Id);
 		
-		List<Player> result = new ArrayList<>();
-		result=sqlSession.selectList("mapper.PlayerMapper.getPlayerList", map);
+		List<Player> result = new ArrayList<Player>();
+		result = sqlSession.selectList("mapper.PlayerMapper.getPlayerList", map);
 		sqlSession.close();
+			
 		return result;
+
+	}
+	
+	//회원가입
+	public void insertUser(Player player) {
+		System.out.println("dao안player" + player);
+		try {
+			sqlSession.insert("mapper.PlayerMapper.insertRecord");
+			sqlSession.insert("mapper.PlayerMapper.insertPlayer", player);
+			sqlSession.commit();
+			sqlSession.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Player getUser(Player player) {
+		System.out.println("dao안" + player);
+		Player p = null;
+		try {
+			p = sqlSession.selectOne("mapper.PlayerMapper.getUser", player);
+			sqlSession.commit();
+			sqlSession.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return p;
 	}
 }

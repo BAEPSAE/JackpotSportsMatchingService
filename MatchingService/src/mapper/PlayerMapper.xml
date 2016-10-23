@@ -10,6 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       SELECT*FROM PLAYER WHERE USER_ID=#{user_Id}
    </select>
    
+   
    <!-- 종목별 전적 가져오기 -->
    <select id="getUserRecord" parameterType="String" resultType="Record">
       SELECT 
@@ -38,16 +39,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       FROM GROUNDS G, GAMES GA WHERE GA.WINNER_ID=#{user_Id}
    </select>
 
-   <!-- 팀 소속 멤버리스트 -->
-   <select id="getPlayerList" resultType="Player" parameterType="Map">
-   		select * from player
+  <!-- 팀 소속 멤버리스트 -->
+   <select id="getPlayerList" resultType="Player" parameterType="HashMap">
+   		select * from PLAYER 
    		<if test="selector==1">
-   			where team1=#{team_Id}
+   			where TEAM1=#{team_Id} and TEAM1_FLAG=#{type}
    		</if>
    		<if test="selector==2">
-   			where team2=#{team_Id}
+   			where TEAM2=#{team_Id} and TEAM2_FLAG=#{type}
    		</if>
    		order by user_name
+   		
    </select>
    
+	<!-- 회원 가입 -->
+	<insert id="insertRecord">
+		INSERT INTO RECORD (record_id) values (SEQ_RECORD.nextval)
+	</insert>
+	<insert id="insertPlayer" parameterType="Player">
+		INSERT INTO PLAYER (user_id, user_name,user_pw,user_location,user_phone,record_id,savefileName) VALUES (#{user_Id}, #{user_Name}, #{user_Pw}, #{user_Location}, #{user_Phone},SEQ_RECORD.currval,#{saveFileName})
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id="getUser" parameterType="Player" resultType="player">
+		SELECT * FROM PLAYER WHERE USER_ID=#{user_Id} AND USER_PW=#{user_Pw}
+	</select>
+	
 </mapper>

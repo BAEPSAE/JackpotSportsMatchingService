@@ -1,34 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Sing - List Groups</title>
-    <link href="css/application.min.css" rel="stylesheet">
+    <link href="../css/application.min.css" rel="stylesheet">
     <!-- as of IE9 cannot parse css files with more that 4K classes separating in two files -->
     <!--[if IE 9]>
     <link href="css/application-ie9-part2.css" rel="stylesheet">
     <![endif]-->
-    <link rel="shortcut icon" href="img/favicon.png">
+    <link rel="shortcut icon" href="../img/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <script>
-        /* yeah we need this empty stylesheet here. It's cool chrome & chromium fix
-         chrome fix https://code.google.com/p/chromium/issues/detail?id=167083
-         https://code.google.com/p/chromium/issues/detail?id=332189
-         */
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+    //상단바에 프로필 사진 넣는 jquery
+    	$(function() {
+			var src = $('#picture').attr('src');
+			src+='<s:property value="#session.profile" />';
+			$('#picture').attr('src', src);
+    	});
     </script>
 </head>
 <body>
-<!--
-  Main sidebar seen on the left. may be static or collapsing depending on selected state.
-
-    * Collapsing - navigation automatically collapse when mouse leaves it and expand when enters.
-    * Static - stays always open.
--->
 <nav id="sidebar" class="sidebar" role="navigation">
     <!-- need this .js class to initiate slimscroll -->
     <div class="js-sidebar-content">
@@ -101,7 +99,7 @@
                 </ul>
             </li>
             <li>
-                <!-- an example of nested submenu. basic bootstrap collapse component -->
+                <!-- an example of nested submenu. basic bootstrap collapse component --> 
                 <a class="collapsed" href="#sidebar-tables" data-toggle="collapse" data-parent="#sidebar">
                     <span class="icon">
                         <i class="fa fa-sitemap"></i>
@@ -175,23 +173,33 @@
             <ul class="nav navbar-nav pull-xs-right">
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle dropdown-toggle-notifications nav-link" id="notifications-dropdown-toggle" data-toggle="dropdown">
-                        <span class="thumb-sm avatar pull-xs-left">
-                            <img class="img-circle" src="demo/img/people/a5.jpg" alt="...">
-                        </span>
                         &nbsp;
-                        <strong>마스터도넛</strong>&nbsp;
+                        <strong>
+                        	<s:if test="#session.id != null" >
+                        <span class="thumb-sm avatar pull-xs-left">
+                        
+                            <img id="picture" class="img-circle" src="../img/" alt="...">
+                            
+                        </span>
+                        		<s:property value="#session.name" />
+                        	</s:if>
+                        	<s:else>
+                        		<s:a action="loginv">로그인하기</s:a>
+                        	</s:else>
+                        </strong>&nbsp;
                         <b class="caret"></b></a>
                     <!-- 드롭다운 -->
                     <div class="dropdown-menu dropdown-menu-right animated fadeInUp" id="notifications-dropdown-menu">
                     </div>
                 </li>
+                
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <i class="fa fa-cog fa-lg"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li><a class="dropdown-item" href="profile.html"><i class="glyphicon glyphicon-user"></i> &nbsp; Join</a></li>
-                        <li><a class="dropdown-item" href="login.html"><i class="fa fa-sign-out"></i> &nbsp; Log Out</a></li>
+                        <li><a class="dropdown-item" href="logout.action"><i class="fa fa-sign-out"></i> &nbsp; Log Out</a></li>
                     </ul>
                 </li>
             </ul>
@@ -216,7 +224,7 @@
                 <section class="widget">
                     <!-- 회원가입 폼 -->
                     <div class="widget-body">
-                        <form class="form-horizontal" role="form">
+                        <form class="form-horizontal" role="form" action="join" method="post" enctype="multipart/form-data">
                             <fieldset>
                             <legend style="height: 25px;"><strong></strong></legend>
                                 <!-- 아이디 -->
@@ -225,7 +233,7 @@
                                     <div class="col-md-7">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                            <input id="id" class="form-control" size="16" type="text" placeholder="4자리 이상">
+                                            <input id="user_id" name="player.user_Id" class="form-control" size="16" type="text" placeholder="4자리 이상">
                                         </div>
                                     </div>
                                 </div>
@@ -235,7 +243,7 @@
                                     <div class="col-md-7">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                            <input type="password" class="form-control" id="password-field" placeholder="8자리 이상">
+                                            <input type="password"  class="form-control" id="user_Pw" name="player.user_Pw" placeholder="8자리 이상">
                                         </div>
                                     </div>
                                 </div>
@@ -243,25 +251,25 @@
                                 <div class="form-group row">
                                     <label for="normal-field" class="col-md-4 form-control-label text-md-right">이름</label>
                                     <div class="col-md-7">
-                                        <input type="text" id="name" class="form-control">
+                                        <input type="text" id="user_Name" name="player.user_Name" class="form-control">
                                     </div>
                                 </div>
                                 <!-- 연락처 -->
                                 <div class="form-group row">
                                    <label for="normal-field" class="col-md-4 form-control-label text-md-right">연락처</label>
                                    	<div class="col-md-7">
-                                        <input id="phone" type="text" class="form-control">
+                                        <input id="user_Phone" name="player.user_Phone" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <!-- 거주지역 -->
                                 <div class="form-group row">
                                     <label for="normal-field" class="col-md-4 form-control-label text-md-right">거주지역</label>
                                     <div class="col-md-7">
-                                        <select id="location"
+                                        <select id="user_Location"
                                                 data-placeholder="지역선택"
                                                 class="select2 form-control"
                                                 tabindex="-1"
-                                                name="country">
+                                                name="player.user_Location">
                                             <option value=""></option>
                                             <option value="Gangnam">강남구</option>
                                             <option value="Gangdong">강동구</option>
@@ -296,12 +304,12 @@
                                     <div class="col-md-8">
                                         <div class="fileinput fileinput-new" data-provides="fileinput">
                                             <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                <img data-src="holder.js/100%x100%" alt="..." src="">
+                                                <img data-src="holder.js/100%x100%" alt="100%x100%" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE0MiIgdmlld0JveD0iMCAwIDE5MiAxNDIiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MTAwJQpDcmVhdGVkIHdpdGggSG9sZGVyLmpzIDIuNS4wLgpMZWFybiBtb3JlIGF0IGh0dHA6Ly9ob2xkZXJqcy5jb20KKGMpIDIwMTItMjAxNSBJdmFuIE1hbG9waW5za3kgLSBodHRwOi8vaW1za3kuY28KLS0+PGRlZnMvPjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTQyIiBmaWxsPSIjRUVFRUVFIi8+PGc+PHRleHQgeD0iNzAuMDQ2ODc1IiB5PSI3MSIgc3R5bGU9ImZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0O2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjE5MngxNDI8L3RleHQ+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="height: 100%; width: 100%; display: block;">
                                             </div>
                                             <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
                                             <div>
-                                                <span class="btn btn-secondary btn-file"><span class="fileinput-new">이미지 선택</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
-                                                <a href="#" class="btn btn-secondary fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                <span class="btn btn-secondary btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">변경</span><input type="file" name="save"></span>
+                                                <a href="#" class="btn btn-secondary fileinput-exists" data-dismiss="fileinput">제거</a>
                                             </div>
                                         </div>
                                     </div>
@@ -311,7 +319,7 @@
                                 <div class="row">
                                     <div class="col-md-offset-4 col-md-7">
                                         <button type="submit" class="btn btn-primary">가입</button>
-                                        <button type="button" class="btn btn-inverse">취소</button>
+                                        <s:a href="index"><button type="button" class="btn btn-inverse">취소</button></s:a>
                                     </div>
                                 </div>
                             </div>
@@ -328,34 +336,46 @@
 </div>
 
 <!-- common libraries. required for every page-->
-<script src="vendor/jquery/dist/jquery.min.js"></script>
-<script src="vendor/jquery-pjax/jquery.pjax.js"></script>
-<script src="vendor/tether/dist/js/tether.js"></script>
-<script src="vendor/bootstrap/js/dist/util.js"></script>
-<script src="vendor/bootstrap/js/dist/collapse.js"></script>
-<script src="vendor/bootstrap/js/dist/dropdown.js"></script>
-<script src="vendor/bootstrap/js/dist/button.js"></script>
-<script src="vendor/bootstrap/js/dist/tooltip.js"></script>
-<script src="vendor/bootstrap/js/dist/alert.js"></script>
-<script src="vendor/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="vendor/widgster/widgster.js"></script>
-<script src="vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
-<script src="vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
-<script src="js/bootstrap-fix/button.js"></script>
+<script src="../vendor/jquery/dist/jquery.min.js"></script>
+<script src="../vendor/jquery-pjax/jquery.pjax.js"></script>
+<script src="../vendor/tether/dist/js/tether.js"></script>
+<script src="../vendor/bootstrap/js/dist/util.js"></script>
+<script src="../vendor/bootstrap/js/dist/collapse.js"></script>
+<script src="../vendor/bootstrap/js/dist/dropdown.js"></script>
+<script src="../vendor/bootstrap/js/dist/button.js"></script>
+<script src="../vendor/bootstrap/js/dist/tooltip.js"></script>
+<script src="../vendor/bootstrap/js/dist/alert.js"></script>
+<script src="../vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="../vendor/widgster/widgster.js"></script>
+<script src="../vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
+<script src="../vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
+<script src="../js/bootstrap-fix/button.js"></script>
 
 <!-- common app js -->
-<script src="js/settings.js"></script>
-<script src="js/app.js"></script>
+<script src="../js/settings.js"></script>
+<script src="../js/app.js"></script>
 
 <!-- page specific libs -->
-<script src="vendor/jquery-ui/ui/core.js"></script>
-<script src="vendor/jquery-ui/ui/widget.js"></script>
-<script src="vendor/jquery-ui/ui/mouse.js"></script>
-<script src="vendor/jquery-ui/ui/sortable.js"></script>
-<script src="vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-<script src="vendor/jquery.nestable/jquery.nestable.js"></script>
+<script src="../vendor/bootstrap/js/dist/modal.js"></script>
+<script src="../vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="../vendor/jquery-autosize/jquery.autosize.min.js"></script>
+<script src="../vendor/bootstrap3-wysihtml5/lib/js/wysihtml5-0.3.0.min.js"></script>
+<script src="../vendor/bootstrap3-wysihtml5/src/bootstrap3-wysihtml5.js"></script>
+<script src="../vendor/select2/select2.min.js"></script>
+<script src="../vendor/switchery/dist/switchery.min.js"></script>
+<script src="../vendor/moment/min/moment.min.js"></script>
+<script src="../vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="../vendor/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<script src="../vendor/jasny-bootstrap/js/inputmask.js"></script>
+<script src="../vendor/jasny-bootstrap/js/fileinput.js"></script>
+<script src="../vendor/holderjs/holder.js"></script>
+<script src="../vendor/dropzone/dist/min/dropzone.min.js"></script>
+<script src="../vendor/markdown/lib/markdown.js"></script>
+<script src="../vendor/bootstrap-markdown/js/bootstrap-markdown.js"></script>
+<script src="../vendor/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
 
 <!-- page specific js -->
-<script src="js/ui-list-groups.js"></script>
+<script src="../js/ui-list-groups.js"></script>
+<script src="js/form-elements.js"></script>
 </body>
 </html>

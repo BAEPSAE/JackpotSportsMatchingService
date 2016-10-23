@@ -6,8 +6,9 @@
 <struts>
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
     <constant name="struts.devMode" value="true" />
+    <constant name="struts.mulipart.maxSize" value="104859600" />
 
-    <package name="player" namespace="/player" extends="default">
+    <package name="player" namespace="/player" extends="default, json-default">
 		<!-- 종목별 전적 가져오기 -->
 		<action name="getUserInfo" class="action.PlayerAction" method="getUserInfo">
 			<result></result>
@@ -21,6 +22,34 @@
 		<!-- 종목별 경기장 정보 가져오기 -->
 		<action name="getUserGround" class="action.PlayerAction" method="getUserGround">
 			<result></result>
+		</action>
+		
+		<!-- 회원가입 뷰 -->
+		<action name="joinv">
+			<result>/joinv.jsp</result>
+		</action>
+		
+		<!-- 회원가입 디비에 넣기 -->
+		<action name="join" class="action.PlayerAction" method="join">
+			<interceptor-ref name="fileUpload"></interceptor-ref>
+			<interceptor-ref name="params" />
+			<result type="redirect">loginv.action</result>
+		</action>
+		
+		<!-- 로그인 뷰 -->
+		<action name="loginv">
+			<result>/login.jsp</result>
+		</action>
+		
+		<!-- 로그인 하기 -->
+		<action name="login" class="action.PlayerAction" method="login">
+			<result name="success">/index.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		
+		<!-- 로그아웃 -->
+		<action name="logout" class="action.PlayerAction" method="logout">
+			<result name="success">/index.jsp</result>
 		</action>
     </package>
 </struts>

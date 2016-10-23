@@ -1,13 +1,6 @@
 package vo;
 
-/**
- * @author me
- *
- */
-/**
- * @author me
- *
- */
+
 public class Team {
 
 	private int team_Id;	//team table 주키
@@ -19,7 +12,7 @@ public class Team {
 	private int team_TotalGame;	//총 경기수
 	private int team_WinGame;	//이긴 경기수
 	private int team_Draw;	//무승부 경기 수
-	private boolean team_Open;	//팀원 모집중인지 여부
+	private int team_Open;	//팀원 모집중인지 여부
 	
 	public Team() {
 		// TODO Auto-generated constructor stub
@@ -97,11 +90,13 @@ public class Team {
 		this.team_Draw = team_Draw;
 	}
 
-	public boolean isTeam_Open() {
+	
+	public int isTeam_Open() {
 		return team_Open;
 	}
 
-	public void setTeam_Open(boolean team_Open) {
+	
+	public void setTeam_Open(int team_Open) {
 		this.team_Open = team_Open;
 	}
 
