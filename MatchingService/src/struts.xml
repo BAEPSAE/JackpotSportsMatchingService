@@ -20,18 +20,19 @@
             <exception-mapping exception="java.lang.Exception" result="error"/>
         </global-exception-mappings>
 
-        <action name="index">
+   <!--      <action name="index">
             <result type="redirectAction">
                 <param name="actionName">HelloWorld</param>
                 <param name="namespace">/example</param>
             </result>
         </action>
-       
+        -->
 		
 		
     </package>
 
     <include file="struts/teamStruts.xml"/>
+    <include file="struts/boardStruts.xml"/>
 	<include file="struts/playerStruts.xml"/>
     <!-- Add packages here -->
 
