@@ -2,6 +2,7 @@
 package action;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
@@ -23,11 +24,15 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	File save;
 	String saveFileName;
 	
-	
-	String sports;
+	int sports;	//축구==1, 야구==2, 탁구==3, 볼링==4
 	String loginId;	//session 확인용
 	String message;	//에러 메세지 전송용
 	
+	//각 종목별 승률
+	int winSC, winBS, winTB, winBW, aver;
+	
+	//종목별 그라운드
+	Grounds SCGrounds, BSGrounds, TBGrounds, BWGrounds;
 	
 	public String join() throws Exception {
 		System.out.println();
@@ -35,8 +40,6 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 		FileUtils.copyFile(save, copy);
 		player.setSaveFileName(saveFileName);
 		dao.insertUser(player);
-		
-		
 		return SUCCESS;
 	}
 	
@@ -62,6 +65,7 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 		return SUCCESS;
 	}
 	
+	
 	//get, set
 	public Player getPlayer() {
 		return player;
@@ -81,10 +85,10 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	public void setGrounds(Grounds grounds) {
 		this.grounds = grounds;
 	}
-	public String getSports() {
+	public int getSports() {
 		return sports;
 	}
-	public void setSports(String sports) {
+	public void setSports(int sports) {
 		this.sports = sports;
 	}
 	public String getLoginId() {
@@ -99,25 +103,102 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-
 	public File getSave() {
 		return save;
 	}
-
 	public void setSave(File save) {
 		this.save = save;
 	}
-	
 	public String getSaveFileName() {
 		return saveFileName;
 	}
-
 	public void setSaveFileName(String saveFileName) {
 		this.saveFileName = saveFileName;
 	}
+	public int getWinSC() {
+		return winSC;
+	}
+	public void setWinSC(int winSC) {
+		this.winSC = winSC;
+	}
+	public int getWinBS() {
+		return winBS;
+	}
+	public void setWinBS(int winBS) {
+		this.winBS = winBS;
+	}
+	public int getWinTB() {
+		return winTB;
+	}
+	public void setWinTB(int winTB) {
+		this.winTB = winTB;
+	}
+	public int getWinBW() {
+		return winBW;
+	}
+	public void setWinBW(int winBW) {
+		this.winBW = winBW;
+	}
+	public Grounds getSCGrounds() {
+		return SCGrounds;
+	}
+	public void setSCGrounds(Grounds sCGrounds) {
+		SCGrounds = sCGrounds;
+	}
+	public Grounds getBSGrounds() {
+		return BSGrounds;
+	}
+	public void setBSGrounds(Grounds bSGrounds) {
+		BSGrounds = bSGrounds;
+	}
+	public Grounds getTBGrounds() {
+		return TBGrounds;
+	}
+	public void setTBGrounds(Grounds tBGrounds) {
+		TBGrounds = tBGrounds;
+	}
+	public Grounds getBWGrounds() {
+		return BWGrounds;
+	}
+	public void setBWGrounds(Grounds bWGrounds) {
+		BWGrounds = bWGrounds;
+	}
+	public int getAver() {
+		return aver;
+	}
+	public void setAver(int aver) {
+		this.aver = aver;
+	}
 
+	
 	//method
+	//화면 가져오기
+	public String mypagev() {
+		//개인정보 가져오기
+		player=dao.getUserInfo("TEST");
+		System.out.println("1. 개인정보: "+player.toString());
+		
+		//종목별 전적 가져오기
+		record=dao.getUserRecord("TEST");
+		winSC=(record.getFb_Win()%record.getFb_Total());
+		winBS=(record.getBb_Win()%record.getBb_Total());
+		winTB=(record.getPp_Win()%record.getPp_Total());
+		winBW=(record.getBl_Win()%record.getBl_Total());
+		aver=(winSC+winBS+winTB+winBW)/4;
+		System.out.println("2. 종목별 승률: "+winSC+", "+winBS+", "+winTB+", "+winBW+", 평균: "+aver);
+		
+		//종목별 경기장 정보 가져오기
+		//축구
+		for(sports=1; sports<=4; sports++) {
+			dao=new PlayerDAO();
+			if(sports==1) SCGrounds=dao.getUserGround("TEST", sports);
+			else if(sports==2) BSGrounds=dao.getUserGround("TEST", sports);
+			else if(sports==3) TBGrounds=dao.getUserGround("TEST", sports);
+			else BWGrounds=dao.getUserGround("TEST", sports);
+		}
+		return SUCCESS;
+	}
+	
 	//개인정보 가져오기
 	public String getUserInfo() {
 	/*	player.setuser_Id((String)session.get("loginId"));
