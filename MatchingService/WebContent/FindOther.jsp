@@ -281,18 +281,18 @@
                                                   novalidate="novalidate">
                                                 <fieldset>
                                                     <div class="form-group">
-                                                        <label for="country-select">Destination Country</label>
+                                                        <label for="country-select">지역</label>
                                                         <select id="country-select" data-placeholder="Choose a Country..."
                                                                 class="form-control chzn-select">
                                                             <option value=""></option>
-                                                            <option value="United States">United States</option>
-                                                            <option value="United Kingdom">United Kingdom</option>
-                                                            <option value="Afghanistan">Afghanistan</option>
-                                                            <option value="Zambia">Zambia</option>
-                                                            <option value="Zimbabwe">Zimbabwe</option>
+                                                            <option value="강남구">강남구</option>
+                                                            <option value="간서구">강서구</option>
                                                         </select>
                                                     </div>
                                                 </fieldset>
+                                                
+                                                <button class="btn btn-success">매칭시작 &nbsp; <i class="glyphicon glyphicon-ok"></i></button>
+                                                
                                             </form>
                                         </div>
                                         <div class="tab-pane bg-gray-lighter" id="tab3">
@@ -300,6 +300,7 @@
                                                 <fieldset>
                                                  	 정보확인? 가중치?
                                                 </fieldset>
+                                                
                                             </form>
                                         </div>
                                         
@@ -351,7 +352,6 @@
 				                        
 				                        
 				                        
-				                        <button class="btn btn-success">매칭시작 &nbsp; <i class="glyphicon glyphicon-ok"></i></button>
 				                        
 				                        
 				                        

@@ -21,10 +21,7 @@
         </global-exception-mappings>
 
         <action name="index">
-            <result type="redirectAction">
-                <param name="actionName">HelloWorld</param>
-                <param name="namespace">/example</param>
-            </result>
+            <result>index.jsp</result>
         </action>
        
 		
