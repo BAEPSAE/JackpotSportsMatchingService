@@ -47,7 +47,8 @@
         			}
         		});
         	})
-        	//팀 지원자 승인 혹은 거절
+        	
+         	//팀 지원자 승인 혹은 거절
         	$('#teamapplies').on('click', 'button', function(index) {
 				var here=$(this);
 				var playerId=$(this).parent().parent().children().first().text();
@@ -275,7 +276,7 @@ body {
                            <div class="col-md-7" style="width: 500px">
                               <div class="stats-row stats-row-profile mt text-xs-right">
                               	<!-- 썸넬들어가는부분 -->
-                               <!--   <img class="img-circle" src="../demo/img/pictures/3.jpg" alt="..."
+                                 <!-- <img class="img-circle" src="../demo/img/pictures/3.jpg" alt="..."
                                     style="float: left;"> --> <br> <br> <br>
                                  <div style="float: right;">
                                     <div class="stat-item">
@@ -310,8 +311,7 @@ body {
                   <tr>
                      <th>
                         <div class="checkbox abc-checkbox">
-                           <input id="checkbox1" type="checkbox" data-check-all> <label
-                              for="checkbox1"></label>
+                           <input id="checkbox1" type="checkbox" data-check-all>
                         </div>
                      </th>
                      <th>이름</th>
@@ -324,11 +324,7 @@ body {
                   <s:iterator value="memberList">
                      <tr>
                         <td>
-                           <div class="checkbox abc-checkbox">
-                              <!-- <input id="checkbox2" type="checkbox" name="teamMembers[]"> <label
-                                 for="checkbox2"></label> -->
-                              <input type="checkbox" id="chbox">
-                           </div>
+                            <input type="checkbox" name="teamMembers[]"> 
                         </td>
                         <td><s:property value="user_Name" /></td>
                         <td><s:property value="user_Id" /></td>
