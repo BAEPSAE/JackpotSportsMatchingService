@@ -17,7 +17,7 @@
        </action>
       <action name="write" class="action.BoardAction" method="insertBoard"> 
             <result name="success">/board.jsp</result>
-			<result name="input">/boardwirte.jsp</result>
+			<result name="error">/boardwirte.jsp</result>
        </action>
        <action name="read" class="action.BoardAction" method="readBoard"> 
             <result name="success">/boardread.jsp</result>

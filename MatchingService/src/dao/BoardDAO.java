@@ -27,15 +27,17 @@ public class BoardDAO {
 		return (ArrayList<Board>) list;
 	}
 	public int insertBoard(Board board){
-		
+		System.out.println("dao인서트");
 		int result=sqlSession.insert("mapper.BoardMapper.insertBoard",board);
 		sqlSession.commit();
+		System.out.println("커밋끝");
 		return result;
 	}
 	public Board getBoard(int boardNum){
 		
 		Board result=sqlSession.selectOne("mapper.BoardMapper.getBoard",boardNum);
 		sqlSession.commit();
+		
 		return result;
 	}
 	public int deleteBoard(int boardNum) {

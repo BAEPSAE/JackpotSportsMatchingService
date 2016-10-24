@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>Sing - List Groups</title>
-   <link href="css/application.min.css" rel="stylesheet">
+   <link href="../css/application.min.css" rel="stylesheet">
     <!-- as of IE9 cannot parse css files with more that 4K classes separating in two files -->
     <!--[if IE 9]>
     <link href="css/application-ie9-part2.css" rel="stylesheet">
@@ -16,7 +16,7 @@
     <meta name="author" content="">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<script src="js/jquery-3.1.1.min.js"></script>
+	<script src="../js/jquery-3.1.1.min.js"></script>
 	  <script type="text/javascript">
   
         /* yeah we need this empty stylesheet here. It's cool chrome & chromium fix
@@ -346,10 +346,10 @@ color: #333333;
 			</table>
 			
 			<p class="list_btn">
-			<s:if test="#session.loginId==board.user_Id">
+<%-- 			<s:if test="#session.loginId==board.user_Id"> --%>
 	     <button  class="btn btn-primary" id="update">수정</button>
     	 <button class="btn btn-primary" id="delete">삭제</button>
-				</s:if>
+<%-- 				</s:if> --%>
 			</p>
   		    </s:form>
         
@@ -366,34 +366,34 @@ color: #333333;
 </div>
 
 <!-- common libraries. required for every page-->
-<script src="vendor/jquery/dist/jquery.min.js"></script>
-<script src="vendor/jquery-pjax/jquery.pjax.js"></script>
-<script src="vendor/tether/dist/js/tether.js"></script>
-<script src="vendor/bootstrap/js/dist/util.js"></script>
-<script src="vendor/bootstrap/js/dist/collapse.js"></script>
-<script src="vendor/bootstrap/js/dist/dropdown.js"></script>
-<script src="vendor/bootstrap/js/dist/button.js"></script>
-<script src="vendor/bootstrap/js/dist/tooltip.js"></script>
-<script src="vendor/bootstrap/js/dist/alert.js"></script>
-<script src="vendor/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="vendor/widgster/widgster.js"></script>
-<script src="vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
-<script src="vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
-<script src="js/bootstrap-fix/button.js"></script>
+<script src="../vendor/jquery/dist/jquery.min.js"></script>
+<script src="../vendor/jquery-pjax/jquery.pjax.js"></script>
+<script src="../vendor/tether/dist/js/tether.js"></script>
+<script src="../vendor/bootstrap/js/dist/util.js"></script>
+<script src="../vendor/bootstrap/js/dist/collapse.js"></script>
+<script src="../vendor/bootstrap/js/dist/dropdown.js"></script>
+<script src="../vendor/bootstrap/js/dist/button.js"></script>
+<script src="../vendor/bootstrap/js/dist/tooltip.js"></script>
+<script src="../vendor/bootstrap/js/dist/alert.js"></script>
+<script src="../vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="../vendor/widgster/widgster.js"></script>
+<script src="../vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
+<script src="../vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
+<script src="../js/bootstrap-fix/button.js"></script>
 
 <!-- common app js -->
-<script src="js/settings.js"></script>
-<script src="js/app.js"></script>
+<script src="../js/settings.js"></script>
+<script src="../js/app.js"></script>
 
 <!-- page specific libs -->
-<script src="vendor/jquery-ui/ui/core.js"></script>
-<script src="vendor/jquery-ui/ui/widget.js"></script>
-<script src="vendor/jquery-ui/ui/mouse.js"></script>
-<script src="vendor/jquery-ui/ui/sortable.js"></script>
-<script src="vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-<script src="vendor/jquery.nestable/jquery.nestable.js"></script>
+<script src="../vendor/jquery-ui/ui/core.js"></script>
+<script src="../vendor/jquery-ui/ui/widget.js"></script>
+<script src="../vendor/jquery-ui/ui/mouse.js"></script>
+<script src="../vendor/jquery-ui/ui/sortable.js"></script>
+<script src="../vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+<script src="../vendor/jquery.nestable/jquery.nestable.js"></script>
 
 <!-- page specific js -->
-<script src="js/ui-list-groups.js"></script>
+<script src="../js/ui-list-groups.js"></script>
 </body>
 </html>  

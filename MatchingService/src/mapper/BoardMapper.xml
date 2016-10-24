@@ -6,12 +6,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="mapper.BoardMapper">
 
 	<!-- 리스트 가져오기 -->
-	<select id="getBoardList" resultType="Board">
+	<select id="getBoardList" resultType="Boa    rd">
 		SELECT* FROM Board
 	</select>
 	<!--글쓰기 -->
 	<insert id="insertBoard" parameterType="Board">
-		INSERT INTO Board VALUES (SEQ_Board.nextval, #{title},
+		INSERT INTO BOARD VALUES (SEQ_Board.nextval, #{title},
 		#{content},#{user_Id},sysdate,#{category})
 	</insert>
 	<!--글읽기 -->
