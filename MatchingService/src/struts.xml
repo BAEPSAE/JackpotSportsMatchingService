@@ -22,13 +22,12 @@
 
          <action name="index">
            <result>/index_matching.jsp</result>
-        </action>
-       
-		
+		</action>
 		
     </package>
 
     <include file="struts/teamStruts.xml"/>
+    <include file="struts/boardStruts.xml"/>
 	<include file="struts/playerStruts.xml"/>
     <!-- Add packages here -->
 
