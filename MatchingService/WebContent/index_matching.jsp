@@ -269,6 +269,9 @@
                         </div>
                     </div>
                 </div>
+            </div><!-- Matching_option -->
+            <div class="col-lg-12">
+            	<button type="button" class="btn btn-warning btn-block" id="matching">MATCHING!</button>
             </div>
         </div><!-- row -->
     </main>
