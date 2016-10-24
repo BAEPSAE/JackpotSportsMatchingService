@@ -34,7 +34,10 @@ public class TeamAction extends ActionSupport implements SessionAware {
 		//세션에서 userId가져오기
 		//String user_Id = (String) session.get("user_Id");
 		
+		System.out.println("in");
+		
 		String user_Id = "aaa";
+		selector=1;
 		PlayerDAO pdao = new PlayerDAO();
 		player = pdao.getUserInfo(user_Id);
 		if(selector==1){	//1이면 축구팀
@@ -54,7 +57,10 @@ public class TeamAction extends ActionSupport implements SessionAware {
 		int type=1;	//1이면 정식 0이면 대기
 		pdao = new PlayerDAO();//?????
 		memberList = pdao.getPlayerList(selector, type, team_Id);
-		applyList = pdao.getPlayerList(selector, 0, 1);
+		System.out.println(memberList);
+		pdao = new PlayerDAO();
+		applyList = pdao.getPlayerList(selector, 0, team_Id);
+		System.out.println(applyList);
 		
 		//팀장이면 session저장
 		if(team.getTeam_Leader().equals(user_Id)) session.put("isLeader", 1);
@@ -75,6 +81,7 @@ public class TeamAction extends ActionSupport implements SessionAware {
 
 		return SUCCESS;
 	}
+	
 	public String t_openChange() throws Exception{
 		team_Id = 3;
 		TeamDAO tdao = new TeamDAO();
@@ -109,6 +116,7 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	   }
 	   return rst;
 	}
+	
 	public String t_waiting(){
 		memberList = new TeamDAO().t_waiting(team);
 		
@@ -131,6 +139,7 @@ public class TeamAction extends ActionSupport implements SessionAware {
 			return ERROR;
 		}
 	}   
+	
 	//getter&setter
 	
 	   

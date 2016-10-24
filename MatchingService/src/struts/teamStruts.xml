@@ -10,14 +10,12 @@
 
     <package name="team" namespace="/team" extends="default, json-default">
 
-       <action name="teamPage">
-       		<result>../teamPage.jsp</result>
-		</action>
-       <!-- <action name="teamPage" class="action.TeamAction" method="teamPage">
+    
+       <action name="teamPage" class="action.TeamAction" method="teamPage">
        		<result name="success">../teamPage.jsp</result>
        		<result name="noteam">../t_makev.jsp</result>
        </action>
-        -->
+       
        <action name="t_delete"  class="action.TeamAction" method="t_delete">
        		<result type="redirect">/team/teamPage</result>
        </action>
