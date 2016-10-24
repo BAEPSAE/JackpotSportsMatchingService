@@ -47,7 +47,8 @@
         			}
         		});
         	})
-        	//팀 지원자 승인 혹은 거절
+        	
+         	//팀 지원자 승인 혹은 거절
         	$('#teamapplies').on('click', 'button', function(index) {
 				var here=$(this);
 				var playerId=$(this).parent().parent().children().first().text();
@@ -324,11 +325,7 @@ body {
                   <s:iterator value="memberList">
                      <tr>
                         <td>
-                           <div class="checkbox abc-checkbox">
-                              <!-- <input id="checkbox2" type="checkbox" name="teamMembers[]"> <label
-                                 for="checkbox2"></label> -->
-                              <input type="checkbox" id="chbox">
-                           </div>
+                            <input type="checkbox" name="teamMembers[]"> 
                         </td>
                         <td><s:property value="user_Name" /></td>
                         <td><s:property value="user_Id" /></td>
