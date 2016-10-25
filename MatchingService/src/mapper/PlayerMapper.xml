@@ -82,4 +82,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM PLAYER WHERE USER_ID=#{user_Id} AND USER_PW=#{user_Pw}
 	</select>
 	
+	<!-- 업데이트 -->
+	<update id="changeTeam" parameterType="HashMap">
+		update PLAYER set
+		<if test="selector==1">
+			TEAM1=#{team, jdbcType=INTEGER}
+			, TEAM1_FLAG=#{team_flag, jdbcType=INTEGER}
+		</if>
+		<if test="selector==2">
+			TEAM2=#{team}
+			, TEAM2_FLAG=#{team_flag, jdbcType=INTEGER}
+		</if>
+		 where USER_ID=#{user_Id, jdbcType=INTEGER}
+	</update>	
+	
+	
 </mapper>

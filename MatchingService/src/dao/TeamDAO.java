@@ -23,20 +23,21 @@ user 테이블 전부 돌아서 해당 팀 id 가지고 있는 애들 목록 긁
 
 */
 	
-	SqlSession session = MybatisConfig.getSqlSessionFactory().openSession();
+	SqlSession session = null;
 	List<Team> teamList;
 	List<Player> playerlist;
 	
 	
 	//승민
 	public List<Team> getTeamList(Team team){
+		session = MybatisConfig.getSqlSessionFactory().openSession();
 		teamList = session.selectList("mapper.TeamMapper.getTeamList", team.getTeam_Name());
 		session.commit();
 		session.close();
-		
 		return teamList;
 	}
 	public int t_joinApply(Player player){
+		session = MybatisConfig.getSqlSessionFactory().openSession();
 		int result = 0;
 		result = session.update("mapper.TeamMapper.t_joinApply", player);
 		session.commit();
@@ -45,6 +46,7 @@ user 테이블 전부 돌아서 해당 팀 id 가지고 있는 애들 목록 긁
 		return result;
 	}
 	public List<Player> t_waiting(Team team){
+		session = MybatisConfig.getSqlSessionFactory().openSession();
 		playerlist = session.selectList("mapper.TeamMapper.t_waiting", team.getTeam_Id());
 		session.commit();
 		session.close();
@@ -52,6 +54,7 @@ user 테이블 전부 돌아서 해당 팀 id 가지고 있는 애들 목록 긁
 		return playerlist;
 	}
 	public int t_joinAccept(Player player){
+		session = MybatisConfig.getSqlSessionFactory().openSession();
 		int result = 0;
 		result = session.update("mapper.TeamMapper.t_joinAccept", player);
 		session.commit();
@@ -60,6 +63,7 @@ user 테이블 전부 돌아서 해당 팀 id 가지고 있는 애들 목록 긁
 		return result;
 	}
 	public int t_joinDeny(Player player){
+		session = MybatisConfig.getSqlSessionFactory().openSession();
 		int result = 0;
 		result = session.update("mapper.TeamMapper.t_joinDeny", player);
 		session.commit();
@@ -72,13 +76,16 @@ user 테이블 전부 돌아서 해당 팀 id 가지고 있는 애들 목록 긁
 	
 	//하연
 	public Team getTeam(int team_Id){
+		session = MybatisConfig.getSqlSessionFactory().openSession();
 		Team team = session.selectOne("mapper.TeamMapper.getTeam", team_Id);
 	    session.close();
 	    return team;
 	}
 	   
 	public void updateTeam(Team team){
-	    session.selectOne("mapper.TeamMapper.updateTeam", team);
+		session = MybatisConfig.getSqlSessionFactory().openSession();
+	    session.update("mapper.TeamMapper.updateTeam", team);
+	    session.commit();
 	    session.close();
 	}
 	
