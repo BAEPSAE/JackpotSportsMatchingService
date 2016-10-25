@@ -135,9 +135,9 @@ CREATE TABLE PLAYER
 	USER_LOCATION varchar2(20) NOT NULL,
 	USER_PHONE varchar2(15) NOT NULL,
 	RECORD_ID number(5) NOT NULL,
-	TEAM1 number UNIQUE,
+	TEAM1 number default -1,
 	TEAM1_FLAG number(1),
-	TEAM2 number UNIQUE,
+	TEAM2 number default -1,
 	TEAM2_FLAG number(1),
 	PP_SCORE number,
 	BL_SCORE number

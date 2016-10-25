@@ -29,6 +29,10 @@
        </action>
        
        
+       <action name="findOther">
+       		<result>../FindOther.jsp</result>
+       </action>
+       
        <action name="t_searchv">
 			<result>../t_searchv.jsp</result>
 		</action>

@@ -51,5 +51,16 @@
 		<action name="logout" class="action.PlayerAction" method="logout">
 			<result name="success">/index.jsp</result>
 		</action>
+		
+		<action name="Matching">
+			<result>/Matching.jsp</result>
+		</action>
+		
+		<action name="schedule" class="action.PlayerAction" method="getScheduler">
+			<result type="json"></result>
+		</action>
+		<action name="schedulelist" class="action.PlayerAction" method="getScheduler">
+			<result type="json"></result>
+		</action>
     </package>
 </struts>

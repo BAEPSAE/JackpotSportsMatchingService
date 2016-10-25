@@ -2,6 +2,9 @@
 package action;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
@@ -10,7 +13,9 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.PlayerDAO;
+import vo.Events;
 import vo.Grounds;
+import vo.Matching;
 import vo.Player;
 import vo.Record;
 
@@ -22,13 +27,14 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	PlayerDAO dao=new PlayerDAO();
 	File save;
 	String saveFileName;
-	
-	
+	List<Matching> schedule;
+	List<Events> events;
 	String sports;
 	String loginId;	//session 확인용
 	String message;	//에러 메세지 전송용
 	
 	
+
 	public String join() throws Exception {
 		System.out.println();
 		File copy = new File("C://Users//Mac//git//JackpotSportsMatchingService//MatchingService//WebContent//img//" + saveFileName);
@@ -59,6 +65,25 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 		session.clear();
 		
 		
+		return SUCCESS;
+	}
+	
+	//매칭 스케줄 리스트 받아오기
+	public String getScheduler() throws Exception{
+		Player plr = new Player();
+		plr.setUser_Id("aaa"); //session.loginid로 바꿔야함.
+		schedule = dao.getMatchingList(plr);
+		events = new ArrayList<Events>();
+		
+		for(Matching m : schedule){
+			String type = m.getLocation() + "\n"+ "VS - FC사우나";
+			String date = m.getGame_Date();
+			Events eve = new Events();
+			eve.setTitle(type);
+			eve.setStart(date);
+			
+			events.add(eve);
+		}
 		return SUCCESS;
 	}
 	
@@ -115,6 +140,20 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 
 	public void setSaveFileName(String saveFileName) {
 		this.saveFileName = saveFileName;
+	}
+	public List<Events> getEvents() {
+		return events;
+	}
+
+	public void setEvents(List<Events> events) {
+		this.events = events;
+	}
+	public List<Matching> getSchedule() {
+		return schedule;
+	}
+
+	public void setSchedule(List<Matching> schedule) {
+		this.schedule = schedule;
 	}
 
 	//method

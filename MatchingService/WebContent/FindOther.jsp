@@ -4,7 +4,7 @@
 <html>
 <head>
    <title>골목대장 - 매칭상대 찾기</title>
-    <link href="css/application.min.css" rel="stylesheet">
+    <link href="../css/application.min.css" rel="stylesheet">
     <!-- as of IE9 cannot parse css files with more that 4K classes separating in two files -->
     <!--[if IE 9]>
     <link href="css/application-ie9-part2.css" rel="stylesheet">
@@ -21,6 +21,44 @@
          https://code.google.com/p/chromium/issues/detail?id=332189
          */
     </script>
+  	<style type="text/css">
+	  	.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+		.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+		.map_wrap {position:relative;width:100%;height:500px;}
+		#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+		.bg_white {background:#fff;}
+		#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+		#menu_wrap .option{text-align: center;}
+		#menu_wrap .option p {margin:10px 0;}  
+		#menu_wrap .option button {margin-left:5px;}
+		#placesList li {list-style: none;}
+		#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
+		#placesList .item span {display: block;margin-top:4px;}
+		#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+		#placesList .item .info{padding:10px 0 10px 55px;}
+		#placesList .info .gray {color:#8a8a8a;}
+		#placesList .info .jibun {padding-left:26px;background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
+		#placesList .info .tel {color:#009900;}
+		#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
+		#placesList .item .marker_1 {background-position: 0 -10px;}
+		#placesList .item .marker_2 {background-position: 0 -56px;}
+		#placesList .item .marker_3 {background-position: 0 -102px}
+		#placesList .item .marker_4 {background-position: 0 -148px;}
+		#placesList .item .marker_5 {background-position: 0 -194px;}
+		#placesList .item .marker_6 {background-position: 0 -240px;}
+		#placesList .item .marker_7 {background-position: 0 -286px;}
+		#placesList .item .marker_8 {background-position: 0 -332px;}
+		#placesList .item .marker_9 {background-position: 0 -378px;}
+		#placesList .item .marker_10 {background-position: 0 -423px;}
+		#placesList .item .marker_11 {background-position: 0 -470px;}
+		#placesList .item .marker_12 {background-position: 0 -516px;}
+		#placesList .item .marker_13 {background-position: 0 -562px;}
+		#placesList .item .marker_14 {background-position: 0 -608px;}
+		#placesList .item .marker_15 {background-position: 0 -654px;}
+		#pagination {margin:10px auto;text-align: center;}
+		#pagination a {display:inline-block;margin-right:10px;}
+		#pagination .on {font-weight: bold; cursor: default;color:#777;}
+  	</style>
 </head>
 <body>
 <nav id="sidebar" class="sidebar" role="navigation">
@@ -202,170 +240,280 @@
         <h1 class="page-title">경기종목 - <span class="fw-semi-bold">축구</span></h1>
         <div class="row">
             <div class="col-lg-12">
+            
                 <section class="widget">
-                    <header>
-                        <h5>당신을 기다리고 있을 대결상대는 누구?!</h5>
-                    </header>
-                    <div class="widget-body">
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <div id="wizard" class="form-wizard">
-                                    <ul class="nav-justified mb-sm nav nav-pills">
-                                        <li class="nav-item"><a class="nav-link" href="#tab1" data-toggle="tab">
-                                            <small>1.</small>
-                                           	 날짜 / 시간</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#tab2" data-toggle="tab">
-                                            <small>2.</small>
-                                            	장소</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#tab3" data-toggle="tab">
-                                            <small>3.</small>
-                                            	기타</a></li>
-                                        
-                                    </ul>
-                                    <div class="bg-gray-lighter progress-bar mt-xs">
-                                        <progress id="bar" class="progress progress-xs progress-bar-gray-light progress-animated" value="100" max="100" style="width: 0%"></progress>
-                                    </div>
-                                    <div class="tab-content">
-                                        <div class="tab-pane bg-gray-lighter" id="tab1">
-                                            <form action='' method="POST"
-                                                  data-parsley-priority-enabled="false"
-                                                  novalidate="novalidate">
-                                                <fieldset>
-                                                    <div class="form-group">
-                                                        <!-- Username -->
-                                                        <label for="username">희망날짜 / 시간</label>
-                                                        <input type="date" id="username" name="username" placeholder=""
-                                                               class="form-control"
-                                                               required="required">
-                                                    </div>
-                                                    
-                                                    <div class="mb-sm">
-							                            <div class="btn-group" data-toggle="buttons">
-							                                <label class="btn btn-secondary">
-							                                    <input type="checkbox">6 ~ 8 시
-							                                </label>
-							                                <label class="btn btn-secondary">
-							                                    <input type="checkbox"> 8 ~ 10 시
-							                                </label>
-							                                <label class="btn btn-secondary">
-							                                    <input type="checkbox"> 10 ~ 12 시
-							                                </label>
-							                                <label class="btn btn-secondary">
-							                                    <input type="checkbox"> 12 ~ 14 시
-							                                </label>
-							                                <label class="btn btn-secondary">
-							                                    <input type="checkbox"> 14 ~ 16 시
-							                                </label>
-							                                <label class="btn btn-secondary">
-							                                    <input type="checkbox"> 16 ~ 18 시
-							                                </label>
-							                                <label class="btn btn-secondary">
-							                                    <input type="checkbox"> 18 ~ 20 시
-							                                </label>
-							                                <label class="btn btn-secondary">
-							                                    <input type="checkbox"> 20 ~ 22 시
-							                                </label>
-							                                <label class="btn btn-secondary">
-							                                    <input type="checkbox"> 상관없음
-							                                </label>
-							                            </div>
-							                            
-							                        </div>
-                                                </fieldset>
-                                            </form>
-                                            
-                                        </div>
-                                        <div class="tab-pane bg-gray-lighter" id="tab2">
-                                            <form action='' method="POST"
-                                                  data-parsley-priority-enabled="false"
-                                                  novalidate="novalidate">
-                                                <fieldset>
-                                                    <div class="form-group">
-                                                        <label for="country-select">지역</label>
-                                                        <select id="country-select" data-placeholder="Choose a Country..."
-                                                                class="form-control chzn-select">
-                                                            <option value=""></option>
-                                                            <option value="강남구">강남구</option>
-                                                            <option value="간서구">강서구</option>
-                                                        </select>
-                                                    </div>
-                                                </fieldset>
-                                                
-                                                <button class="btn btn-success">매칭시작 &nbsp; <i class="glyphicon glyphicon-ok"></i></button>
-                                                
-                                            </form>
-                                        </div>
-                                        <div class="tab-pane bg-gray-lighter" id="tab3">
-                                            <form action='' method="POST">
-                                                <fieldset>
-                                                 	 정보확인? 가중치?
-                                                </fieldset>
-                                                
-                                            </form>
-                                        </div>
-                                        
-                                        <div class="tab-pane bg-gray-lighter" id="tab4">
-                                            <h2>Thank you!</h2>
+                    	위도<input type="text" id="ln">경도<input type="text" id="la">위치<input type="text" id="pl">
+                    <div class="map_wrap">
+                    
+					    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+						<div id="clickLatlng"></div>
+					    <div id="menu_wrap" class="bg_white">
+					        <div class="option">
+					            <div>
+					                <form onsubmit="searchPlaces(); return false;">
+					                    키워드 : <input type="text" value="" id="keyword" size="15"> 
+					                    <button type="submit">검색하기</button> 
+					                </form>
+					            </div>
+					        </div>
+					        <hr>
+					        <ul id="placesList"></ul>
+					        <div id="pagination"></div>
+					    </div>
+					</div>
 
-                                            <p>Your submission has been received.</p>
-                                        </div>
-                                        <ul class="pager wizard">
-                                            <li class="previous">
-                                                <button class="btn btn-default btn-rounded pull-xs-left">
-                                                    <i class="fa fa-caret-left"></i> &nbsp; Previous
-                                                </button>
-                                            </li>
-                                            <li class="next">
-                                                <button class="btn btn-primary btn-rounded pull-xs-right" >
-                                                    Next &nbsp; <i class="fa fa-caret-right"></i></button>
-                                            </li>
-                                            
-                                        </ul>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <div>
-                            <div class="col-lg-4">
-                            	<h1 class="page-title" id="calender-current-date"></h1>
-                            <section class="widget widget-calendar">
-				                    <div class="widget-body">
-				                        <div class="calendar-controls">
-				                            <div class="btn-group ">
-				                                <button class="btn btn-secondary" id="calender-prev"><i class="fa fa-angle-left"></i></button>
-				                                <button class="btn btn-secondary" id="calender-next"><i class="fa fa-angle-right"></i></button>
-				                            </div>
-				                            <div id="calendar-switcher" class="btn-group pull-xs-right" data-toggle="buttons">
-				                                <label class="btn btn-secondary active">
-				                                    <input type="radio" name="view" value="month"> Month
-				                                </label>
-				                                <label class="btn btn-secondary">
-				                                    <input type="radio" name="view" value="agendaWeek"> Week
-				                                </label>
-				                                <label class="btn btn-secondary">
-				                                    <input type="radio" name="view" value="agendaDay"> Day
-				                                </label>
-				                            </div>
-				                        </div>
-				                        <div id="calendar" class="calendar"></div>
-				                        
-				                        
-				                        
-				                        
-				                        
-				                        
-				                        
-                                                
-				                    </div>
-	                			 </section>   
-                			 </div>
-                			
-                            <div class="col-lg-4">
-                                <div class="wizard" id="satellite-wizard" data-title="Create Server">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+		<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=e476fd3b9c743461f3c713db7e85c418&libraries=services"></script>
+		<script>
+		// 마커를 담을 배열입니다
+		var markers = [];
+		
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = {
+		        center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+		        level: 3 // 지도의 확대 레벨
+		    };  
+		
+		// 지도를 생성합니다    
+		var map = new daum.maps.Map(mapContainer, mapOption); 
+		
+		// 장소 검색 객체를 생성합니다
+		var ps = new daum.maps.services.Places();  
+		
+		// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
+		var infowindow = new daum.maps.InfoWindow({zIndex:1});
+		
+		// 키워드로 장소를 검색합니다
+		searchPlaces();
+		
+		var marker = new daum.maps.Marker({ 
+		    // 지도 중심좌표에 마커를 생성합니다 
+		    position: map.getCenter() 
+		}); 
+		// 지도에 마커를 표시합니다
+		marker.setMap(map);
+		// 지도에 클릭 이벤트를 등록합니다
+		// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+		daum.maps.event.addListener(map, 'click', function(mouseEvent) {        
+		    
+		    // 클릭한 위도, 경도 정보를 가져옵니다 
+		    var latlng = mouseEvent.latLng; 
+		    
+		    // 마커 위치를 클릭한 위치로 옮깁니다
+		    marker.setPosition(latlng);
+		    var lng = latlng.getLng();
+		    var lat = latlng.getLat();
+		    
+		    
+		    document.getElementById('ln').value = lng; 
+		    document.getElementById('la').value = lat; 
+		    
+		});
+		
+		// 키워드 검색을 요청하는 함수입니다
+		function searchPlaces() {
+		
+		    var keyword = document.getElementById('keyword').value;
+		
+		    if (!keyword.replace(/^\s+|\s+$/g, '')) {
+				/*alert('키워드를 입력해주세요!');*/
+				return false;
+		    }
+		
+		    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+		    ps.keywordSearch( keyword, placesSearchCB); 
+		}
+		
+		// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+		function placesSearchCB(status, data, pagination) {
+		    if (status === daum.maps.services.Status.OK) {
+		
+		        // 정상적으로 검색이 완료됐으면
+		        // 검색 목록과 마커를 표출합니다
+		        displayPlaces(data.places);
+		
+		        // 페이지 번호를 표출합니다
+		        displayPagination(pagination);
+		
+		    } else if (status === daum.maps.services.Status.ZERO_RESULT) {
+		
+		        alert('검색 결과가 존재하지 않습니다.');
+		        return;
+		
+		    } else if (status === daum.maps.services.Status.ERROR) {
+		
+		        alert('검색 결과 중 오류가 발생했습니다.');
+		        return;
+		
+		    }
+		}
+		
+		// 검색 결과 목록과 마커를 표출하는 함수입니다
+		function displayPlaces(places) {
+		
+		    var listEl = document.getElementById('placesList'), 
+		    menuEl = document.getElementById('menu_wrap'),
+		    fragment = document.createDocumentFragment(), 
+		    bounds = new daum.maps.LatLngBounds(), 
+		    listStr = '';
+		    
+		    // 검색 결과 목록에 추가된 항목들을 제거합니다
+		    removeAllChildNods(listEl);
+		
+		    // 지도에 표시되고 있는 마커를 제거합니다
+		    removeMarker();
+		    
+		    for ( var i=0; i<places.length; i++ ) {
+		
+		        // 마커를 생성하고 지도에 표시합니다
+		        var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
+		            marker = addMarker(placePosition, i), 
+		            itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성합니다
+		
+		        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+		        // LatLngBounds 객체에 좌표를 추가합니다
+		        bounds.extend(placePosition);
+		
+		        // 마커와 검색결과 항목에 mouseover 했을때
+		        // 해당 장소에 인포윈도우에 장소명을 표시합니다
+		        // mouseout 했을 때는 인포윈도우를 닫습니다
+		        (function(marker, title) {
+		            daum.maps.event.addListener(marker, 'mouseover', function() {
+		                displayInfowindow(marker, title);
+		            });
+		
+		            daum.maps.event.addListener(marker, 'mouseout', function() {
+		                infowindow.close();
+		            });
+		            
+		            
+		            //검색결과 클릭하면 이름 가져옴
+		            daum.maps.event.addListener(marker, 'click', function() {
+		            	document.getElementById('pl').value = title;
+		            });
+		
+		            
+		            
+		            
+		            itemEl.onmouseover =  function () {
+		                displayInfowindow(marker, title);
+		            };
+		
+		            itemEl.onmouseout =  function () {
+		                infowindow.close();
+		            };
+		        })(marker, places[i].title);
+		
+		        fragment.appendChild(itemEl);
+		    }
+		
+		    // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
+		    listEl.appendChild(fragment);
+		    menuEl.scrollTop = 0;
+		
+		    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+		    map.setBounds(bounds);
+		}
+		
+		// 검색결과 항목을 Element로 반환하는 함수입니다
+		function getListItem(index, places) {
+		
+		    var el = document.createElement('li'),
+		    itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
+		                '<div class="info">' +
+		                '   <h5>' + places.title + '</h5>';
+		
+		    if (places.newAddress) {
+		        itemStr += '    <span>' + places.newAddress + '</span>' +
+		                    '   <span class="jibun gray">' +  places.address  + '</span>';
+		    } else {
+		        itemStr += '    <span>' +  places.address  + '</span>'; 
+		    }
+		                 
+		      itemStr += '  <span class="tel">' + places.phone  + '</span>' +
+		                '</div>';           
+		
+		    el.innerHTML = itemStr;
+		    el.className = 'item';
+		
+		    return el;
+		}
+		
+		// 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
+		function addMarker(position, idx, title) {
+		    var imageSrc = 'http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+		        imageSize = new daum.maps.Size(36, 37),  // 마커 이미지의 크기
+		        imgOptions =  {
+		            spriteSize : new daum.maps.Size(36, 691), // 스프라이트 이미지의 크기
+		            spriteOrigin : new daum.maps.Point(0, (idx*46)+10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+		            offset: new daum.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+		        },
+		        markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+		            marker = new daum.maps.Marker({
+		            position: position, // 마커의 위치
+		            image: markerImage 
+		        });
+		
+		    marker.setMap(map); // 지도 위에 마커를 표출합니다
+		    markers.push(marker);  // 배열에 생성된 마커를 추가합니다
+		
+		    return marker;
+		}
+		
+		// 지도 위에 표시되고 있는 마커를 모두 제거합니다
+		function removeMarker() {
+		    for ( var i = 0; i < markers.length; i++ ) {
+		        markers[i].setMap(null);
+		    }   
+		    markers = [];
+		}
+		
+		// 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
+		function displayPagination(pagination) {
+		    var paginationEl = document.getElementById('pagination'),
+		        fragment = document.createDocumentFragment(),
+		        i; 
+		
+		    // 기존에 추가된 페이지번호를 삭제합니다
+		    while (paginationEl.hasChildNodes()) {
+		        paginationEl.removeChild (paginationEl.lastChild);
+		    }
+		
+		    for (i=1; i<=pagination.last; i++) {
+		        var el = document.createElement('a');
+		        el.href = "#";
+		        el.innerHTML = i;
+		
+		        if (i===pagination.current) {
+		            el.className = 'on';
+		        } else {
+		            el.onclick = (function(i) {
+		                return function() {
+		                    pagination.gotoPage(i);
+		                }
+		            })(i);
+		        }
+		
+		        fragment.appendChild(el);
+		    }
+		    paginationEl.appendChild(fragment);
+		}
+		
+		// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
+		// 인포윈도우에 장소명을 표시합니다
+		function displayInfowindow(marker, title) {
+		    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+			
+		    infowindow.setContent(content);
+		    infowindow.open(map, marker);
+		}
+		
+		 // 검색결과 목록의 자식 Element를 제거하는 함수입니다
+		function removeAllChildNods(el) {   
+		    while (el.hasChildNodes()) {
+		        el.removeChild (el.lastChild);
+		    }
+		}
+		</script>
                 </section>
             </div>
         </div>
@@ -378,53 +526,53 @@
 </div>
 
 <!-- common libraries. required for every page-->
-<script src="vendor/jquery/dist/jquery.min.js"></script>
-<script src="vendor/jquery-pjax/jquery.pjax.js"></script>
-<script src="vendor/tether/dist/js/tether.js"></script>
-<script src="vendor/bootstrap/js/dist/util.js"></script>
-<script src="vendor/bootstrap/js/dist/collapse.js"></script>
-<script src="vendor/bootstrap/js/dist/dropdown.js"></script>
-<script src="vendor/bootstrap/js/dist/button.js"></script>
-<script src="vendor/bootstrap/js/dist/tooltip.js"></script>
-<script src="vendor/bootstrap/js/dist/alert.js"></script>
-<script src="vendor/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="vendor/widgster/widgster.js"></script>
-<script src="vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
-<script src="vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
-<script src="js/bootstrap-fix/button.js"></script>
+<script src="../vendor/jquery/dist/jquery.min.../js"></script>
+<script src="../vendor/jquery-pjax/jquery.pjax.../js"></script>
+<script src="../vendor/tether/dist/../js/tether.../js"></script>
+<script src="../vendor/bootstrap/../js/dist/util.../js"></script>
+<script src="../vendor/bootstrap/../js/dist/collapse.../js"></script>
+<script src="../vendor/bootstrap/../js/dist/dropdown.../js"></script>
+<script src="../vendor/bootstrap/../js/dist/button.../js"></script>
+<script src="../vendor/bootstrap/../js/dist/tooltip.../js"></script>
+<script src="../vendor/bootstrap/../js/dist/alert.../js"></script>
+<script src="../vendor/slimScroll/jquery.slimscroll.min.../js"></script>
+<script src="../vendor/widgster/widgster.../js"></script>
+<script src="../vendor/pace.../js/pace.../js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
+<script src="../vendor/jquery-touchswipe/jquery.touchSwipe.../js"></script>
+<script src="../js/bootstrap-fix/button.../js"></script>
 
-<!-- common app js -->
-<script src="js/settings.js"></script>
-<script src="js/app.js"></script>
+<!-- common app ../js -->
+<script src="../js/settings.../js"></script>
+<script src="../js/app.../js"></script>
 
 <!-- page specific libs -->
-<script src="vendor/parsleyjs/dist/parsley.min.js"></script>
-<script src="vendor/bootstrap/js/dist/tab.js"></script>
-<script src="vendor/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
-<script src="vendor/select2/select2.js"></script>
-<script src="vendor/moment/min/moment.min.js"></script>
-<script src="vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-<script src="vendor/jasny-bootstrap/js/inputmask.js"></script>
-<script src="vendor/bootstrap/js/dist/modal.js"></script>
-<script src="vendor/bootstrap/js/dist/popover.js"></script>
-<script src="vendor/bootstrap-application-wizard/src/bootstrap-wizard.js"></script>
+<script src="../vendor/parsley../js/dist/parsley.min.../js"></script>
+<script src="../vendor/bootstrap/../js/dist/tab.../js"></script>
+<script src="../vendor/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.../js"></script>
+<script src="../vendor/select2/select2.../js"></script>
+<script src="../vendor/moment/min/moment.min.../js"></script>
+<script src="../vendor/eonasdan-bootstrap-datetimepicker/build/../js/bootstrap-datetimepicker.min.../js"></script>
+<script src="../vendor/jasny-bootstrap/../js/inputmask.../js"></script>
+<script src="../vendor/bootstrap/../js/dist/modal.../js"></script>
+<script src="../vendor/bootstrap/../js/dist/popover.../js"></script>
+<script src="../vendor/bootstrap-application-wizard/src/bootstrap-wizard.../js"></script>
 
-<!-- page specific js -->
-<script src="js/form-wizard.js"></script>
+<!-- page specific ../js -->
+<script src="../js/form-wizard.../js"></script>
 
 
 
 
 <!-- 캘린더용 -->
 
-<script src="vendor/jquery-ui/ui/core.js"></script>
-<script src="vendor/jquery-ui/ui/widget.js"></script>
-<script src="vendor/jquery-ui/ui/mouse.js"></script>
-<script src="vendor/jquery-ui/ui/draggable.js"></script>
-<script src="vendor/jquery-ui/ui/resizable.js"></script>
-<script src="vendor/fullcalendar/fullcalendar.js"></script>
-<script src="vendor/bootstrap/js/dist/modal.js"></script>
-<!-- page specific js -->
-<script src="js/calendar.js"></script>
+<script src="../vendor/jquery-ui/ui/core.../js"></script>
+<script src="../vendor/jquery-ui/ui/widget.../js"></script>
+<script src="../vendor/jquery-ui/ui/mouse.../js"></script>
+<script src="../vendor/jquery-ui/ui/draggable.../js"></script>
+<script src="../vendor/jquery-ui/ui/resizable.../js"></script>
+<script src="../vendor/fullcalendar/fullcalendar.../js"></script>
+<script src="../vendor/bootstrap/../js/dist/modal.../js"></script>
+<!-- page specific ../js -->
+<script src="../js/calendar.../js"></script>
 </body>
 </html>

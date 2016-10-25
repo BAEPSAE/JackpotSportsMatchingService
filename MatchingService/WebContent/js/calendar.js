@@ -1,31 +1,14 @@
 $(function(){
     function pageLoad(){
-        $('#external-events').find('div.external-event').each(function() {
-
-            // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-            // it doesn't need to have a start or end
-            var eventObject = {
-                title: $.trim($(this).text()) // use the element's text as the event title
-            };
-
-            // store the Event Object in the DOM element so we can get to it later
-            $(this).data('eventObject', eventObject);
-
-            // make the event draggable using jQuery UI
-            $(this).draggable({
-                zIndex: 999,
-                revert: true,      // will cause the event to go back to its
-                revertDuration: 0  //  original position after the drag
-            });
-
-        });
-
+        
         var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
         var y = date.getFullYear();
+        
         var $calendar = $('#calendar').fullCalendar({
-            header: {
+            
+        	header: {
                 left: '',
                 center: '',
                 right: ''
@@ -60,70 +43,37 @@ $(function(){
             editable: true,
             droppable:true,
 
-            drop: function(date, allDay) { // this function is called when something is dropped
+            
 
-                // retrieve the dropped element's stored Event Object
-                var originalEventObject = $(this).data('eventObject');
-
-                // we need to copy it, so that multiple events don't have a reference to the same object
-                var copiedEventObject = $.extend({}, originalEventObject);
-
-                // assign it the date that was reported
-                copiedEventObject.start = date;
-                copiedEventObject.allDay = allDay;
-
-                var $categoryClass = $(this).data('event-class');
-                if ($categoryClass)
-                    copiedEventObject['className'] = [$categoryClass];
-
-                // render the event on the calendar
-                // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-                $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
-                $(this).remove();
-
-            },
-
-            // US Holidays
-            events: [
-                {
-                    title: 'VS - FC사우나',
-                    start: new Date(y, m, 2),
-                    backgroundColor: '#e5603b',
-                    textColor: '#fff'
-                },
-                {
-                    title: '대창찾는 중',
-                    start: new Date(y, m, d+2),
-                    end: new Date(y, m, d+2),
-                    backgroundColor: '#64bd63',
-                    textColor: '#fff'
-                }
-            ],
-
-            eventClick: function(event) {
-                // opens events in a popup window
-                if (event.url){
-                    window.open(event.url, 'gcalevent', 'width=700,height=600');
-                    return false
-                } else {
-                    var $modal = $("#myModal"),
-                        $modalLabel = $("#myModalLabel");
-                    $modalLabel.html(event.title);
-                    $modal.find(".modal-body p").html(function(){
-                        if (event.allDay){
-                            return "All day event"
-                        } else {
-                            return "Start At: <strong>" + event.start.getHours() + ":" + (event.start.getMinutes() == 0 ? "00" : event.start.getMinutes()) + "</strong></br>"
-                                + (event.end == null ? "" : "End At: <strong>" + event.end.getHours() + ":" + (event.end.getMinutes() == 0 ? "00" : event.end.getMinutes()) + "</strong>")
-                        }
-                    }());
-                    $modal.modal('show');
-                }
-            }
+            // 받아온 정보로 이벤트 추가
+            events: function(start, end, callback) {
+    	        $.ajax({
+    	            url: 'schedule',
+    	            method : 'get',
+    	            success: function(doc) {
+    	                var events = [];
+    	                for(var c = 0; c <doc.events.length; c++ ) {
+    	                    events.push({
+    	                    	id: "aaa",
+    	                        title: doc.events[c].title,
+    	                        allDay: true,
+    	                        start: doc.events[c].start,
+    	                        backgroundColor: '#e5603b',
+    	                        textColor: '#fff'
+    	                    });
+    	                }
+    	                callback(events);
+    	            }/*
+    		        , error : function(resp, statusCode) {
+    		        	alert(resp + " "+ statusCode);
+    		        }*/
+    	        });
+    	    }
 
         });
 
+        
+        
         $("#calendar-switcher").find("label").click(function(){
             $calendar.fullCalendar( 'changeView', $(this).find('input').val() )
         });

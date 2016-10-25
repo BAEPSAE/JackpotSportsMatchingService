@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import vo.Grounds;
+import vo.Matching;
 import vo.Player;
 import vo.Record;
 
@@ -75,5 +76,11 @@ public class PlayerDAO {
 			e.printStackTrace();
 		}
 		return p;
+	}
+	//개인의 매칭정보 리스트 가져오기
+	public List<Matching> getMatchingList(Player player){
+		List<Matching> result = new ArrayList<Matching>();
+		result = sqlSession.selectList("mapper.PlayerMapper.getMatchingList", player);
+		return result;
 	}
 }

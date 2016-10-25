@@ -52,7 +52,7 @@
         	$('#teamapplies').on('click', 'button', function(index) {
 				var here=$(this);
 				var playerId=$(this).parent().parent().children().first().text();
-				if(here.id=='go'){
+				if(here.attr('id') == 'go'){
 					if(confirm("팀원으로 등록하시겠습니까?")){
 						$.ajax({
 							url: 't_joinAccept'
@@ -352,9 +352,11 @@ body {
       <br>
       <div class="row">
          <section class="widget">
+         <h3>가입신청<span class="fw-semi-bold">목록</span></h3>
             <table class="table table-striped">
                <thead>
                   <tr>
+                  	<th>No</th>
                      <th>아이디</th>
                      <th>이름</th>
                      <th>지역</th>
@@ -362,8 +364,9 @@ body {
                   </tr>
                </thead>
                <tbody id="teamapplies">
-                  <s:iterator value="applyList">
+                  <s:iterator value="applyList" status="rowStatus">
                      <tr>
+                     <td><s:property value="#rowStatus.count" /></td>
                         <td><s:property value="user_Id" /></td>
                         <td><s:property value="user_Name" /></td>
                         <td><s:property value="user_Location" /></td>
