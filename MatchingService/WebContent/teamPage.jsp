@@ -78,7 +78,11 @@
         	$('#teamapplies').on('click', 'button', function(index) {
 				var here=$(this);
 				var playerId=$(this).parent().parent().children().first().text();
+<<<<<<< HEAD
 				if(here.attr('id') == 'go'){
+=======
+				if(here.attr('id')=='go'){
+>>>>>>> branch 'master' of https://github.com/BAEPSAE/JackpotSportsMatchingService.git
 					if(confirm("팀원으로 등록하시겠습니까?")){
 						$.ajax({
 							url: 't_joinAccept'

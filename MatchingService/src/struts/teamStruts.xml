@@ -25,7 +25,11 @@
        </action>
        
        <action name="t_giveLeader"  class="action.TeamAction" method="t_giveLeader">
-       		<result type="redirect">/team/teamPage</result>
+       		<result type="json"></result>
+       </action>
+       
+       <action name="t_kick" class="action.TeamAction" method="t_kick">
+       		<result type="json"></result>
        </action>
        
        

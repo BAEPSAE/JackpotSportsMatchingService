@@ -5,11 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="mapper.PlayerMapper">
 
-   <!-- 개인정보 가져오기 -->
+  <!-- 개인정보 가져오기 -->
    <select id="getUserInfo" parameterType="String" resultType="Player">
       SELECT*FROM PLAYER WHERE USER_ID=#{user_Id}
    </select>
-   
    
    <!-- 종목별 전적 가져오기 -->
    <select id="getUserRecord" parameterType="String" resultType="Record">
@@ -30,14 +29,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </select>
    
    <!-- 종목별 경기장 정보 가져오기 -->
-   <select id="getUserGround" parameterType="String" resultType="Grounds">
+   <select id="getUserGround" parameterType="HashMap" resultType="Grounds">
       SELECT G.LOCATION
       , G.GROUND_NAME
       , G.GROUND_OWN
       , G.GROUND_PHONE
       , G.GROUND_ADDRESS
-      FROM GROUNDS G, GAMES GA WHERE GA.WINNER_ID=#{user_Id}
+      FROM GROUNDS G, 
+        (SELECT GROUND_ID, COUNT(GROUND_ID)AS GROUNDS
+        <if test="sports==1">
+        	FROM (SELECT GAME_TYPE, GROUND_ID, WINNER_ID FROM GAMES WHERE WINNER_ID=#{user_Id} AND GAME_TYPE='축구')
+        </if>
+        <if test="sports==2">
+        	FROM (SELECT GAME_TYPE, GROUND_ID, WINNER_ID FROM GAMES WHERE WINNER_ID=#{user_Id} AND GAME_TYPE='야구')
+        </if>
+        <if test="sports==3">
+        	FROM (SELECT GAME_TYPE, GROUND_ID, WINNER_ID FROM GAMES WHERE WINNER_ID=#{user_Id} AND GAME_TYPE='탁구')
+        </if>
+        <if test="sports==4">
+        	FROM (SELECT GAME_TYPE, GROUND_ID, WINNER_ID FROM GAMES WHERE WINNER_ID=#{user_Id} AND GAME_TYPE='볼링')
+        </if>
+        WHERE ROWNUM=1
+        GROUP BY GROUND_ID
+        ORDER BY GROUNDS DESC) GA 
+      WHERE GA.GROUND_ID=G.GROUND_ID
    </select>
+
 
   <!-- 팀 소속 멤버리스트 -->
    <select id="getPlayerList" resultType="Player" parameterType="HashMap">
@@ -67,5 +84,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getMatchingList" parameterType="Player" resultType="Matching">
 		select * from matching where player=#{user_Id}
 	</select>
+	
+	<!-- 업데이트 -->
+	<update id="changeTeam" parameterType="HashMap">
+		update PLAYER set
+		<if test="selector==1">
+			TEAM1=#{team, jdbcType=INTEGER}
+			, TEAM1_FLAG=#{team_flag, jdbcType=INTEGER}
+		</if>
+		<if test="selector==2">
+			TEAM2=#{team}
+			, TEAM2_FLAG=#{team_flag, jdbcType=INTEGER}
+		</if>
+		 where USER_ID=#{user_Id, jdbcType=INTEGER}
+	</update>	
+	
 	
 </mapper>

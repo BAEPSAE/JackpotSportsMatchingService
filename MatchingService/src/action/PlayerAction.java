@@ -2,7 +2,10 @@
 package action;
 
 import java.io.File;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> branch 'master' of https://github.com/BAEPSAE/JackpotSportsMatchingService.git
 import java.util.List;
 import java.util.Map;
 
@@ -26,9 +29,12 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	PlayerDAO dao=new PlayerDAO();
 	File save;
 	String saveFileName;
+<<<<<<< HEAD
 	List<Matching> schedule;
 	List<Events> events;
 	String sports;
+=======
+>>>>>>> branch 'master' of https://github.com/BAEPSAE/JackpotSportsMatchingService.git
 	
 	int sports;	//축구==1, 야구==2, 탁구==3, 볼링==4
 	String loginId;	//session 확인용
@@ -37,7 +43,10 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	//각 종목별 승률
 	int winSC, winBS, winTB, winBW, aver;
 	
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/BAEPSAE/JackpotSportsMatchingService.git
 	//종목별 그라운드
 	Grounds SCGrounds, BSGrounds, TBGrounds, BWGrounds;
 	
@@ -72,6 +81,7 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 		return SUCCESS;
 	}
 	
+<<<<<<< HEAD
 	//매칭 스케줄 리스트 받아오기
 	public String getScheduler() throws Exception{
 		Player plr = new Player();
@@ -91,6 +101,8 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 		return SUCCESS;
 	}
 	
+=======
+>>>>>>> branch 'master' of https://github.com/BAEPSAE/JackpotSportsMatchingService.git
 	
 	//get, set
 	public Player getPlayer() {
@@ -141,10 +153,67 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	public void setSaveFileName(String saveFileName) {
 		this.saveFileName = saveFileName;
 	}
+<<<<<<< HEAD
 	public List<Events> getEvents() {
 		return events;
+=======
+	public int getWinSC() {
+		return winSC;
+	}
+	public void setWinSC(int winSC) {
+		this.winSC = winSC;
+	}
+	public int getWinBS() {
+		return winBS;
+	}
+	public void setWinBS(int winBS) {
+		this.winBS = winBS;
+	}
+	public int getWinTB() {
+		return winTB;
+	}
+	public void setWinTB(int winTB) {
+		this.winTB = winTB;
+	}
+	public int getWinBW() {
+		return winBW;
+	}
+	public void setWinBW(int winBW) {
+		this.winBW = winBW;
+	}
+	public Grounds getSCGrounds() {
+		return SCGrounds;
+	}
+	public void setSCGrounds(Grounds sCGrounds) {
+		SCGrounds = sCGrounds;
+	}
+	public Grounds getBSGrounds() {
+		return BSGrounds;
+	}
+	public void setBSGrounds(Grounds bSGrounds) {
+		BSGrounds = bSGrounds;
+	}
+	public Grounds getTBGrounds() {
+		return TBGrounds;
+	}
+	public void setTBGrounds(Grounds tBGrounds) {
+		TBGrounds = tBGrounds;
+	}
+	public Grounds getBWGrounds() {
+		return BWGrounds;
+	}
+	public void setBWGrounds(Grounds bWGrounds) {
+		BWGrounds = bWGrounds;
+	}
+	public int getAver() {
+		return aver;
+	}
+	public void setAver(int aver) {
+		this.aver = aver;
+>>>>>>> branch 'master' of https://github.com/BAEPSAE/JackpotSportsMatchingService.git
 	}
 
+<<<<<<< HEAD
 	public void setEvents(List<Events> events) {
 		this.events = events;
 	}
@@ -210,6 +279,8 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 		this.aver = aver;
 	}
 
+=======
+>>>>>>> branch 'master' of https://github.com/BAEPSAE/JackpotSportsMatchingService.git
 	
 	//method
 	//화면 가져오기

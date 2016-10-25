@@ -16,6 +16,7 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	
 	Map<String, Object> session;
 	Player player;	//유저..?
+	String user_Id;
 	int selector;	//축구팀인지 야구팀인지.. 축구1 야구2
 	Team team;
 	int team_Id;
@@ -36,7 +37,7 @@ public class TeamAction extends ActionSupport implements SessionAware {
 		
 		System.out.println("in");
 		
-		String user_Id = "aaa";
+		user_Id = "aaa";
 		selector=1;
 		PlayerDAO pdao = new PlayerDAO();
 		player = pdao.getUserInfo(user_Id);
@@ -51,20 +52,23 @@ public class TeamAction extends ActionSupport implements SessionAware {
 		//팀 정보 가져오기
 		//flag가 1일때만 <<이거아직안함
 		team = tdao.getTeam(team_Id);
-		team_winrate = Math.round(team.getTeam_WinGame()/(double)team.getTeam_TotalGame()*100/100);
+		team_winrate = Math.ceil(team.getTeam_WinGame()/(double)team.getTeam_TotalGame()*100);
+		
+		
 		
 		//팀원 목록 가져오기
 		int type=1;	//1이면 정식 0이면 대기
 		pdao = new PlayerDAO();//?????
 		memberList = pdao.getPlayerList(selector, type, team_Id);
-		System.out.println(memberList);
 		pdao = new PlayerDAO();
 		applyList = pdao.getPlayerList(selector, 0, team_Id);
-		System.out.println(applyList);
 		
 		//팀장이면 session저장
-		if(team.getTeam_Leader().equals(user_Id)) session.put("isLeader", 1);
-		else session.remove("isLeader");
+		if(team.getTeam_Leader().equals(user_Id)) session.put("isLeader", "true");
+		else session.put("isLeader", "false");
+		
+		session.put("t1Leader", team.getTeam_Leader());
+		
 		
 		return SUCCESS;
 	}
@@ -93,14 +97,36 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	}
 	
 	public String t_giveLeader() throws Exception{
-		
+		//리더넘기기
+		System.out.println("leaddd");
+		PlayerDAO pdao = new PlayerDAO();
+		String sessionid="aaa";
+		player = pdao.getUserInfo(sessionid);
+		//축구팀이야 야구팀이야
+		team_Id = player.getTeam1();
+		TeamDAO tdao = new TeamDAO();
+		team = tdao.getTeam(team_Id);
+		team.setTeam_Leader(user_Id);
+		tdao = new TeamDAO();
+		tdao.updateTeam(team);
+		return SUCCESS;
+	}
+	
+	public String t_kick() throws Exception{
+		System.out.println("kick");
+		PlayerDAO pdao = new PlayerDAO();
+		player = pdao.getUserInfo(user_Id);
+		System.out.println("player"+player);
+		selector=1;
+		pdao.updateTeam(selector, -1, -1, user_Id);
+		System.out.println("kick_success");
 		return SUCCESS;
 	}
 	
 	public String getTeamList(){
 
 	    teamlist = new TeamDAO().getTeamList(team);
-
+	    
 	     // teamlist = new TeamDAO().getTeamList(team);
 
 	      return SUCCESS;
@@ -205,5 +231,15 @@ public class TeamAction extends ActionSupport implements SessionAware {
 		public void setApplyList(List<Player> applyList) {
 			this.applyList = applyList;
 		}
+
+		public String getUser_Id() {
+			return user_Id;
+		}
+
+		public void setUser_Id(String user_Id) {
+			this.user_Id = user_Id;
+		}
+		
+		
 
 }

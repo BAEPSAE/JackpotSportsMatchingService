@@ -20,9 +20,15 @@
             <exception-mapping exception="java.lang.Exception" result="error"/>
         </global-exception-mappings>
 
+<<<<<<< HEAD
         <action name="index">
             <result>index.jsp</result>
         </action>
+=======
+		<action name="index">
+           <result>/index_matching.jsp</result>
+		</action>
+>>>>>>> branch 'master' of https://github.com/BAEPSAE/JackpotSportsMatchingService.git
     </package>
 
     <include file="struts/teamStruts.xml"/>
