@@ -11,7 +11,7 @@
     <package name="default" namespace="/" extends="struts-default, json-default">
 
         <default-action-ref name="index" />
-
+        
         <global-results>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
         </global-results>
@@ -23,12 +23,10 @@
         <action name="index">
             <result>index.jsp</result>
         </action>
-       
-		
-		
     </package>
 
     <include file="struts/teamStruts.xml"/>
+    <include file="struts/boardStruts.xml"/>
 	<include file="struts/playerStruts.xml"/>
     <!-- Add packages here -->
 
