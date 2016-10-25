@@ -28,11 +28,37 @@
         		})
         	})
         	
-        	//체크가 안됨 ㅠㅠ label for랑 id문제
+        	//리더주기
         	$('#leaderTab #giveLeader').on('click', function(){
-        		var name=$('mList input[type=checkbox]:checked').val();
-        		
+        		var thisrow = $('input[type="checkbox"]:checked');
+        		var id=$('input[type="checkbox"]:checked').parent().parent().children().last().prev().text();
+        		$.ajax({
+        			url:'t_giveLeader'
+        			,data:{"user_Id":id}
+        			,dataType:'json'
+        			,success:function(data){
+        				location.href="teamPage";
+        			}, error: function(request, status, error) {
+						location.href="teamPage";
+					}
+        		})
         	})
+        	//퇴출하기
+        	$('#leaderTab #kick').on('click', function(){
+        		var thisrow = $('input[type="checkbox"]:checked').parent().parent();
+        		var id=$('input[type="checkbox"]:checked').parent().parent().children().last().prev().text();
+        		$.ajax({
+        			url:'t_kick'
+        			, data:{"user_Id":id}
+        			, dataType:'json'
+        			, success:function(){
+        				location.href="teamPage";
+        			}, error: function(request, status, error) {
+						location.href="teamPage";
+					}
+        		})
+        	});
+        	
         	
         	//팀 모집 여부
         	$('#t_openBtn').on('change', function(){
@@ -328,14 +354,19 @@ body {
                         </td>
                         <td><s:property value="user_Name" /></td>
                         <td><s:property value="user_Id" /></td>
-                        <td><span class="label label-danger">Online</span></td>
+                        <s:if test="%{#session.t1Leader==user_Id}">
+                        <td><span class="label label-danger">LEADER</span></td>
+                        </s:if>
+                        <s:else>
+                        <td><span class="label label-danger"></span></td>
+                        </s:else>
                      </tr>
                   </s:iterator>
                   
                </tbody>
             </table>
 			
-			<s:if test="%{#session.isLeader!=null}">
+			<s:if test="%{#session.isLeader=='true'}">
 				<div id="leaderTab">
 	               <button class="btn btn-gray width-100 mb-xs" role="button" id="kick">퇴출</button>
     	           <button class="btn btn-gray width-100 mb-xs" role="button" id="giveLeader">팀장위임</button>
