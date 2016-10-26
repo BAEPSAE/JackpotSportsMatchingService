@@ -37,7 +37,7 @@ public class TeamAction extends ActionSupport implements SessionAware {
 		
 		System.out.println("in");
 		
-		user_Id = "aaa";
+		user_Id = (String) session.get("user_Id");
 		selector=1;
 		PlayerDAO pdao = new PlayerDAO();
 		player = pdao.getUserInfo(user_Id);

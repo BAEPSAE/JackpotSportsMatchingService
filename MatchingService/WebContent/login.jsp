@@ -35,7 +35,7 @@
                                 <input type="text" class="form-control" id="id" name="player.user_Id" placeholder="아이디">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="password" name="player.user_Pw" type="text" placeholder="비밀번호">
+                                <input class="form-control" id="password" name="player.user_Pw" type="password" placeholder="비밀번호">
                             </div>
                             <div class="clearfix">
                                 <div class="btn-toolbar pull-xs-right">

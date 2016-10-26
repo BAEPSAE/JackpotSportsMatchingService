@@ -23,10 +23,15 @@ public class PlayerDAO {
 		
 	//종목별 전적 가져오기
 	public Record getUserRecord(String user_Id) {
-		sqlSession = MybatisConfig.getSqlSessionFactory().openSession();
 		Record getRecord=new Record();
-		getRecord=sqlSession.selectOne("mapper.PlayerMapper.getUserRecord", user_Id);
-		sqlSession.close();
+		try {
+			sqlSession = MybatisConfig.getSqlSessionFactory().openSession();
+			getRecord=sqlSession.selectOne("mapper.PlayerMapper.getUserRecord", user_Id);
+			sqlSession.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		return getRecord;
 	}
 	
@@ -53,7 +58,6 @@ public class PlayerDAO {
 		List<Player> result = new ArrayList<Player>();
 		result = sqlSession.selectList("mapper.PlayerMapper.getPlayerList", map);
 		sqlSession.close();
-			
 		return result;
 	}
 	

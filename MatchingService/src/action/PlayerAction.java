@@ -50,8 +50,8 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 		if(player == null) {
 			return INPUT;
 		} else {
-			session.put("id", player.getUser_Id());
-			session.put("name", player.getUser_Name());
+			session.put("user_Id", player.getUser_Id());
+			session.put("user_Name", player.getUser_Name());
 			session.put("profile", player.getSaveFileName());
 			return SUCCESS;
 		}
@@ -60,8 +60,6 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	
 	public String logout() throws Exception {
 		session.clear();
-		
-		
 		return SUCCESS;
 	}
 	
@@ -175,11 +173,15 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	//화면 가져오기
 	public String mypagev() {
 		//개인정보 가져오기
-		player=dao.getUserInfo("TEST");
+		String user_Id = (String) session.get("user_Id");
+		player=dao.getUserInfo(user_Id);
 		System.out.println("1. 개인정보: "+player.toString());
 		
 		//종목별 전적 가져오기
-		record=dao.getUserRecord("TEST");
+		
+		//다시dao
+		dao = new PlayerDAO();
+		record=dao.getUserRecord(user_Id);
 		winSC=(record.getFb_Win()%record.getFb_Total());
 		winBS=(record.getBb_Win()%record.getBb_Total());
 		winTB=(record.getPp_Win()%record.getPp_Total());
@@ -191,10 +193,10 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 		//축구
 		for(sports=1; sports<=4; sports++) {
 			dao=new PlayerDAO();
-			if(sports==1) SCGrounds=dao.getUserGround("TEST", sports);
-			else if(sports==2) BSGrounds=dao.getUserGround("TEST", sports);
-			else if(sports==3) TBGrounds=dao.getUserGround("TEST", sports);
-			else BWGrounds=dao.getUserGround("TEST", sports);
+			if(sports==1) SCGrounds=dao.getUserGround(user_Id, sports);
+			else if(sports==2) BSGrounds=dao.getUserGround(user_Id, sports);
+			else if(sports==3) TBGrounds=dao.getUserGround(user_Id, sports);
+			else BWGrounds=dao.getUserGround(user_Id, sports);
 		}
 		return SUCCESS;
 	}
