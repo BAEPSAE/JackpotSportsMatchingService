@@ -65,8 +65,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 로그인 -->
-	<select id="getUser" parameterType="Player" resultType="player">
+	<select id="getUser" parameterType="Player" resultType="Player">
 		SELECT * FROM PLAYER WHERE USER_ID=#{user_Id} AND USER_PW=#{user_Pw}
+	</select>
+	<select id="getMatchingList" parameterType="Player" resultType="Matching">
+		select * from matching where player=#{user_Id}
 	</select>
 	
 	<!-- 업데이트 -->

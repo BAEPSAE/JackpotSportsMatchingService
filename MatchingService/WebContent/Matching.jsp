@@ -4,8 +4,8 @@
 <html>
 <head>
     <title>골목대장 - 진행중인 매칭</title>
-    <link href="css/application.min.css" rel="stylesheet">
-    <link rel="shortcut icon" href="img/favicon.png">
+    <link href="../css/application.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../img/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -18,6 +18,27 @@
          https://code.google.com/p/chromium/issues/detail?id=332189
          */
     </script>
+    <script src="../js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+			$.ajax({
+				url:'schedulelist',
+				method: 'post',
+				success: function(resp) {
+					$('#nowlist').empty();
+					var tlist = resp.schedule;
+					$.each(tlist, function(index) {
+						var flag = '<i class="fa fa-star"></i>';
+						/* if(tlist[index].team_Open == false){
+							flag = '<i class="fa fa-eye"></i>';
+						} */
+						$('#nowlist').append('<li><span class="icon bg-danger text-white">'+flag+'</span><div class="news-item-info"><h5 class="name no-margin mb-xs">'+tlist[index].player+'</h5><p class="fs-mini">'+"내용내용"+'</p><time class="help-block">매칭시작시간 : Mar 20, 18:46</time></div></li>')
+					});
+				}
+			});
+	});
+    </script>
+    
     
 </head>
 <body>
@@ -32,7 +53,7 @@
         <div class="sidebar-status hidden-md-up">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <span class="thumb-sm avatar pull-xs-right">
-                    <img class="img-circle" src="demo/img/people/a5.jpg" alt="...">
+                    <img class="img-circle" src="../demo/img/people/a5.jpg" alt="...">
                 </span>
                 <!-- .circle is a pretty cool way to add a bit of beauty to raw data.
                      should be used with bg-* and text-* classes for colors -->
@@ -168,7 +189,7 @@
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle dropdown-toggle-notifications nav-link" id="notifications-dropdown-toggle" data-toggle="dropdown">
                         <span class="thumb-sm avatar pull-xs-left">
-                            <img class="img-circle" src="demo/img/people/a5.jpg" alt="...">
+                           <img class="img-circle" src="../demo/img/people/a5.jpg" alt="...">
                         </span>
                         &nbsp;
                         <strong>마스터도넛</strong>&nbsp;
@@ -203,36 +224,10 @@
         	<div class="col-xl-4">
                 <h1 class="page-title" id="calender-current-date">Calendar - <span class="fw-semi-bold">Events</span></h1>
             	<div class="widget-body no-padding">
-                        <ul class="news-list stretchable">
-                            <li>
-                                <span class="icon bg-danger text-white">
-                                    <i class="fa fa-star"></i>
-                                </span>
-                                <div class="news-item-info">
-                                    <h5 class="name no-margin mb-xs"><a href="#">VS - FC사우나</a></h5>
-                                    <p class="fs-mini">
-                                        	구장이름: 슛돌이죽구장  <br>
-                                        	시간대: 15시~18시 <br>
-                                        	지역: 강남구
-                                    </p>
-                                    <time class="help-block">매칭시작시간 : Mar 20, 18:46</time>
-                                </div>
-                            </li>
+                        <ul class="news-list stretchable" id="nowlist">
                             
-                            <li>
-                                <span class="icon bg-success text-white">
-                                    <i class="fa fa-eye"></i>
-                                </span>
-                                <div class="news-item-info">
-                                    <h5 class="name no-margin mb-xs"><a href="#">대상찾는 중</a></h5>
-                                    <p class="fs-mini">
-                                   			구장이름: 슛돌이죽구장  <br>
-                                        	시간대: 15시~18시 <br>
-                                        	지역: 강남구
-                                    </p>
-                                    <time class="help-block">Mar 20, 18:46</time>
-                                </div>
-                            </li>
+                            
+                            
                         </ul>
                     </div>
             </div>
@@ -284,34 +279,34 @@
 </div>
 
 <!-- common libraries. required for every page-->
-<script src="vendor/jquery/dist/jquery.min.js"></script>
-<script src="vendor/jquery-pjax/jquery.pjax.js"></script>
-<script src="vendor/tether/dist/js/tether.js"></script>
-<script src="vendor/bootstrap/js/dist/util.js"></script>
-<script src="vendor/bootstrap/js/dist/collapse.js"></script>
-<script src="vendor/bootstrap/js/dist/dropdown.js"></script>
-<script src="vendor/bootstrap/js/dist/button.js"></script>
-<script src="vendor/bootstrap/js/dist/tooltip.js"></script>
-<script src="vendor/bootstrap/js/dist/alert.js"></script>
-<script src="vendor/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="vendor/widgster/widgster.js"></script>
-<script src="vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
-<script src="vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
-<script src="js/bootstrap-fix/button.js"></script>
+<script src="../vendor/jquery/dist/jquery.min.js"></script>
+<script src="../vendor/jquery-pjax/jquery.pjax.js"></script>
+<script src="../vendor/tether/dist/js/tether.js"></script>
+<script src="../vendor/bootstrap/js/dist/util.js"></script>
+<script src="../vendor/bootstrap/js/dist/collapse.js"></script>
+<script src="../vendor/bootstrap/js/dist/dropdown.js"></script>
+<script src="../vendor/bootstrap/js/dist/button.js"></script>
+<script src="../vendor/bootstrap/js/dist/tooltip.js"></script>
+<script src="../vendor/bootstrap/js/dist/alert.js"></script>
+<script src="../vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="../vendor/widgster/widgster.js"></script>
+<script src="../vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
+<script src="../vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
+<script src="../js/bootstrap-fix/button.js"></script>
 
 <!-- common app js -->
-<script src="js/settings.js"></script>
-<script src="js/app.js"></script>
+<script src="../js/settings.js"></script>
+<script src="../js/app.js"></script>
 
 <!-- page specific libs -->
-<script src="vendor/jquery-ui/ui/core.js"></script>
-<script src="vendor/jquery-ui/ui/widget.js"></script>
-<script src="vendor/jquery-ui/ui/mouse.js"></script>
-<script src="vendor/jquery-ui/ui/draggable.js"></script>
-<script src="vendor/jquery-ui/ui/resizable.js"></script>
-<script src="vendor/fullcalendar/fullcalendar.js"></script>
-<script src="vendor/bootstrap/js/dist/modal.js"></script>
+<script src="../vendor/jquery-ui/ui/core.js"></script>
+<script src="../vendor/jquery-ui/ui/widget.js"></script>
+<script src="../vendor/jquery-ui/ui/mouse.js"></script>
+<script src="../vendor/jquery-ui/ui/draggable.js"></script>
+<script src="../vendor/jquery-ui/ui/resizable.js"></script>
+<script src="../vendor/fullcalendar/fullcalendar.js"></script>
+<script src="../vendor/bootstrap/js/dist/modal.js"></script>
 <!-- page specific js -->
-<script src="js/calendar.js"></script>
+<script src="../js/calendar.js"></script>
 </body>
 </html>
