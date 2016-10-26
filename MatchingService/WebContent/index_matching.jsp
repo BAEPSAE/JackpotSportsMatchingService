@@ -222,68 +222,7 @@
       </div>
    </nav>
 
-<div class="content-wrap">
-    <main id="content" class="content" role="main">
-		<h1 class="page-title">
-			팀 <span class="fw-semi-bold">찾기</span>
-		</h1>
-		<section class="widget">
-			<header>
-				<h4>
-					<span class="fw-semi-bold"></span>
-					
-				</h4>
-				<div class="input-group">
-				
-					<input class="form-control" id="search-input" type="search"
-						placeholder="팀명으로 검색"> <span class="input-group-btn">
-						<button class="btn btn-secondary" id="searchbtn" type="button">Search</button>
-					</span>
-				</div>
 
-			</header>
-			<!-- <div class="widget-body">
-                <p>
-                    Editable, validatable, filterable and sortable table made with
-                    <a href="http://backgridjs.com/" target="_blank">Backgrid.js</a>
-                </p>
-                <div id="table-dynamic"></div>
-            </div> -->
-		</section>
-		<section class="widget">
-			<header>
-				<div class="widget-controls">
-					<a data-widgster="expand" title="Expand" href="#"><i
-						class="glyphicon glyphicon-chevron-up"></i></a> <a
-						data-widgster="collapse" title="Collapse" href="#"><i
-						class="glyphicon glyphicon-chevron-down"></i></a> <a
-						data-widgster="close" title="Close" href="#"><i
-						class="glyphicon glyphicon-remove"></i></a>
-				</div>
-			</header>
-			<div class="widget-body">
-				<div class="mt">
-				
-					<table id="datatable-table" class="table table-striped table-hover">
-						<thead>
-							<tr>
-								<th>Id</th>
-								<th>팀명</th>
-								<th class="no-sort hidden-sm-down">팀 리더</th>
-								<th class="hidden-sm-down">전적</th>
-								<th class="hidden-sm-down">승점</th>
-								<th class="no-sort">팀 참가</th>
-							</tr>
-						</thead>
-						<tbody id="teamlistbody">
-							
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</section>
-		</main>
-</div>
 
 <!-- 매칭 메인 페이지 -->
 <div class="content-wrap">
