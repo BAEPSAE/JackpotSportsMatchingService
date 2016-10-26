@@ -7,41 +7,41 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
-		<script src="../js/jquery-3.1.1.min.js"></script>
-		<script src="../js/skel.min.js"></script>
-		<script src="../js/init.js"></script>
-		<link rel="stylesheet" href="../css/skel.css" />
-		<link rel="stylesheet" href="../css/style.css" />
-		<link rel="stylesheet" href="../css/style-noscript.css" />
-		<link rel="stylesheet" href="../css/style-wide.css" />
-		<link rel="stylesheet" href="../images/font-awesome.min.css" />
-		<link rel="stylesheet" href="../css/ie/v9.css" />
-		<link rel="stylesheet" href="../css/ie/v8.css" />
+		<script src="js/jquery-3.1.1.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/init.js"></script>
+		<link rel="stylesheet" href="css/skel.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/style-noscript.css" />
+		<link rel="stylesheet" href="css/style-wide.css" />
+		<link rel="stylesheet" href="images/font-awesome.min.css" />
+		<link rel="stylesheet" href="css/ie/v9.css" />
+		<link rel="stylesheet" href="css/ie/v8.css" />
 		
 		<!-- 자바 스크립트 추가 -->
 		<script type="text/javascript">
 			$(document).ready(function() {
 				//축구
 				$('#soccer').mouseenter(function() {
-					var url='url("../css/images/img1.jpg")';
+					var url='url("css/images/img1.jpg")';
 					$('#bg').css('background-image', url);
 				});
 				
 				//야구
 				$('#baseball').mouseenter(function() {
-					var url='url("../css/images/img2.jpg")';
+					var url='url("css/images/img2.jpg")';
 					$('#bg').css('background-image', url);
 				});
 				
 				//탁구
 				$('#tableTennis').mouseenter(function() {
-					var url='url("../css/images/img3.jpg")';
+					var url='url("css/images/img3.jpg")';
 					$('#bg').css('background-image', url);
 				});
 				
 				//볼링
 				$('#bowling').mouseenter(function() {
-					var url='url("../css/images/img4.jpg")';
+					var url='url("css/images/img4.jpg")';
 					$('#bg').css('background-image', url);
 				});
 			});//document
@@ -58,7 +58,7 @@
 						<p>3rd Web Project &nbsp;&bull;&nbsp; B-class &nbsp;&bull;&nbsp; Never asked for this</p>
 						<nav>
 							<ul>
-								<li><a href="#" class="fa fa-circle" id="soccer"><span>Soccer</span></a></li>
+								<li><a href="index_matching" class="fa fa-circle" id="soccer"><span>Soccer</span></a></li>
 								<li><a href="#" class="fa fa-dribbble" id="baseball"><span>Baseball</span></a></li>
 								<li><a href="#" class="fa fa-circle-o" id="tableTennis"><span>Table Tennis</span></a></li>
 								<li><a href="#" class="fa fa-dot-circle-o" id="bowling"><span>Bowling</span></a></li>

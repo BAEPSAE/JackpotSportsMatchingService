@@ -12,20 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
    <!-- 종목별 전적 가져오기 -->
    <select id="getUserRecord" parameterType="String" resultType="Record">
-      SELECT 
-      R.FB_TOTAL
-      , R.FB_WIN
-      , R.FB_DRAW
-      , R.BB_TOTAL
-      , R.BB_WIN
-      , R.BB_DRAW
-      , R.PP_TOTAL
-      , R.PP_WIN
-      , R.PP_DRAW
-      , R.BL_TOTAL
-      , R.BL_WIN
-      , R.BL_DRAW
-      FROM PLAYER P, RECORD R WHERE P.RECORD_ID=R.RECORD_ID AND P.USER_ID=#{user_Id}
+      SELECT R.* FROM PLAYER P, RECORD R WHERE P.RECORD_ID=R.RECORD_ID AND P.USER_ID=#{user_Id}
    </select>
    
    <!-- 종목별 경기장 정보 가져오기 -->
@@ -78,8 +65,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 로그인 -->
-	<select id="getUser" parameterType="Player" resultType="player">
+	<select id="getUser" parameterType="Player" resultType="Player">
 		SELECT * FROM PLAYER WHERE USER_ID=#{user_Id} AND USER_PW=#{user_Pw}
 	</select>
+	<select id="getMatchingList" parameterType="Player" resultType="Matching">
+		select * from matching where player=#{user_Id}
+	</select>
+	
+	<!-- 업데이트 -->
+	<update id="changeTeam" parameterType="HashMap">
+		update PLAYER set
+		<if test="selector==1">
+			TEAM1=#{team, jdbcType=INTEGER}
+			, TEAM1_FLAG=#{team_flag, jdbcType=INTEGER}
+		</if>
+		<if test="selector==2">
+			TEAM2=#{team}
+			, TEAM2_FLAG=#{team_flag, jdbcType=INTEGER}
+		</if>
+		 where USER_ID=#{user_Id, jdbcType=INTEGER}
+	</update>	
+	
 	
 </mapper>

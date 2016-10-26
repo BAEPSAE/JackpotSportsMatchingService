@@ -10,7 +10,9 @@
 
     <package name="player" namespace="/player" extends="default">
 		<!-- 전적보기 화면 -->
+		
     	<action name="mypagev" class="action.PlayerAction" method="mypagev">
+    		<interceptor-ref name="loginInterceptorStack" />
 			<result>../mypagev.jsp</result>
 		</action>
 		
@@ -33,13 +35,24 @@
 		
 		<!-- 로그인 하기 -->
 		<action name="login" class="action.PlayerAction" method="login">
-			<result name="success">/index.jsp</result>
+			<result name="success" type="redirect">../index_matching</result>
 			<result name="input">/login.jsp</result>
 		</action>
 		
 		<!-- 로그아웃 -->
 		<action name="logout" class="action.PlayerAction" method="logout">
-			<result name="success">/index.jsp</result>
+			<result name="success" type="redirect">../index.action</result>
+		</action>
+		
+		<action name="Matching">
+			<result>/Matching.jsp</result>
+		</action>
+		
+		<action name="schedule" class="action.PlayerAction" method="getScheduler">
+			<result type="json"></result>
+		</action>
+		<action name="schedulelist" class="action.PlayerAction" method="getScheduler">
+			<result type="json"></result>
 		</action>
     </package>
 </struts>

@@ -9,11 +9,22 @@
     <constant name="struts.devMode" value="true" />
 
     <package name="default" namespace="/" extends="struts-default, json-default">
+        
+        <interceptors>
+        	<interceptor name="loginInterceptor" class="interceptor.LoginInterceptor" />
+        	
+        	<interceptor-stack name="loginInterceptorStack">
+        		<interceptor-ref name="defaultStack" />
+        		<interceptor-ref name="loginInterceptor" />
+        	</interceptor-stack>
+        	
+        </interceptors>
 
         <default-action-ref name="index" />
         
         <global-results>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
+            <result name="login" type="redirect">/player/loginv.action</result>
         </global-results>
 
         <global-exception-mappings>
@@ -21,8 +32,14 @@
         </global-exception-mappings>
 
 		<action name="index">
-           <result>/index_matching.jsp</result>
+           <result>/index.jsp</result>
 		</action>
+		
+		<action name="index_matching">
+			<interceptor-ref name="loginInterceptorStack" />
+			<result>/index_matching.jsp</result>
+		</action>
+		
     </package>
 
     <include file="struts/teamStruts.xml"/>

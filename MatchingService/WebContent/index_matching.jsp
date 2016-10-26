@@ -11,16 +11,6 @@
     <link rel="shortcut icon" href="images/favicon.ico"/>
     <!-- map -->
     <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=e476fd3b9c743461f3c713db7e85c418&libraries=services"></script>
-    <!-- clockpicker -->
-    <!-- <link href="clockpicker/dist/bootstrap-clockpicker.min.css" rel="stylesheet">
-    <link href="clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
-    <link href="clockpicker/src/clockpicker.css" rel="stylesheet">
-    <link href="clockpicker/src/standalone.css" rel="stylesheet"> -->
-    <!-- clockpicker js -->
-	<%-- <script src="clockpicker/dist/bootstrap-clockpicker.min.js"></script>
-	<script src="clockpicker/dist/jquery-clockpicker.js"></script>
-	<script src="clockpicker/src/clockpicker.js"></script> --%>
-    <!-- <link rel="icon" href="images/favicon.ico"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
