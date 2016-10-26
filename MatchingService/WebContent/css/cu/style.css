@@ -3,11 +3,11 @@
 /*       'Open Sans', sans-serif     */
 
 
-@import "../css/reset.css";
-@import "../css/grid.css";
-@import "../css/menu.css";
+@import "../../css/cu/reset.css";
+@import "../../css/cu/grid.css";
+@import "../../css/cu/menu.css";
 
-@import "../css/font-awesome.css";
+@import "../../css/cu/font-awesome.css";
 
 input {
 	outline:  none !important;

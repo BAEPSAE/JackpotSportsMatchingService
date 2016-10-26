@@ -1,0 +1,116 @@
+@import "compass/css3";
+
+* {
+  -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+body, html {
+  font-family: "europa-1","europa-2", sans-serif;
+  overflow: hidden;
+}
+
+.wrapper {
+  max-width: 940px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+/**
+ * Use this wrapper only for demo purposes
+ * So you can show the items outside the wrapper
+ */
+.wrapper--demo {
+  overflow: visible;
+  
+  &:after, &:before {
+    content: "";
+    position: absolute;
+    width: 800px;
+    height: 100%;
+    top: 0;
+    left: 100%;
+    background: rgba(255, 255, 255, .8);
+    z-index: 2;
+  }
+  &:before {
+    left: -800px;
+  }
+}
+
+.carousel {
+  width: 100%;
+  position: relative;
+  
+  .carousel__content {
+    width: auto;
+    position: relative;
+    overflow: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-transition: translate3d(0,0,0);
+    
+    .item {
+      display: block;
+      float: left;
+      width: 100%;
+      position: relative;
+      
+      .title {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin: -33px 0 0 0;
+        padding: 0;
+        font-size: 3rem;
+        width: 100%;
+        text-align: center;
+        letter-spacing: .3rem;
+        color: #FFF;
+      }
+      .title--sub {
+        margin-top: 20px;
+        font-size: 1.2em;
+        opacity: .5;
+      }
+      img {
+        width: 100%;
+        max-width: 100%;
+        display: block;
+      }
+    }
+  }
+  
+  .carousel__nav {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    margin-top: -17px;
+    left: 0;
+    z-index: 1;
+    
+    .nav {
+      position: absolute;
+      top: 0;
+      color: #000;
+      background: #FFF;
+      padding: 8px 12px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: .8rem;
+      transition: padding .25s ease;
+      &:hover { padding:8px 20px; }
+    }
+    
+    .nav--left {
+      border-radius: 0px 3px 3px 0px;
+    }
+    
+    .nav--right {
+      right: 0;
+      border-radius: 3px 0px 0px 3px;
+    }
+  }
+}
