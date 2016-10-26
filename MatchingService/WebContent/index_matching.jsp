@@ -245,6 +245,11 @@
         </div>
     </div>
 </nav>
+         </div>
+      </div>
+   </nav>
+
+
 
 <!-- 매칭 메인 페이지 -->
 <div class="content-wrap">

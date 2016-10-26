@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -58,7 +59,7 @@
 						<p>3rd Web Project &nbsp;&bull;&nbsp; B-class &nbsp;&bull;&nbsp; Never asked for this</p>
 						<nav>
 							<ul>
-								<li><a href="index_matching" class="fa fa-circle" id="soccer"><span>Soccer</span></a></li>
+								<li><s:a action="index_matching" class="fa fa-circle" id="soccer"><span>Soccer</span></s:a></li>
 								<li><a href="#" class="fa fa-dribbble" id="baseball"><span>Baseball</span></a></li>
 								<li><a href="#" class="fa fa-circle-o" id="tableTennis"><span>Table Tennis</span></a></li>
 								<li><a href="#" class="fa fa-dot-circle-o" id="bowling"><span>Bowling</span></a></li>
