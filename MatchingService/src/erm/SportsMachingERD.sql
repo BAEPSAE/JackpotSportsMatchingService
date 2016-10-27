@@ -27,20 +27,136 @@ CREATE SEQUENCE SEQ_TEAM INCREMENT BY 1 START WITH 1;
 
 drop sequence seq_message;
 
+/*drop seq*/
+
+DROP SEQUENCE SEQ_GROUND;
+DROP SEQUENCE SEQ_MATCHING;
+DROP SEQUENCE SEQ_RECORD;
+DROP SEQUENCE SEQ_BOARD;
+DROP SEQUENCE SEQ_REPLY;
+DROP SEQUENCE SEQ_GROUND_REVIEW;
+DROP SEQUENCE SEQ_MESSAGE;
+DROP SEQUENCE SEQ_TEAM;
+
+
+
 /* Create Tables */
 
-CREATE TABLE BOARD
-(
+
+CREATE TABLE RECORD(
+   RECORD_ID number(5) primary key,
+   FB_TOTAL number DEFAULT 0,
+   FB_WIN number DEFAULT 0,
+   FB_DRAW number DEFAULT 0,
+   BB_TOTAL number DEFAULT 0,
+   BB_WIN number DEFAULT 0,
+   BB_DRAW number DEFAULT 0,
+   PP_TOTAL number DEFAULT 0,
+   PP_WIN number DEFAULT 0,
+   PP__DRAW number DEFAULT 0,
+   BL_TOTAL number DEFAULT 0,
+   BL_WIN number DEFAULT 0,
+   BL_DRAW number DEFAULT 0
+);
+
+CREATE TABLE TEAM(
+   -- 팀ID
+   TEAM_ID number primary key,
+   -- 팀이름
+   TEAM_NAME varchar2(500 char) NOT NULL,
+   TEAM_LEADER varchar2(100 char) NOT NULL,
+   -- 팀승점
+   TEAM_SCORE number(5) default 0 NOT NULL,
+   -- 팀매너점수
+   TEAM_MANNER number(10) default 100 NOT NULL,
+   -- 팀종목
+   TEAM_GAMETYPE varchar2(10 char) NOT NULL,
+   TEAM_TOTALGAME number,
+   TEAM_WINGAME number,
+   TEAM_DRAW number,
+   -- 팀 모집여부
+   TEAM_OPEN number(1)
+);
+
+
+CREATE TABLE PLAYER(
+   USER_ID varchar2(100) primary key,
+   USER_NAME varchar2(100) NOT NULL,
+   USER_PW varchar2(30) NOT NULL,
+   USER_LOCATION varchar2(20) NOT NULL,
+   USER_PHONE varchar2(15) NOT NULL,
+   RECORD_ID number(5) NOT NULL ,
+   TEAM1 number,
+   TEAM1_FLAG number(1),
+   TEAM2 number,
+   TEAM2_FLAG number(1),
+   PP_SCORE number default 0,
+   BL_SCORE number default 0 ,
+   savefilename varchar2(100),
+   USER_MANNER number default 100,
+   constraint FK_PLAYER_RECORD_ID foreign key(RECORD_ID)
+   references RECORD(RECORD_ID),
+   constraint FK_PLAYER_TEAM1 foreign key(TEAM1)
+   references TEAM(TEAM_ID),
+   constraint FK_PLAYER_TEAM2 foreign key(TEAM1)
+   references TEAM(TEAM_ID)
+);
+
+--alter table player add savefilename varchar2(100);
+
+
+CREATE TABLE MATCHING(
+   -- 매칭_ID
+   MATCHING_ID number(10) primary key,
+   PLAYER varchar2(100 char) NOT NULL,
+   SCORE number,
+   -- 운동종류
+   GAME_TYPE varchar2(10 char) NOT NULL,
+   -- 경기일
+   GAME_DATE date NOT NULL,
+   -- 경기시간대
+   GAME_TIME number(2),
+   -- 경기장예약여부
+   GROUND_HOLD number(1),
+   -- 경기지역
+   LATITUDE varchar2(20 char) NOT NULL,--위도
+   LONGITUDE varchar2(20 char) NOT NULL,--경도
+   -- 매칭시작시간
+   MATCHING_STARTTIME number(6) NOT NULL
+);
+
+
+
+CREATE TABLE BOARD(
    BOARDNUM number primary key,
    TITLE varchar2(500 char) NOT NULL,
    CONTENT varchar2(4000 char) NOT NULL,
    -- 회원ID
-   USER_ID varchar2(100 char) NOT NULL UNIQUE,
+   USER_ID varchar2(100 char) NOT NULL,
    INPUTDATE date NOT NULL,
-   CATEGORY varchar2(100 char) NOT NULL
+   CATEGORY varchar2(100 char) NOT NULL,
+   constraint FK_BOARD_USER_ID foreign key(USER_ID)
+   references PLAYER(USER_ID)
 );
 
-drop table games
+
+CREATE TABLE REPLY
+(
+   REPLYNUM number primary key,
+   BOARDNUM number NOT NULL,
+   -- 회원ID
+   USER_ID varchar2(100 char) NOT NULL,
+   CONTENT varchar2(2000),
+   INPUTDATE date,
+   constraint FK_REPLY_USER_ID foreign key(USER_ID)
+   references PLAYER(USER_ID),
+   constraint FK_REPLY_BOARDNUM foreign key(BOARDNUM)
+   references BOARD(BOARDNUM)
+);
+
+
+
+
 
 CREATE TABLE GAMES
 (
@@ -66,7 +182,6 @@ CREATE TABLE GAMES
    PLAYER2_KEY varchar2(6 char)
 );
 
-drop table GROUNDS 
 
 CREATE TABLE GROUNDS
 (
@@ -83,39 +198,16 @@ CREATE TABLE GROUNDS
    GROUND_ADDRESS varchar2(50 char) NOT NULL
 );
 
-DROP TABLE GROUND_REVIEW
 
-CREATE TABLE GROUND_REVIEW
-(
+CREATE TABLE GROUND_REVIEW(
    RVNUM number primary key,
    -- 경기장ID
    GROUND_ID number(10) NOT NULL,
    CONTENT varchar2(500 char) NOT NULL,
    -- 회원ID
-   USER_ID varchar2(100 char) NOT NULL UNIQUE
-);
-
-DROP TABLE MATCHING
-
-CREATE TABLE MATCHING
-(
-   -- 매칭_ID
-   MATCHING_ID number(10) primary key,
-   PLAYER varchar2(100 char) NOT NULL,
-   SCORE number,
-   -- 운동종류
-   GAME_TYPE varchar2(10 char) NOT NULL,
-   -- 경기일
-   GAME_DATE date NOT NULL,
-   -- 경기시간대
-   GAME_TIME number(2),
-   -- 경기장예약여부
-   GROUND_HOLD number(1),
-   -- 경기지역
-   LATITUDE varchar2(20 char) NOT NULL,--위도
-   LONGITUDE varchar2(20 char) NOT NULL,--경도
-   -- 매칭시작시간
-   MATCHING_STARTTIME number(6) NOT NULL
+   USER_ID varchar2(100 char) NOT NULL,
+   constraint FK_GROUND_REVIEW_GROUND_ID foreign key(GROUND_ID)
+   references GROUNDS(GROUND_ID)
 );
 
 
@@ -129,166 +221,6 @@ CREATE TABLE MESSAGE
    GAME_ID number(10) NOT NULL,
    INPUTDATE date
 );
-
-drop table message;
-
-
-CREATE TABLE PLAYER
-(
-   USER_ID varchar2(100) primary key,
-   USER_NAME varchar2(100) NOT NULL,
-   USER_PW varchar2(30) NOT NULL,.
-   USER_LOCATION varchar2(20) NOT NULL,
-   USER_PHONE varchar2(15) NOT NULL,
-   RECORD_ID number(5) NOT NULL,
-   TEAM1 number default -1,
-   TEAM1_FLAG number(1),
-   TEAM2 number default -1,
-   TEAM2_FLAG number(1),
-   PP_SCORE number,
-   BL_SCORE number,
-   savefilename varchar2(100)
-);
-
---alter table player add savefilename varchar2(100);
-
-drop table player
-delete player
-delete record
-drop table RECORD;
-select * from RECORD;
-select * from PLAYER
-
-CREATE TABLE RECORD
-(
-   -- 승패ID
-   RECORD_ID number(5) primary key,
-   -- 축구_토탈
-   FB_TOTAL number DEFAULT 0,
-   -- 축구_승
-   FB_WIN number DEFAULT 0,
-   -- 축구_무승부
-   FB_DRAW number DEFAULT 0,
-   -- 농구_토탈
-   BB_TOTAL number DEFAULT 0,
-   -- 농구_승
-   BB_WIN number DEFAULT 0,
-   -- 농구_무승부
-   BB_DRAW number DEFAULT 0,
-   -- 탁구_토탈
-   PP_TOTAL number DEFAULT 0,
-   -- 탁구_승
-   PP_WIN number DEFAULT 0,
-   -- 탁구_무승부
-   PP__DRAW number DEFAULT 0,
-   -- 볼링_전체
-   BL_TOTAL number DEFAULT 0,
-   -- 볼링_승
-   BL_WIN number DEFAULT 0,
-   -- 볼링_무승부
-   BL_DRAW number DEFAULT 0
-);
-
-
-CREATE TABLE REPLY
-(
-   REPLYNUM number primary key,
-   BOARDNUM number NOT NULL,
-   -- 회원ID
-   USER_ID varchar2(100 char) NOT NULL UNIQUE,
-   CONTENT varchar2(2000),
-   INPUTDATE date
-);
-
-
-CREATE TABLE TEAM
-(
-   -- 팀ID
-   TEAM_ID number primary key,
-   -- 팀이름
-   TEAM_NAME varchar2(500 char) NOT NULL,
-   TEAM_LEADER varchar2(100 char) NOT NULL,
-   -- 팀승점
-   TEAM_SCORE number(5) NOT NULL,
-   -- 팀매너점수
-   TEAM_MANNER number(10) NOT NULL,
-   -- 팀종목
-   TEAM_GAMETYPE varchar2(10 char) NOT NULL,
-   TEAM_TOTALGAME number,
-   TEAM_WINGAME number,
-   TEAM_DRAW number,
-   -- 팀 모집여부
-   TEAM_OPEN number(1)
-);
-
-
-
-/* Create Foreign Keys */
-
-ALTER TABLE REPLY
-   ADD FOREIGN KEY (BOARDNUM)
-   REFERENCES BOARD (BOARDNUM)
-;
-
-
-ALTER TABLE MESSAGE
-   ADD FOREIGN KEY (GAME_ID)
-   REFERENCES GAMES (GAME_ID)
-;
-
-
-ALTER TABLE GAMES
-   ADD FOREIGN KEY (GROUND_ID)
-   REFERENCES GROUNDS (GROUND_ID)
-;
-
-
-ALTER TABLE GROUND_REVIEW
-   ADD FOREIGN KEY (GROUND_ID)
-   REFERENCES GROUNDS (GROUND_ID)
-;
-
-
-ALTER TABLE BOARD
-   ADD FOREIGN KEY (USER_ID)
-   REFERENCES PLAYER (USER_ID)
-;
-
-
-ALTER TABLE GROUND_REVIEW
-   ADD FOREIGN KEY (USER_ID)
-   REFERENCES PLAYER (USER_ID)
-;
-
-
-ALTER TABLE MESSAGE
-   ADD FOREIGN KEY (USER_ID)
-   REFERENCES PLAYER (USER_ID)
-;
-
-
-ALTER TABLE REPLY
-   ADD FOREIGN KEY (USER_ID)
-   REFERENCES PLAYER (USER_ID)
-;
-
-
-ALTER TABLE PLAYER
-   ADD FOREIGN KEY (RECORD_ID)
-   REFERENCES RECORD (RECORD_ID)
-;
-
-
-ALTER TABLE PLAYER
-   ADD FOREIGN KEY (TEAM1)
-   REFERENCES TEAM (TEAM_ID)
-;
-
-
-ALTER TABLE PLAYER
-   ADD FOREIGN KEY (TEAM2)
-   REFERENCES TEAM (TEAM_ID)
-;
 
 
 

@@ -1,7 +1,17 @@
-insert into record (record_id) values (seq_record.nextval)
+--제일먼저
+insert into record (record_id) values (seq_record.nextval);
+insert into record (record_id) values (seq_record.nextval);
+insert into record (record_id) values (seq_record.nextval);
+insert into record (record_id) values (seq_record.nextval);
+insert into record (record_id) values (seq_record.nextval);
+insert into record (record_id) values (seq_record.nextval);
+insert into record (record_id) values (seq_record.nextval);
+insert into record (record_id) values (seq_record.nextval);
+insert into record (record_id) values (seq_record.nextval);
+insert into record (record_id) values (seq_record.nextval);
 
 select * from record
-
+--유저 넣기
 insert into player (user_id, user_name, user_pw, user_location, user_phone, record_id) values ('aaa','aaa','aaa','a','a',10);
 insert into player (user_id, user_name, user_pw, user_location, user_phone, record_id) values ('bbb','bbb','bbb','a','a',2);
 insert into player (user_id, user_name, user_pw, user_location, user_phone, record_id) values ('fff','fff','fff','a','a',6);
