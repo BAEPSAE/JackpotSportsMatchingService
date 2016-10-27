@@ -11,7 +11,6 @@
     <link rel="shortcut icon" href="images/favicon.ico"/>
     <!-- map -->
     <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=e476fd3b9c743461f3c713db7e85c418&libraries=services"></script>
-   
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -65,20 +64,17 @@
     <!-- 상단 블러 -->
     <script>
 	    $(document).ready(function(){
+	      //메인 화면 이미지 블러
 	      $( ".block1" ).mouseover(function() {
 	        $(this).addClass( "blur" );
 	      });
 	      $( ".block1" ).mouseout(function() {
 	        $(this).removeClass( "blur" );
 	      });
-	      /* $().UItoTop({ easingType: 'easeOutQuart' }); */
 	      
-	     /*  $('#timetab input[type=radio]').click(function(){
-	            var img = 'images/'+$(this).val()+'.png';
-	            alert(img);
-	            $('#timetab #timeimg>img').attr('src', img);
-	         }); */
-	    }); 
+	      //매칭 등록하기
+	      
+	    });//document.ready
     </script>
     
 </head>
@@ -149,8 +145,7 @@
          </ul>
       </div>
    </nav>
-   <!-- This is the white navigation bar seen on the top. A bit enhanced BS navbar. See .page-controls in _base.scss. -->
-
+<!-- 상단 사이드 바 -->
    <nav class="page-controls navbar navbar-dashboard">
       <div class="container-fluid">
          <div class="navbar-header">
@@ -221,9 +216,7 @@
          </div>
       </div>
    </nav>
-
-
-
+   
 <!-- 매칭 메인 페이지 -->
 <div class="content-wrap">
     <main id="content" class="content" role="main">
@@ -231,7 +224,7 @@
 	        <div class="col-lg-12">
 				<a href="#" class="block1">
   				<img src="images/12.jpg" style="width: 100%;">
-  				<span class="price"><span></span><span><small></small> SOCCER</span><strong></strong></span>
+  				<span class="price"><span></span><span id="type">SOCCER</span><strong></strong></span>
 				</a>
 			</div>
             <div class="col-lg-12">
@@ -259,7 +252,7 @@
 	                                        </span>
 	                                    </label>
 	                                    <div id="datetimepicker2" class="input-group">
-	                                        <input id="datepicker2i" type="text" class="form-control" />
+	                                        <input id="time" type="text" class="form-control" />
 	                                        <span class="input-group-addon">
 	                                            <span class="fa fa-calendar"></span>
 	                                        </span>
@@ -283,7 +276,6 @@
                             </h6>
                         </div>
                         <div id="collapseTwo" class="panel-collapse collapse">
-                                <!-- 시간 선택 -->
                                 <div class="panel-body" id="timetab">
                                 	<div class="widget-body" style="text-align: center; margin-left: 43.3%;">
 	                        			 <form class="form-horizontal form-label-left" role="form">
@@ -291,14 +283,14 @@
 			                                <div class="form-group row">
 			                                	<!-- 구장 유무 -->
 			                                    <div class="col-md-10" style="margin-left: -12.8%; width: 60%; display: inline-block;">
-			                                        <select data-placeholder="이미 예약해 둔 구장이 있습니까?"
+			                                        <select id="game_Hold" data-placeholder="이미 예약해 둔 구장이 있습니까?"
 			                                                data-width="auto"
 			                                                data-minimum-results-for-search="10"
 			                                                tabindex="-1"
 			                                                class="select2 form-control" id="default-select">
 			                                            <option value=""></option>
-			                                            <option value="own">예, 있습니다.</option>
-			                                            <option value="noOwn">아니오, 없습니다.</option>
+			                                            <option value="1">예, 있습니다.</option>
+			                                            <option value="0">아니오, 없습니다.</option>
 			                                        </select>
 			                                   	</div>
 			                                </div>
@@ -341,7 +333,7 @@
 															            <div>
 															                <form onsubmit="searchPlaces(); return false;">
 															                    <input type="text" class="form-control" value="" id="keyword" style="width: 160px; display: inline-block;"> 
-															                    <button class="btn btn-default" type="submit">&nbsp;검색하기&nbsp;</button> 
+															                    <button id="locationSearch" class="btn btn-default" type="submit">&nbsp;검색하기&nbsp;</button> 
 															                </form>
 															            </div>
 															        </div>
