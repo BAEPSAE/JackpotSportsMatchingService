@@ -46,6 +46,4 @@
     <include file="struts/boardStruts.xml"/>
 	<include file="struts/playerStruts.xml"/>
 	<include file="struts/matchingStruts.xml"/>
-    <!-- Add packages here -->
-
 </struts>

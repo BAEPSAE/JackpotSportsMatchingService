@@ -35,7 +35,8 @@
 	<mappers>
 		<mapper resource="mapper/TeamMapper.xml"/>
 		<mapper resource="mapper/PlayerMapper.xml"/>
-		<mapper resource="mapper/BoardMapper.xml"/> 							
+		<mapper resource="mapper/BoardMapper.xml"/> 
+		<mapper resource="mapper/MatchingMapper.xml"/> 						
 	</mappers>
 	
 </configuration>
