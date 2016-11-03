@@ -5,28 +5,34 @@
 
 <struts>
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
-    <constant name="struts.devMode" value="true" />
+    <constant name="struts.devMode" value="false" />
 
     <package name="board" namespace="/board" extends="default">
 
         <action name="list" class="action.BoardAction" method="boardView">
-            <result>/board.jsp </result>
+            <result>../board.jsp </result>
        </action>
 	   <action name="writeForm">
-            <result>/boardWrite.jsp </result>
+            <result>../boardWrite.jsp </result>
        </action>
       <action name="write" class="action.BoardAction" method="insertBoard"> 
-            <result name="success">/board.jsp</result>
-			<result name="error">/boardwirte.jsp</result>
+            <result name="success" type="redirectAction">
+            <param name="actionName">list</param>
+           </result>
+			<result name="error">/boardWirte.jsp</result>
        </action>
        <action name="read" class="action.BoardAction" method="readBoard"> 
-            <result name="success">/boardread.jsp</result>
+            <result name="success">/boardRead.jsp</result>
        </action>
        <action name="delete" class="action.BoardAction" method="deleteBoard"> 
-            <result name="success">/boardlist.jsp</result>
+            <result name="success" type="redirectAction">
+            <param name="actionName">list</param>
+           </result> 
        </action>
             <action name="update" class="action.BoardAction" method="updateBoard"> 
-            <result name="success">/boardlist.jsp</result>
+           <result name="success" type="redirectAction">
+            <param name="actionName">list</param>
+           </result>
        </action>
     </package>
 </struts>

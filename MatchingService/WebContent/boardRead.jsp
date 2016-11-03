@@ -29,11 +29,13 @@
      		});//click
      		$('#delete').click(function(){
      			if(confirm("진짜 삭제 하시겠습니까?")){
+     				var num='<s:property value="board.boardNum"/>';
+         			alert(num);
 					$.ajax({
 						url: 'delete'
 						, method: 'post'
 						, data: {
-							"board.boardNum" : boardNum
+							"board.boardNum" : num
 						}
 						, success: function(response) {
 							location.href="list";
@@ -61,107 +63,78 @@
     * Collapsing - navigation automatically collapse when mouse leaves it and expand when enters.
     * Static - stays always open.
 -->
-<nav id="sidebar" class="sidebar" role="navigation">
-    <!-- need this .js class to initiate slimscroll -->
-    <div class="js-sidebar-content">
-        <header class="logo hidden-sm-down">
-            <a href="index.html">sing</a>
-        </header>
-        <!-- seems like lots of recent admin template have this feature of user info in the sidebar.
+	<nav id="sidebar" class="sidebar" role="navigation">
+      <!-- need this .js class to initiate slimscroll -->
+      <div class="js-sidebar-content">
+         <header class="logo hidden-sm-down">
+            <s:a action="../index.action">Matching</s:a>
+         </header>
+         <!-- seems like lots of recent admin template have this feature of user info in the sidebar.
              looks good, so adding it and enhancing with notifications -->
-        <div class="sidebar-status hidden-md-up">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <span class="thumb-sm avatar pull-xs-right">
-                    <img class="img-circle" src="demo/img/people/a5.jpg" alt="...">
-                </span>
-                <!-- .circle is a pretty cool way to add a bit of beauty to raw data.
+         <div class="sidebar-status hidden-md-up">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span
+               class="thumb-sm avatar pull-xs-right"> <!-- <img class="img-circle" src="demo/img/people/a5.jpg" alt="..."> -->
+            </span> <!-- .circle is a pretty cool way to add a bit of beauty to raw data.
                      should be used with bg-* and text-* classes for colors -->
-                <span class="circle bg-warning fw-bold text-gray-dark">
-                    13
-                </span>
-                &nbsp;
-                Philip <strong>Smith</strong>
-                <b class="caret"></b>
+               <span class="circle bg-warning fw-bold text-gray-dark"> 13 </span>
+               &nbsp; Philip <strong>Smith</strong> <b class="caret"></b>
             </a>
             <!-- #notifications-dropdown-menu goes here when screen collapsed to xs or sm -->
-        </div>
-        <!-- main notification links are placed inside of .sidebar-nav -->
-        <ul class="sidebar-nav">
-            <li>
-                <a href="profile.html">
-                    <span class="icon">
-                        <i class="glyphicon glyphicon-user"></i>
-                    </span>
-                    index
-                    <sup class="text-warning fw-semi-bold">
-                        new
-                    </sup>
-                </a>
-            </li>
-        </ul>
-        <!-- every .sidebar-nav may have a title -->
-        <ul class="sidebar-nav">
-            <li  class="active">
-                <a href="#sidebar-ui" data-toggle="collapse" data-parent="#sidebar">
-                    <span class="icon">
-                        <!-- <i class="glyphicon glyphicon-tree-conifer"></i> -->
-                        <i class="fa fa-child"></i>
-                    </span>
-                    My Page
-                    <i class="toggle fa fa-angle-down"></i>
-                </a>
-                <ul id="sidebar-ui" class="collapse in">
-                    <li><a href="ui_components.html">전적 보기</a></li>
-                    <li><a href="ui_notifications.html">수정</a></li>
-                    <li><a href="ui_icons.html">신고</a></li>
-                    <li><a href="ui_buttons.html">탈퇴</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="collapsed" href="#sidebar-maps" data-toggle="collapse" data-parent="#sidebar">
-                    <span class="icon">
-                        <i class="fa fa-users"></i>
-                    </span>
-                    TEAM
-                    <i class="toggle fa fa-angle-down"></i>
-                </a>
-                <ul id="sidebar-maps" class="collapse">
-                    <!-- data-no-pjax turns off pjax loading for this link. Use in case of complicated js loading on the
+         </div>
+         <!-- main notification links are placed inside of .sidebar-nav -->
+         <ul class="sidebar-nav">
+            <li class="active"><a href="#sidebar-ui" data-toggle="collapse"
+               data-parent="#sidebar"> <span class="icon"> <!-- <i class="glyphicon glyphicon-tree-conifer"></i> -->
+                     <i class="fa fa-child"></i>
+               </span> My Page <i class="toggle fa fa-angle-down"></i>
+            </a>
+               <ul id="sidebar-ui" class="collapse in">
+                  <li><s:a action="mypagev" namespace="/player">전적 보기</s:a></li>
+               </ul>
+               </li>
+            <li><a class="collapsed" href="#sidebar-maps"
+               data-toggle="collapse" data-parent="#sidebar"> <span
+                  class="icon"> <i class="fa fa-users"></i>
+               </span> TEAM <i class="toggle fa fa-angle-down"></i>
+            </a>
+               <ul id="sidebar-maps" class="collapse">
+                  <!-- data-no-pjax turns off pjax loading for this link. Use in case of complicated js loading on the
                          target page -->
-                    <li><a href="maps_google.html" data-no-pjax>팀 관리</a></li>
-                    <li><a href="maps_vector.html">팀 모집</a></li>
-                </ul>
-            </li>
+                  <li><s:a action="soccerteampage" namespace="/team">축구팀 관리</s:a></li>
+                  <li><s:a action="baseballteampage" namespace="/team">야구팀 관리</s:a></li>
+                  <li><s:a action="t_searchv" namespace="/team">팀 찾기</s:a></li>
+               </ul></li>
             <li>
-                <!-- an example of nested submenu. basic bootstrap collapse component -->
-                <a class="collapsed" href="#sidebar-tables" data-toggle="collapse" data-parent="#sidebar">
-                    <span class="icon">
-                        <i class="fa fa-sitemap"></i>
-                    </span>
-                    Matching
-                    <i class="toggle fa fa-angle-down"></i>
-                </a>
-                <ul id="sidebar-tables" class="collapse">
-                    <li><a href="tables_basic.html">진행 중</a></li>
-                    <li><a href="tables_dynamic.html">지난 매칭</a></li>
-                </ul>
+               <!-- an example of nested submenu. basic bootstrap collapse component -->
+               <a class="collapsed" href="#sidebar-tables" data-toggle="collapse"
+               data-parent="#sidebar"> <span class="icon"> <i
+                     class="fa fa-sitemap"></i>
+               </span> Matching <i class="toggle fa fa-angle-down"></i>
+            </a>
+               <ul id="sidebar-tables" class="collapse">
+                  <li><s:a action="Matching" namespace="/player">진행 중</s:a></li>
+                  <li><s:a action="prevMatching" namespace="/player">지난 매칭</s:a></li>
+               </ul>
             </li>
-            <li>
-                <a href="grid.html">
+            
+            <li><a class="collapsed" href="#sidebar-forms" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false">
                     <span class="icon">
-                        <span class="glyphicon glyphicon-star"></span>
+                        <i class="glyphicon glyphicon-star"></i>
                     </span>
                     Ranking
+                    <i class="toggle fa fa-angle-down"></i>
                 </a>
+                <ul id="sidebar-forms" class="collapse" aria-expanded="false">
+                  <li><s:a action="scranking" namespace="/player">축구 명예의 전당</s:a></li>
+                  <li><s:a action="baranking" namespace="/player">야구 명예의 전당</s:a></li>
+                  <li><s:a action="blranking" namespace="/player">볼링 명예의 전당</s:a></li>
+                  <li><s:a action="ppranking" namespace="/player">탁구 명예의 전당</s:a></li>
+                </ul>
             </li>
-            <li>
-                <a href="grid.html">
-                    <span class="icon">
-                        <span class="glyphicon glyphicon-list-alt"></span>
-                    </span>
-                    자게
-                </a>
-            </li>
+    <li><s:a action="list" namespace="/board"> <span class="icon"> <span
+                     class="glyphicon glyphicon-list-alt"></span>
+               </span> 자게
+            </s:a></li>
         </ul>
     </div>
 </nav>
@@ -192,45 +165,47 @@
                 </li>
             </ul>
             <!-- xs & sm screen logo -->
-            <a class="navbar-brand hidden-md-up" href="index.html">
-                <i class="fa fa-circle text-gray mr-n-sm"></i>
-                <i class="fa fa-circle text-warning"></i>
-                &nbsp;
-                골목대장
-                &nbsp;
-                <i class="fa fa-circle text-warning mr-n-sm"></i>
-                <i class="fa fa-circle text-gray"></i>
-            </a>
-        </div>
-        <!-- this part is hidden for xs screens -->
-        <div class="collapse navbar-collapse">
+               <s:a class="navbar-brand hidden-md-up" action="index" namespace="/"> <i
+               class="fa fa-circle text-gray mr-n-sm"></i> <i
+               class="fa fa-circle text-warning"></i> &nbsp; 골목대장 &nbsp; <i
+               class="fa fa-circle text-warning mr-n-sm"></i> <i
+               class="fa fa-circle text-gray"></i>
+            </s:a>
+         </div>
+         <!-- this part is hidden for xs screens -->
+         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav pull-xs-right">
-                <li class="dropdown nav-item">
-                    <a href="#" class="dropdown-toggle dropdown-toggle-notifications nav-link" id="notifications-dropdown-toggle" data-toggle="dropdown">
-                        <span class="thumb-sm avatar pull-xs-left">
-                            <img class="img-circle" src="demo/img/people/a5.jpg" alt="...">
-                        </span>
-                        &nbsp;
-                        <strong>마스터도넛</strong>&nbsp;
-                        <b class="caret"></b></a>
-                    <!-- 드롭다운 -->
-                    <div class="dropdown-menu dropdown-menu-right animated fadeInUp" id="notifications-dropdown-menu">
-                    </div>
-                </li>
-                <li class="dropdown nav-item">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="fa fa-cog fa-lg"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a class="dropdown-item" href="profile.html"><i class="glyphicon glyphicon-user"></i> &nbsp; My Page</a></li>
-                        <li><a class="dropdown-item" href="login.html"><i class="fa fa-sign-out"></i> &nbsp; Log Out</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+               <li class="dropdown nav-item"><a href="#"
+                  class="dropdown-toggle dropdown-toggle-notifications nav-link"
+                  id="notifications-dropdown-toggle" data-toggle="dropdown">
+                     &nbsp; <strong> <s:if test="#session.user_Id != null">
+                           <span class="thumb-sm avatar pull-xs-left"> <img
+                              id="picture" class="img-circle" src="../img/" alt="...">
+                           </span>
+                           <s:property value="#session.user_Name" />
+                        </s:if>
+                        <s:else>
+                           <s:a action="loginv" namespace="player">로그인하기</s:a>
+                        </s:else>
+                  </strong>&nbsp; <b class="caret"></b>
+               </a> <!-- 드롭다운 -->
+                  <div class="dropdown-menu dropdown-menu-right animated fadeInUp"
+                     id="notifications-dropdown-menu"></div></li>
 
+               <li class="dropdown nav-item"><a href="#"
+                  class="dropdown-toggle nav-link" data-toggle="dropdown"> <i
+                     class="fa fa-cog fa-lg"></i>
+               </a>
+                  <ul class="dropdown-menu dropdown-menu-right">
+                     <li><s:a class="dropdown-item" action="joinv" namespace="/player"><i
+                           class="glyphicon glyphicon-user"></i> &nbsp; Join</s:a></li>
+                     <li><s:a class="dropdown-item" action="logout" namespace="player" ><i
+                           class="fa fa-sign-out"></i> &nbsp; Log Out</s:a></li>
+                  </ul></li>
+            </ul>
+         </div>
+      </div>
+   </nav>
 <div class="content-wrap">
     <main id="content" class="content" role="main">
         <style>
@@ -245,45 +220,48 @@ table a:visited {color: #CC6633;}
 
 
  table caption {
-		padding: 18px 2px 15px 2px;
+		padding: 18px 2px 18px 2px;
 		color: #cfcfcf;
 		background-color: inherit;
 		font-weight: normal;
 		text-align: centered;
-		text-transform: capitalize;
+	//	text-transform: capitalize;
 		}
 
 	 table{
-		border: 1px solid #D9D9D9;
+	 	font-size:170%;
+		border: 2px solid red;
 	}
 	 table tr td{
-		padding: 6px 9px;
+		padding: 36px 39px;
 		text-align:left;
 
 	}
-	 table thead th{
+	/*  table thead th{
 		background-color: #E5E5D8;
 		border-bottom: 1px solid #ccc;
 		border-left: 1px solid #D9D9D9;
 		font-weight: bold;
 		text-align:left;
-		padding: 16px 9px;
+		padding: 36px 39px;
 		color:#592C16;
-	}
+	} */
 	 table tbody th{
-		background-color: #fff;
-		font-weight: normal;
-		border-left: none;
-		padding: 6px 9px;
+		/* background-color: #fff; */
+	/* 	font-weight: normal; */
+		border-right: none;
+		padding: 36px 39px;
 		background-color: #E5E5D8;
 	}
 	 table tbody td{
-			/* border-left: 1px solid #D9D9D9; */
+	 
+			border-left: 2px solid #D9D9D9;
+			border-right:2px solid red;
 	}
-	 table tbody tr.odd{
+/* 	 table tbody tr.odd{
 		background-color: #F3F3F3;
-	}
-	
+	} */
+/* 	
  table tbody tr:hover {
 	color: #333333;
 	background-color: #E5E5D8;
@@ -292,16 +270,16 @@ table a:visited {color: #CC6633;}
  table tbody tr.odd:hover {
 color: #333333;
 	background-color: #E5E5D8;
-}
+} */
 	
-	 table tfoot td,  table tfoot th{
+/* 	 table tfoot td,  table tfoot th{
 		border-top: 1px solid #ccc;
 		font-weight:bold;
 		color:#592C16;
 		padding: 16px 9px;
 		
 	}
-            
+             */
         </style>
         
        <h1 class="page-title">게시글 읽기 - <span class="fw-semi-bold">목록</span></h1> 
@@ -317,21 +295,18 @@ color: #333333;
 					<th>글번호</th>
 					<td><s:property value="board.boardNum"/> </td>
 				</tr>
-				<tr>
+				<tr>	
 					<th>카테고리</th>
-					<s:if test="board.category==0"><td>
-					<tr>잡담</tr></td>
+					<s:if test="board.category==0">
+					<td>잡담</td></tr>
 					</s:if>
 					<s:elseif test="board.category==1">
-					<td>
-					<tr>리뷰</tr>
-					</td>
+					<td>리뷰</td></tr>
 					</s:elseif>
-					<s:elseif test="board.category==3">
-					<td>
-					<tr>정보</tr>
-					</td>
-					</s:elseif>
+					<s:else> 
+						<td>정보</td></tr>
+					
+					</s:else>
 										
 				<tr>
 					<th>제목</th>
@@ -339,7 +314,7 @@ color: #333333;
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td colspan="2"><textarea value="%{board.content}"></textarea></td>
+					<td colspan="2"><s:textarea value="%{board.content}"></s:textarea></td>
 				</tr>
 				
 			

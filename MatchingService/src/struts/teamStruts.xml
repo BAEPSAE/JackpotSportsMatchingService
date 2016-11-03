@@ -10,11 +10,28 @@
 
     <package name="team" namespace="/team" extends="default, json-default">
 
-    
-       <action name="teamPage" class="action.TeamAction" method="teamPage">
-       		<result name="success">../teamPage.jsp</result>
-       		<result name="noteam">../t_makev.jsp</result>
+    <!-- 팀페이지 액션들 -->
+       <action name="soccerteampage" class="action.TeamAction" method="soccerteampage">
+             <result name="success">../teamPage.jsp</result>
+             <result name="noteam">../makesoccerteam.jsp</result>
        </action>
+       <action name="baseballteampage" class="action.TeamAction" method="baseballteampage">
+             <result name="success">../teamPage.jsp</result>
+             <result name="noteam">../makebaseballteam.jsp</result>
+       </action>
+       <action name="makesoccerteamveiw">
+         <result>../makesoccerteam.jsp</result>
+       </action>
+       <action name="makebaseballteamveiw">
+         <result>../makebaseballteam.jsp</result>
+       </action>
+       <action name="makesoccerteam" class="action.TeamAction" method="makesoccerteam">
+         <result type="redirect">soccerteampage.action</result>
+       </action>
+       <action name="makebaseballteam" class="action.TeamAction" method="makebaseballteam">
+         <result type="redirect">baseballteampage.action</result>
+       </action>
+       
        
        <action name="t_delete"  class="action.TeamAction" method="t_delete">
        		<result type="redirect">/team/teamPage</result>

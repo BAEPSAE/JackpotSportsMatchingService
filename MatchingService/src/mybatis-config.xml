@@ -11,10 +11,12 @@
 		<typeAlias type="vo.Grounds" alias="Grounds"/>
 		<typeAlias type="vo.Matching" alias="Matching"/>
 		<typeAlias type="vo.Message" alias="Message"/>
+		<typeAlias type="vo.Notice" alias="Notice"/>
 		<typeAlias type="vo.Player" alias="Player"/>
 		<typeAlias type="vo.Record" alias="Record"/>
 		<typeAlias type="vo.Reply" alias="Reply"/>
 		<typeAlias type="vo.Team" alias="Team"/>
+		<typeAlias type="vo.Item" alias="Item"/>
 	</typeAliases>
 	
 	
@@ -37,6 +39,7 @@
 		<mapper resource="mapper/PlayerMapper.xml"/>
 		<mapper resource="mapper/BoardMapper.xml"/> 
 		<mapper resource="mapper/MatchingMapper.xml"/> 						
+		<mapper resource="mapper/NoticeMapper.xml"/> 						
 	</mappers>
 	
 </configuration>

@@ -12,10 +12,16 @@
         
         <interceptors>
         	<interceptor name="loginInterceptor" class="interceptor.LoginInterceptor" />
+        	<interceptor name="noticeInterceptor" class="interceptor.NoticeInterceptor" />
         	
         	<interceptor-stack name="loginInterceptorStack">
         		<interceptor-ref name="defaultStack" />
         		<interceptor-ref name="loginInterceptor" />
+        	</interceptor-stack>
+
+        	<interceptor-stack name="noticeInterceptorStack">
+        		<interceptor-ref name="defaultStack" />
+        		<interceptor-ref name="noticeInterceptor" />
         	</interceptor-stack>
         	
         </interceptors>
@@ -35,10 +41,10 @@
            <result>/index.jsp</result>
 		</action>
 		
-		<action name="index_matching">
-			<interceptor-ref name="loginInterceptorStack" />
-			<result>/index_matching.jsp</result>
-		</action>
+		<action name="index_matching" class="action.MatchingAction" method="index_matching">
+         <interceptor-ref name="loginInterceptorStack" />
+         <result>/index_matching.jsp</result>
+      </action>
 		
     </package>
 

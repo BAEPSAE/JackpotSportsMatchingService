@@ -13,6 +13,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../dist/overhang.min.css" />
+<script type="text/javascript" src="../dist/overhang.min.js"></script>
     <script>
     	//팀의 매너점수 가져오기
    		
@@ -23,7 +26,10 @@
 	       		var ha = $(this).children('td').eq(1).text();
 	       		$('#col'+index).animate({height: ha}, 1500).html("<div>"+ha+"</div>");
 	       		});
-       		}
+       	}
+
+  
+    	
    		$(document).ready(function() {
    			viewGraph();
    		});
@@ -93,6 +99,17 @@
     
 </head>
 <body>
+<s:if test="#session.notice1==true">
+<script>
+	$("body").overhang({
+		   custom: true, // Set custom to true
+		   primary: "#34495E", // Your custom primary color
+		   accent: "#F4B350" // Your custom accent color
+		});
+</script>
+</s:if>
+
+
 <nav id="sidebar" class="sidebar" role="navigation">
       <!-- need this .js class to initiate slimscroll -->
       <div class="js-sidebar-content">
@@ -121,9 +138,7 @@
                <ul id="sidebar-ui" class="collapse in">
                   <li><s:a action="mypagev" namespace="/player">전적 보기</s:a></li>
                </ul>
-               <ul id="sidebar-ui" class="collapse in">
-                  <li><s:a action="../player/mypagev.action">신고(아직 없음)</s:a></li>
-               </ul></li>
+               </li>
             <li><a class="collapsed" href="#sidebar-maps"
                data-toggle="collapse" data-parent="#sidebar"> <span
                   class="icon"> <i class="fa fa-users"></i>
@@ -132,7 +147,8 @@
                <ul id="sidebar-maps" class="collapse">
                   <!-- data-no-pjax turns off pjax loading for this link. Use in case of complicated js loading on the
                          target page -->
-                  <li><s:a action="teamPage" namespace="/team">팀 관리</s:a></li>
+                  <li><s:a action="soccerteampage" namespace="/team">축구팀 관리</s:a></li>
+                  <li><s:a action="baseballteampage" namespace="/team">야구팀 관리</s:a></li>
                   <li><s:a action="t_searchv" namespace="/team">팀 찾기</s:a></li>
                </ul></li>
             <li>
@@ -143,18 +159,30 @@
                </span> Matching <i class="toggle fa fa-angle-down"></i>
             </a>
                <ul id="sidebar-tables" class="collapse">
-                  <li><a href="../matching/gamepage">진행 중</a></li>
-                  <li><a href="tables_dynamic.html">지난 매칭(아직없음)</a></li>
+                  <li><s:a action="Matching" namespace="/player">진행 중</s:a></li>
+                  <li><s:a action="prevMatching" namespace="/player">지난 매칭</s:a></li>
                </ul>
             </li>
-            <li><a href="../Ranking.action"> <span class="icon">
-                     <span class="glyphicon glyphicon-star"></span>
-               </span> Ranking
-            </a></li>
-            <li><a href="grid.html"> <span class="icon"> <span
+            
+            <li><a class="collapsed" href="#sidebar-forms" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false">
+                    <span class="icon">
+                        <i class="glyphicon glyphicon-star"></i>
+                    </span>
+                    Ranking
+                    <i class="toggle fa fa-angle-down"></i>
+                </a>
+                <ul id="sidebar-forms" class="collapse" aria-expanded="false">
+                  <li><s:a action="scranking" namespace="/player">축구 명예의 전당</s:a></li>
+                  <li><s:a action="baranking" namespace="/player">야구 명예의 전당</s:a></li>
+                  <li><s:a action="blranking" namespace="/player">볼링 명예의 전당</s:a></li>
+                  <li><s:a action="ppranking" namespace="/player">탁구 명예의 전당</s:a></li>
+                </ul>
+            </li>
+            <li><s:a action="list" namespace="/board"> <span class="icon"> <span
                      class="glyphicon glyphicon-list-alt"></span>
                </span> 자게
-            </a></li>
+            </s:a></li>
+            
          </ul>
       </div>
    </nav>
@@ -189,12 +217,12 @@
                </li>
             </ul>
             <!-- xs & sm screen logo -->
-            <a class="navbar-brand hidden-md-up" href="index.html"> <i
+            <s:a class="navbar-brand hidden-md-up" action="index" namespace="/"> <i
                class="fa fa-circle text-gray mr-n-sm"></i> <i
                class="fa fa-circle text-warning"></i> &nbsp; 골목대장 &nbsp; <i
                class="fa fa-circle text-warning mr-n-sm"></i> <i
                class="fa fa-circle text-gray"></i>
-            </a>
+            </s:a>
          </div>
          <!-- this part is hidden for xs screens -->
          <div class="collapse navbar-collapse">
@@ -209,7 +237,7 @@
                            <s:property value="#session.user_Name" />
                         </s:if>
                         <s:else>
-                           <s:a action="../player/loginv">로그인하기</s:a>
+                           <s:a action="loginv" namespace="player">로그인하기</s:a>
                         </s:else>
                   </strong>&nbsp; <b class="caret"></b>
                </a> <!-- 드롭다운 -->
@@ -221,8 +249,8 @@
                      class="fa fa-cog fa-lg"></i>
                </a>
                   <ul class="dropdown-menu dropdown-menu-right">
-                     <li><a class="dropdown-item" href="profile.html"><i
-                           class="glyphicon glyphicon-user"></i> &nbsp; Join</a></li>
+                     <li><s:a class="dropdown-item" action="joinv" namespace="/player"><i
+                           class="glyphicon glyphicon-user"></i> &nbsp; Join</s:a></li>
                      <li><s:a class="dropdown-item" action="logout" namespace="player" ><i
                            class="fa fa-sign-out"></i> &nbsp; Log Out</s:a></li>
                   </ul></li>
@@ -243,8 +271,8 @@
         <div style="height: 90px;">
         </div>
         <div class="row">
-            <div class="col-lg-6" style="margin-left: 18%;">
-                <section class="widget user-profile">
+	            <div class="col-lg-6 col-xl-5" style="float: left;">
+	                <section class="widget user-profile">
                     <div class="widget-body">
                         <div class="widget-top-overflow text-white">
                         </div>
@@ -277,9 +305,62 @@
                         </div>
                     </div>
                 </section>
-            </div><!-- <div class="col-lg-6"> --><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	            <div class="col-lg-6 col-xl-5" style="float: left;">
-	                <section class="widget">
+                <!-- 위 아래 위위 아래 -->
+                <s:iterator value="prevgamelist">
+		            	<section class="search-result-item">
+			            	<s:if test="game_Type == '축구'">
+			            		<a class="image-link"><img class="image" src="../demo/img/pictures/555.jpg"></a>
+			            	</s:if>
+			            	<s:elseif test="game_Type == '야구'">
+			            		<a class="image-link"><img class="image" src="../demo/img/pictures/666.jpg"></a>
+			            	</s:elseif>
+			            	<s:elseif test="game_Type == '볼링'">
+			            		<a class="image-link"><img class="image" src="../demo/img/pictures/777.jpg"></a>
+			            	</s:elseif>
+			            	<s:elseif test="game_Type == '탁구'">
+			            		<a class="image-link"><img class="image" src="../demo/img/pictures/888.jpg"></a>
+			            	</s:elseif>
+				            	<div class="search-result-item-body">
+					            	<div class="row">
+						            	<div class="col-md-9">
+							            	<h5 class="search-result-item-heading">경기종목 <s:property value="game_Type" />
+							            	<s:if test="game_Draw == null && winner_Id == null"><span class="label label-pill label-danger fw-normal pull-xs-right">게임이 성사되었습니다!</span><br></s:if></h5>
+							            	<p class="info">경기시간 : <s:property value="game_Time" /></p>
+							            	<p class="description">경기장 번호 : <s:property value="ground_Id" /></p>
+						            	</div>
+						            	<div class="col-md-3 text-xs-center">
+							            	<p class="value4 mt-sm">
+							            		<s:if test="winner_Id == #session.user_Id">승</s:if>
+							            		<s:if test="winner_Id != #session.user_Id && winner_Id != null">패</s:if>
+							            		<s:if test="game_Draw == 1">무</s:if>
+							            		<s:if test="game_Draw == null && winner_Id == null">진행중</s:if>
+							            	</p>
+							            	<p class="text-muted">상대 : 
+							            		<s:if test="player1 == #session.user_Id"><s:property value="player2" /></s:if>
+							            		<s:if test="player2 == #session.user_Id"><s:property value="player1" /></s:if>
+							            	</p>
+							            	<s:if test="game_Draw == null && winner_Id == null"><a class="btn btn-primary btn-info btn-sm" href="../matching/gamepage?games.game_Id=<s:property value='game_Id' />" >자세히보기</a></s:if>
+						            	</div>
+				            		</div>
+			            		</div>
+		            	</section>
+		            </s:iterator>
+		            </ul>
+                        <div class="text-xs-center">
+		                    <ul class="pagination pagination-sm">
+		                        <li class="page-item disabled"><a class="page-link" href="#">Prev</a></li>
+		                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+		                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+		                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+		                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+		                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+		                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+		                    </ul>
+		                </div>
+	            </div>
+	            <div class="col-lg-6 col-xl-5" style="position: relative;">
+                
+                <section class="widget">
                     	<div class="widget-body">
                         	<br><h3 style="text-align: center;">종목별 <span class="fw-semi-bold">승률</span></h3><br>
                         	<!-- 승률 그래프 -->
@@ -309,11 +390,7 @@
 								</div>
                     	</div>
 	                </section>
-	            </div>
-	            <div class="col-lg-6 col-xl-5" style="position: relative;">
-                <!--  -->
-                <div class="col-lg-12">
-                <section class="widget">
+	                <section class="widget">
                     <div class="widget-body">
                     <br><h3 style="text-align: center;">승률이 좋았던 <span class="fw-semi-bold">경기장</span></h3><br>
                         <table class="table" id="listOfGrounds" style="border-top-color: white;">
@@ -364,8 +441,9 @@
                         </table>
                     </div>
                 </section>
-            	</div>
+            	
             </div>
+            
 		</div>
     </main>
 </div>
@@ -375,7 +453,6 @@
 </div>
 
 <!-- common libraries. required for every page-->
-<script src="../vendor/jquery/dist/jquery.min.js"></script>
 <script src="../vendor/jquery-pjax/jquery.pjax.js"></script>
 <script src="../vendor/tether/dist/js/tether.js"></script>
 <script src="../vendor/bootstrap/js/dist/util.js"></script>

@@ -68,9 +68,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getUser" parameterType="Player" resultType="Player">
 		SELECT * FROM PLAYER WHERE USER_ID=#{user_Id} AND USER_PW=#{user_Pw}
 	</select>
-	<select id="getMatchingList" parameterType="Player" resultType="Matching">
-		select * from matching where player=#{user_Id}
-	</select>
 	
 	<!-- 업데이트 -->
 	<update id="changeTeam" parameterType="HashMap">
@@ -86,5 +83,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 where USER_ID=#{user_Id, jdbcType=INTEGER}
 	</update>	
 	
+	<!-- 개인의 모든매칭 리스트 /진행중인것도 지나간것도 -->
+	<select id="getMatchingList1" parameterType="Player" resultType="Matching">
+		select * from matching where player = #{user_Id} and game_date > sysdate
+	</select>
+	<select id="getMatchingList2" parameterType="String" resultType="Matching">
+		select * from matching where player = #{team1} and game_date > sysdate
+	</select>
+	<select id="getMatchingList3" parameterType="String" resultType="Matching">
+		select * from matching where player = #{team2} and game_date > sysdate
+	</select>
 	
+	<select id="prevgamelist1" parameterType="Player" resultType="Games">
+		select * from games where player1 = #{user_Id} or player2 = #{user_Id}
+	</select>
+	<select id="prevgamelist2" parameterType="String" resultType="Games">
+		select * from games where player1 = #{team1} or player2 = #{team1}
+	</select>
+	<select id="prevgamelist3" parameterType="String" resultType="Games">
+		select * from games where player1 = #{team2} or player2 = #{team2}
+	</select>
+	
+	<update id="tobecontinue" parameterType="Matching">
+		update matching set matching_Time = sysdate where matching_Id = #{matching_Id}	
+	</update>
+	<delete id="deletematching" parameterType="Matching">
+      delete from matching where matching_Id = #{matching_Id}
+   </delete>
+   
+   <select id="getpprankinglist" resultType="Player">
+      select * from player order by pp_score desc
+   </select>
+   <select id="ppsearch" parameterType="Player" resultType="Player">
+      select * from player where user_location = #{user_Location} order by pp_score desc
+   </select>
+   <select id="getblrankinglist" resultType="Player">
+      select * from player order by bl_score desc
+   </select>
+   <select id="blsearch" parameterType="Player" resultType="Player">
+      select * from player where user_location = #{user_Location} order by bl_score desc
+   </select>
+   <select id="getscrankinglist" resultType="Team">
+      select * from team where team_gametype = '축구' order by team_score desc
+   </select>
+   
+   <select id="getbarankinglist" resultType="Team">
+      select * from team where team_gametype = '야구' order by team_score desc
+   </select>
 </mapper>

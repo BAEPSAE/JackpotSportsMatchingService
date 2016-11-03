@@ -10,7 +10,6 @@
     <link href="css/application.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="images/favicon.ico"/>
     <!-- map -->
-    <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=e476fd3b9c743461f3c713db7e85c418&libraries=services"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -64,19 +63,65 @@
     <!-- 상단 블러 -->
     <script>
 	    $(document).ready(function(){
-	      //메인 화면 이미지 블러
-	      $( ".block1" ).mouseover(function() {
-	        $(this).addClass( "blur" );
-	      });
-	      $( ".block1" ).mouseout(function() {
-	        $(this).removeClass( "blur" );
-	      });
-	      
+	    	//대상이 이미 매칭 대기 상태인지 아닌지를 확인
+	    	$.ajax({
+	    		url: 'matching/checkMatching',
+	    		success: function(response) {
+	    		}, error: function(response) {
+	    			location.href="loading.jsp";
+	    		}
+	    	});
+	    	
 	      //매칭 등록하기
+	      $('#matching').on('click', function() {
+	    	  $.ajax({
+	    		  url: 'matching/insertMatching',
+	    		  data: data(),
+	    		  success: function(response) {
+	    			  alert('등록되었습니다!');
+	    		  },
+	    		  error:function(request,status,error){
+	    		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	    	       }
+	    	  }); 
+	      });//matching
+	     
+	      //구장을 가지고 있습니다.
+	      $('#yesIDo').on('click', function() {
+	    	  pop();
+	    	  function pop() {
+	    			window.open('${pageContext.request.contextPath}/map.jsp','경기장 찾기','resizable=no scrollbars=yes top=100 left=100 width=1080 height=600');
+	    		}
+	      });
 	      
+	      //구장을 가지고 있지 않습니다.
+	      $('#noIDont').on('click', function() {
+	    	  pop();
+	    	  function pop() {
+	    			window.open('${pageContext.request.contextPath}/map2.jsp','희망 위치 찾기','resizable=no scrollbars=yes top=100 left=100 width=1080 height=600');
+	    		}
+	      });
 	    });//document.ready
+	    //창 보이기
+	    
+	    //데이터 가지고 오기
+	    function data() {
+	    	var game_Type=$('#type').val();
+	    	var cutDate=$('#time').val();
+	    	var ground_name=$('#ground_name').val();
+	    	var latitude=$('#la').val();
+	    	var longitude=$('#ln').val();
+	    	var ground_Hold=0;
+	    	if(latitude.replace(/\s/g,"").length == 0) {
+	    		ground_Hold=1;
+	    	}
+	    	else if(latitude.replace(/\s/g,"").length != 0) {
+	    		ground_Hold=0;
+	    	}
+	    	var returnData={"sports": game_Type, "cutDate": cutDate, "matching.ground_Hold": ground_Hold, "matching.latitude": latitude, "matching.longitude": longitude, "ground_name": ground_name};
+	    	return returnData;
+	    }
     </script>
-    
 </head>
 <body>
 <!-- 왼쪽 사이드 바 -->
@@ -108,9 +153,7 @@
                <ul id="sidebar-ui" class="collapse in">
                   <li><s:a action="mypagev" namespace="/player">전적 보기</s:a></li>
                </ul>
-               <ul id="sidebar-ui" class="collapse in">
-                  <li><s:a action="../player/mypagev.action">신고(아직 없음)</s:a></li>
-               </ul></li>
+               </li>
             <li><a class="collapsed" href="#sidebar-maps"
                data-toggle="collapse" data-parent="#sidebar"> <span
                   class="icon"> <i class="fa fa-users"></i>
@@ -119,7 +162,8 @@
                <ul id="sidebar-maps" class="collapse">
                   <!-- data-no-pjax turns off pjax loading for this link. Use in case of complicated js loading on the
                          target page -->
-                  <li><s:a action="teamPage" namespace="/team">팀 관리</s:a></li>
+                  <li><s:a action="soccerteampage" namespace="/team">축구팀 관리</s:a></li>
+                  <li><s:a action="baseballteampage" namespace="/team">야구팀 관리</s:a></li>
                   <li><s:a action="t_searchv" namespace="/team">팀 찾기</s:a></li>
                </ul></li>
             <li>
@@ -130,22 +174,35 @@
                </span> Matching <i class="toggle fa fa-angle-down"></i>
             </a>
                <ul id="sidebar-tables" class="collapse">
-                  <li><a href="../matching/gamepage">진행 중</a></li>
-                  <li><a href="tables_dynamic.html">지난 매칭(아직없음)</a></li>
+                  <li><s:a action="Matching" namespace="/player">진행 중</s:a></li>
+                  <li><s:a action="prevMatching" namespace="/player">지난 매칭</s:a></li>
                </ul>
             </li>
-            <li><a href="../Ranking.action"> <span class="icon">
-                     <span class="glyphicon glyphicon-star"></span>
-               </span> Ranking
-            </a></li>
-            <li><a href="grid.html"> <span class="icon"> <span
+            
+            <li><a class="collapsed" href="#sidebar-forms" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false">
+                    <span class="icon">
+                        <i class="glyphicon glyphicon-star"></i>
+                    </span>
+                    Ranking
+                    <i class="toggle fa fa-angle-down"></i>
+                </a>
+                <ul id="sidebar-forms" class="collapse" aria-expanded="false">
+                  <li><s:a action="scranking" namespace="/player">축구 명예의 전당</s:a></li>
+                  <li><s:a action="baranking" namespace="/player">야구 명예의 전당</s:a></li>
+                  <li><s:a action="blranking" namespace="/player">볼링 명예의 전당</s:a></li>
+                  <li><s:a action="ppranking" namespace="/player">탁구 명예의 전당</s:a></li>
+                </ul>
+            </li>
+            <li><s:a action="list" namespace="/board"> <span class="icon"> <span
                      class="glyphicon glyphicon-list-alt"></span>
                </span> 자게
-            </a></li>
+            </s:a></li>
+            
          </ul>
       </div>
    </nav>
-<!-- 상단 사이드 바 -->
+   <!-- This is the white navigation bar seen on the top. A bit enhanced BS navbar. See .page-controls in _base.scss. -->
+
    <nav class="page-controls navbar navbar-dashboard">
       <div class="container-fluid">
          <div class="navbar-header">
@@ -175,12 +232,12 @@
                </li>
             </ul>
             <!-- xs & sm screen logo -->
-            <a class="navbar-brand hidden-md-up" href="index.html"> <i
+            <s:a class="navbar-brand hidden-md-up" action="index" namespace="/"> <i
                class="fa fa-circle text-gray mr-n-sm"></i> <i
                class="fa fa-circle text-warning"></i> &nbsp; 골목대장 &nbsp; <i
                class="fa fa-circle text-warning mr-n-sm"></i> <i
                class="fa fa-circle text-gray"></i>
-            </a>
+            </s:a>
          </div>
          <!-- this part is hidden for xs screens -->
          <div class="collapse navbar-collapse">
@@ -189,13 +246,13 @@
                   class="dropdown-toggle dropdown-toggle-notifications nav-link"
                   id="notifications-dropdown-toggle" data-toggle="dropdown">
                      &nbsp; <strong> <s:if test="#session.user_Id != null">
-                           <span class="thumb-sm avatar pull-xs-left"> <img
+                          <%--  <span class="thumb-sm avatar pull-xs-left"> <img
                               id="picture" class="img-circle" src="../img/" alt="...">
-                           </span>
+                           </span> --%>
                            <s:property value="#session.user_Name" />
                         </s:if>
                         <s:else>
-                           <s:a action="../player/loginv">로그인하기</s:a>
+                           <s:a action="loginv" namespace="player">로그인하기</s:a>
                         </s:else>
                   </strong>&nbsp; <b class="caret"></b>
                </a> <!-- 드롭다운 -->
@@ -207,8 +264,8 @@
                      class="fa fa-cog fa-lg"></i>
                </a>
                   <ul class="dropdown-menu dropdown-menu-right">
-                     <li><a class="dropdown-item" href="profile.html"><i
-                           class="glyphicon glyphicon-user"></i> &nbsp; Join</a></li>
+                     <li><s:a class="dropdown-item" action="joinv" namespace="/player"><i
+                           class="glyphicon glyphicon-user"></i> &nbsp; Join</s:a></li>
                      <li><s:a class="dropdown-item" action="logout" namespace="player" ><i
                            class="fa fa-sign-out"></i> &nbsp; Log Out</s:a></li>
                   </ul></li>
@@ -223,8 +280,26 @@
         <div class="row">
 	        <div class="col-lg-12">
 				<a href="#" class="block1">
-  				<img src="images/12.jpg" style="width: 100%;">
-  				<span class="price"><span></span><span id="type">SOCCER</span><strong></strong></span>
+				<!-- 축구 -->
+				<s:if test="#session.sports==1">
+  					<img src="images/12.jpg" style="width: 100%;">
+  					<span class="price"><span></span><span>SOCCER<input type="hidden" id="type" value="1"/></span><strong></strong></span>
+				</s:if>
+				<!-- 야구 -->
+				<s:if test="#session.sports==2">
+  					<img src="images/13.jpg" style="width: 100%;">
+  					<span class="price"><span></span><span>Baseball<input type="hidden" id="type" value="2"/></span><strong></strong></span>
+				</s:if>
+				<!-- 탁구 -->
+				<s:if test="#session.sports==3">
+  					<img src="images/14.jpg" style="width: 100%;">
+  					<span class="price"><span></span><span>Pingpong<input type="hidden" id="type" value="3"/></span><strong></strong></span>
+				</s:if>
+				<!-- 볼링 -->
+				<s:if test="#session.sports==4">
+  					<img src="images/15.jpg" style="width: 100%;">
+  					<span class="price"><span></span><span>Bowling<input type="hidden" id="type" value="4"/></span><strong></strong></span>
+				</s:if>
 				</a>
 			</div>
             <div class="col-lg-12">
@@ -242,17 +317,17 @@
                         <div id="collapseOne" class="panel-collapse collapse in">
                             <div class="panel-body">
                                <!-- 날짜 선택 입력 -->
-                            <div class="widget-body" style="text-align: center; margin-left: 37.3%;">
+                            <div class="widget-body" style="text-align: center; margin-left: 38.3%;">
 	                        	<form role="form">
 	                            <fieldset>
-	                                <div class="form-group" style="width: 40%;">
-	                                    <label for="datepicker2i">
+	                                <div class="form-group" style="width: 40%; text-align: center;">
+	                                    <label for="datepicker2i" style="margin-left: -10%;">
 	                                        <span class="help-block">
 	                                            날짜와 시간을 선택해 주세요
 	                                        </span>
 	                                    </label>
 	                                    <div id="datetimepicker2" class="input-group">
-	                                        <input id="time" type="text" class="form-control" />
+	                                        <input id="time" type="text" class="form-control" style="text-align: center;"/>
 	                                        <span class="input-group-addon">
 	                                            <span class="fa fa-calendar"></span>
 	                                        </span>
@@ -269,30 +344,45 @@
                     <div class="panel panel-default">
                         <div class="panel-heading" style="text-align: center;">
                             <h6 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                    <span class="label label-pill label-warning">02</span><span style="font-size: 20px; font-weight: bold;"> 구장 유무</span>
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" id="locationOwn">
+                                    <span class="label label-pill label-success">02</span><span style="font-size: 20px; font-weight: bold;"> 장소 선택</span>
                                     <i class="fa fa-angle-down pull-xs-right"></i>
                                 </a>
                             </h6>
                         </div>
-                        <div id="collapseTwo" class="panel-collapse collapse">
+                        <div id="collapseTwo" class="panel-collapse collapse in">
                                 <div class="panel-body" id="timetab">
-                                	<div class="widget-body" style="text-align: center; margin-left: 43.3%;">
+                                	<div class="widget-body" style="text-align: center;">
 	                        			 <form class="form-horizontal form-label-left" role="form">
-			                            <fieldset>
+			                             <fieldset>
 			                                <div class="form-group row">
 			                                	<!-- 구장 유무 -->
-			                                    <div class="col-md-10" style="margin-left: -12.8%; width: 60%; display: inline-block;">
-			                                        <select id="game_Hold" data-placeholder="이미 예약해 둔 구장이 있습니까?"
-			                                                data-width="auto"
-			                                                data-minimum-results-for-search="10"
-			                                                tabindex="-1"
-			                                                class="select2 form-control" id="default-select">
-			                                            <option value=""></option>
-			                                            <option value="1">예, 있습니다.</option>
-			                                            <option value="0">아니오, 없습니다.</option>
-			                                        </select>
-			                                   	</div>
+			                                	<div class="widget-body">
+			                                	<div class="col-sm-3" style="text-align: center; margin-left: 38%;">
+			                                		<span class="help-block">
+	                                           			이미 예약해 둔 구장이나 정해진 장소가 있나요?
+	                                        		</span>
+			                                		<input type="button" class="btn btn-default btn-block" id="yesIDo" value="예, 있습니다" "/>
+			                                		<div class="col-sm-12" style="text-align: center; margin-top: 5px;" id="yesIDo_window"><input type="text" class="form-control" id="ground_name" placeholder="경기장 이름" readonly="readonly"/><br></div>
+			                                		<input type="button" class="btn btn-default btn-block" id="noIDont" value="아니오, 없습니다"/>
+			                                		<div style="margin-top: 5px;">
+			                                			<!-- 위도 -->
+			                                			 <div class="col-sm-12">
+					                                        <div class="input-group">
+					                                            <span class="input-group-addon"><i class="glyphicon glyphicon-resize-vertical"></i></span>
+					                                            <input id="la" class="form-control" type="text" placeholder="위도" readonly="readonly">
+					                                        </div>
+					                                     </div>
+					                                     <!-- 경도 -->
+					                                     <div class="col-sm-12">
+					                                        <div class="input-group">
+					                                            <span class="input-group-addon"><i class="glyphicon glyphicon-resize-horizontal"></i></span>
+					                                            <input id="ln" class="form-control" type="text" placeholder="경도" readonly="readonly">
+					                                        </div>
+					                                     </div>
+			                                		</div><!-- no -->
+			                                		</div>
+			                                	</div><!-- widget -->
 			                                </div>
 			                                </fieldset>
 			                            </form>    
@@ -301,312 +391,13 @@
                         	</div>
                     	</div>
                     <!-- 3. 희망 장소 -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading" style="text-align: center;">
-                            <h6 class="panel-title">
-                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                    <span class="label label-pill label-success">03</span><span style="font-size: 20px; font-weight: bold;"> 희망 장소</span>
-                                    <i class="fa fa-angle-down pull-xs-right"></i>
-                                </a>
-                            </h6>
-                        </div>
-                        <div id="collapseThree" class="panel-collapse collapse"> 
-                            <div class="panel-body">
-                            	<div class="widget-body">
-			                        <form class="form-horizontal form-label-left" role="form">
-			                            <fieldset>
-			                                <div class="form-group row">
-			                                    <!-- 지도 표시 -->
-			                                    <div class="row" style="width: 100%; text-align: center;">
-										            <div class="col-lg-12" style="width: 100%; margin-left: 0.5%;">
-										                <section class="widget">
-										                	<div style="margin-bottom: -6%;">
-										                	<span class="label label-default">위도</span>&nbsp;<input type="text" class="form-control" id="ln" style="width: 180px; display: inline-block;">
-										                	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-default">경도</span>&nbsp;<input type="text" class="form-control" id="la" style="width: 180px; display: inline-block;">
-										                	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-default">위치</span>&nbsp;<input type="text" class="form-control" id="pl" style="width: 180px; display: inline-block;">
-										                    </div>
-										                    <div class="map_wrap">
-															    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-																<div id="clickLatlng"></div>
-															    <div id="menu_wrap" class="bg_white">
-															        <div class="option">
-															            <div>
-															                <form onsubmit="searchPlaces(); return false;">
-															                    <input type="text" class="form-control" value="" id="keyword" style="width: 160px; display: inline-block;"> 
-															                    <button id="locationSearch" class="btn btn-default" type="submit">&nbsp;검색하기&nbsp;</button> 
-															                </form>
-															            </div>
-															        </div>
-															        <hr>
-															        <ul id="placesList"></ul>
-															        <div id="pagination"></div>
-															    </div>
-															</div>
-												<script>
-												// 마커를 담을 배열입니다
-												var markers = [];
-												
-												var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-												    mapOption = {
-												        center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-												        level: 3 // 지도의 확대 레벨
-												    };  
-												
-												// 지도를 생성합니다    
-												var map = new daum.maps.Map(mapContainer, mapOption); 
-												
-												// 장소 검색 객체를 생성합니다
-												var ps = new daum.maps.services.Places();  
-												
-												// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-												var infowindow = new daum.maps.InfoWindow({zIndex:1});
-												
-												// 키워드로 장소를 검색합니다
-												searchPlaces();
-												
-												var marker = new daum.maps.Marker({ 
-												    // 지도 중심좌표에 마커를 생성합니다 
-												    position: map.getCenter() 
-												}); 
-												// 지도에 마커를 표시합니다
-												marker.setMap(map);
-												// 지도에 클릭 이벤트를 등록합니다
-												// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-												daum.maps.event.addListener(map, 'click', function(mouseEvent) {        
-												    
-												    // 클릭한 위도, 경도 정보를 가져옵니다 
-												    var latlng = mouseEvent.latLng; 
-												    
-												    // 마커 위치를 클릭한 위치로 옮깁니다
-												    marker.setPosition(latlng);
-												    var lng = latlng.getLng();
-												    var lat = latlng.getLat();
-												    
-												    
-												    document.getElementById('ln').value = lng; 
-												    document.getElementById('la').value = lat; 
-												    
-												});
-												
-												// 키워드 검색을 요청하는 함수입니다
-												function searchPlaces() {
-												
-												    var keyword = document.getElementById('keyword').value;
-												
-												    if (!keyword.replace(/^\s+|\s+$/g, '')) {
-														/*alert('키워드를 입력해주세요!');*/
-														return false;
-												    }
-												
-												    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-												    ps.keywordSearch(keyword, placesSearchCB); 
-												}
-												
-												// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
-												function placesSearchCB(status, data, pagination) {
-												    if (status === daum.maps.services.Status.OK) {
-												
-												        // 정상적으로 검색이 완료됐으면
-												        // 검색 목록과 마커를 표출합니다
-												        displayPlaces(data.places);
-												
-												        // 페이지 번호를 표출합니다
-												        displayPagination(pagination);
-												
-												    } else if (status === daum.maps.services.Status.ZERO_RESULT) {
-												
-												        alert('검색 결과가 존재하지 않습니다.');
-												        return;
-												
-												    } else if (status === daum.maps.services.Status.ERROR) {
-												
-												        alert('검색 결과 중 오류가 발생했습니다.');
-												        return;
-												
-												    }
-												}
-												
-												// 검색 결과 목록과 마커를 표출하는 함수입니다
-												function displayPlaces(places) {
-												
-												    var listEl = document.getElementById('placesList'), 
-												    menuEl = document.getElementById('menu_wrap'),
-												    fragment = document.createDocumentFragment(), 
-												    bounds = new daum.maps.LatLngBounds(), 
-												    listStr = '';
-												    
-												    // 검색 결과 목록에 추가된 항목들을 제거합니다
-												    removeAllChildNods(listEl);
-												
-												    // 지도에 표시되고 있는 마커를 제거합니다
-												    removeMarker();
-												    
-												    for ( var i=0; i<places.length; i++ ) {
-												
-												        // 마커를 생성하고 지도에 표시합니다
-												        var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
-												            marker = addMarker(placePosition, i), 
-												            itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성합니다
-												
-												        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-												        // LatLngBounds 객체에 좌표를 추가합니다
-												        bounds.extend(placePosition);
-												
-												        // 마커와 검색결과 항목에 mouseover 했을때
-												        // 해당 장소에 인포윈도우에 장소명을 표시합니다
-												        // mouseout 했을 때는 인포윈도우를 닫습니다
-												        (function(marker, title) {
-												            daum.maps.event.addListener(marker, 'mouseover', function() {
-												                displayInfowindow(marker, title);
-												            });
-												
-												            daum.maps.event.addListener(marker, 'mouseout', function() {
-												                infowindow.close();
-												            });
-												            
-												            
-												            //검색결과 클릭하면 이름 가져옴
-												            daum.maps.event.addListener(marker, 'click', function() {
-												            	document.getElementById('pl').value = title;
-												            });
-												            
-												            itemEl.onmouseover =  function () {
-												                displayInfowindow(marker, title);
-												            };
-												
-												            itemEl.onmouseout =  function () {
-												                infowindow.close();
-												            };
-												        })(marker, places[i].title);
-												
-												        fragment.appendChild(itemEl);
-												    }
-												
-												    // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
-												    listEl.appendChild(fragment);
-												    menuEl.scrollTop = 0;
-												
-												    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-												    map.setBounds(bounds);
-												}
-												
-												// 검색결과 항목을 Element로 반환하는 함수입니다
-												function getListItem(index, places) {
-												
-												    var el = document.createElement('li'),
-												    itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-												                '<div class="info">' +
-												                '   <h5>' + places.title + '</h5>';
-												
-												    if (places.newAddress) {
-												        itemStr += '    <span>' + places.newAddress + '</span>' +
-												                    '   <span class="jibun gray">' +  places.address  + '</span>';
-												    } else {
-												        itemStr += '    <span>' +  places.address  + '</span>'; 
-												    }
-												                 
-												      itemStr += '  <span class="tel">' + places.phone  + '</span>' +
-												                '</div>';           
-												
-												    el.innerHTML = itemStr;
-												    el.className = 'item';
-												
-												    return el;
-												}
-												
-												// 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
-												function addMarker(position, idx, title) {
-												    var imageSrc = 'http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
-												        imageSize = new daum.maps.Size(36, 37),  // 마커 이미지의 크기
-												        imgOptions =  {
-												            spriteSize : new daum.maps.Size(36, 691), // 스프라이트 이미지의 크기
-												            spriteOrigin : new daum.maps.Point(0, (idx*46)+10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
-												            offset: new daum.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
-												        },
-												        markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imgOptions),
-												            marker = new daum.maps.Marker({
-												            position: position, // 마커의 위치
-												            image: markerImage 
-												        });
-												
-												    marker.setMap(map); // 지도 위에 마커를 표출합니다
-												    markers.push(marker);  // 배열에 생성된 마커를 추가합니다
-												
-												    return marker;
-												}
-												
-												// 지도 위에 표시되고 있는 마커를 모두 제거합니다
-												function removeMarker() {
-												    for ( var i = 0; i < markers.length; i++ ) {
-												        markers[i].setMap(null);
-												    }   
-												    markers = [];
-												}
-												
-												// 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
-												function displayPagination(pagination) {
-												    var paginationEl = document.getElementById('pagination'),
-												        fragment = document.createDocumentFragment(),
-												        i; 
-												
-												    // 기존에 추가된 페이지번호를 삭제합니다
-												    while (paginationEl.hasChildNodes()) {
-												        paginationEl.removeChild (paginationEl.lastChild);
-												    }
-												
-												    for (i=1; i<=pagination.last; i++) {
-												        var el = document.createElement('a');
-												        el.href = "#";
-												        el.innerHTML = i;
-												
-												        if (i===pagination.current) {
-												            el.className = 'on';
-												        } else {
-												            el.onclick = (function(i) {
-												                return function() {
-												                    pagination.gotoPage(i);
-												                }
-												            })(i);
-												        }
-												
-												        fragment.appendChild(el);
-												    }
-												    paginationEl.appendChild(fragment);
-												}
-												
-												// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
-												// 인포윈도우에 장소명을 표시합니다
-												function displayInfowindow(marker, title) {
-												    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
-													
-												    infowindow.setContent(content);
-												    infowindow.open(map, marker);
-												}
-												
-												 // 검색결과 목록의 자식 Element를 제거하는 함수입니다
-												function removeAllChildNods(el) {   
-												    while (el.hasChildNodes()) {
-												        el.removeChild (el.lastChild);
-												    }
-												}
-												</script>
-										                </section>
-										            </div>
-										        </div>
-			                                    <!-- 지도 표시 끝 -->
-			                                </div> 
-			                            </fieldset>
-			                         </form>
-			                      </div>
-                        	</div><!-- panel-body -->
-                   		</div>
-                    </div>
                 </div>
             </div><!-- Matching_option -->
             <div class="col-lg-6" style="margin-left: 25%;"><br><br>
             	<button type="button" style="height: 100px;" class="btn btn-warning btn-block" id="matching"><span style="font-size: 30px;">MATCHING!</span></button>
             </div>
         </div><!-- row -->
+        <input type="button" id="resize" style="visibility: hidden;"/>
         <br><br><br>
     </main>
 </div>
@@ -660,5 +451,6 @@
 <!-- page specific js -->
 <script src="vendor/bootstrap/js/dist/tab.js"></script>
 <script src="js/form-elements.js"></script>
+<script src="js/ui-buttons.js"></script>
 </body>
 </html>

@@ -71,7 +71,14 @@ user 테이블 전부 돌아서 해당 팀 id 가지고 있는 애들 목록 긁
 		
 		return result;
 	}
-	
+	public int maketeam(Team team){
+	      int result = 0;
+	      session = MybatisConfig.getSqlSessionFactory().openSession();
+	      result = session.insert("mapper.TeamMapper.maketeam", team);
+	      session.commit();
+	      session.close();
+	      return result;
+	   }
 	
 	
 	//하연
@@ -87,6 +94,13 @@ user 테이블 전부 돌아서 해당 팀 id 가지고 있는 애들 목록 긁
 	    session.update("mapper.TeamMapper.updateTeam", team);
 	    session.commit();
 	    session.close();
+	}
+	
+	public String getTeamLeaderId(int team_Id){
+		String result = null;
+		session = MybatisConfig.getSqlSessionFactory().openSession();
+	    result = session.selectOne("mapper.TeamMapper.getTeamLeaderId", team_Id);
+		return result;
 	}
 	
 }

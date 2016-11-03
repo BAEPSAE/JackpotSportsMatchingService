@@ -31,47 +31,108 @@ public class TeamAction extends ActionSupport implements SessionAware {
 		this.session = session;
 	}
 	
-	public String teamPage() throws Exception{
-		//세션에서 userId가져오기
-		//String user_Id = (String) session.get("user_Id");
-		
-		System.out.println("in");
-		
-		user_Id = (String) session.get("user_Id");
-		selector=1;
-		PlayerDAO pdao = new PlayerDAO();
-		player = pdao.getUserInfo(user_Id);
-		if(selector==1){	//1이면 축구팀
-			team_Id = player.getTeam1();
-		}else if(selector==2){	//2면 야구팀
-			team_Id = player.getTeam2();
-		}
-		if(team_Id==-1) return "noteam";	//팀 없을때?
-		
-		TeamDAO tdao = new TeamDAO();
-		//팀 정보 가져오기
-		//flag가 1일때만 <<이거아직안함
-		team = tdao.getTeam(team_Id);
-		team_winrate = Math.ceil(team.getTeam_WinGame()/(double)team.getTeam_TotalGame()*100);
-		
-		
-		
-		//팀원 목록 가져오기
-		int type=1;	//1이면 정식 0이면 대기
-		pdao = new PlayerDAO();//?????
-		memberList = pdao.getPlayerList(selector, type, team_Id);
-		pdao = new PlayerDAO();
-		applyList = pdao.getPlayerList(selector, 0, team_Id);
-		
-		//팀장이면 session저장
-		if(team.getTeam_Leader().equals(user_Id)) session.put("isLeader", "true");
-		else session.put("isLeader", "false");
-		
-		session.put("t1Leader", team.getTeam_Leader());
-		
-		
-		return SUCCESS;
-	}
+	public String soccerteampage() throws Exception{
+	      System.out.println("in");
+	      
+	      user_Id = (String) session.get("user_Id");
+	      PlayerDAO pdao = new PlayerDAO();
+	      player = pdao.getUserInfo(user_Id);
+	      team_Id = player.getTeam1();
+	      int flag = player.getTeam1_Flag();
+	      if(team_Id==-1 || team_Id==0 || flag == 0) return "noteam";   //팀 없을때?
+	      
+	      TeamDAO tdao = new TeamDAO();
+	      
+	      team = tdao.getTeam(team_Id);
+	      team_winrate = Math.ceil(team.getTeam_WinGame()/(double)team.getTeam_TotalGame()*100);
+	      
+	      
+	      //팀원 목록 가져오기
+	      int type=1;   //1이면 정식 0이면 대기
+	      pdao = new PlayerDAO();//?????
+	      memberList = pdao.getPlayerList(1, type, team_Id);
+	      System.out.println("memberlist size: "+memberList.size());
+	      pdao = new PlayerDAO();
+	      applyList = pdao.getPlayerList(1, 0, team_Id);
+	      
+	      //팀장이면 session저장
+	      if(team.getTeam_Leader().equals(user_Id)) session.put("isLeader", "true");
+	      else session.put("isLeader", "false");
+	      
+	      session.put("t1Leader", team.getTeam_Leader());
+	      
+	      
+	      return SUCCESS;
+	   }
+	   public String baseballteampage() throws Exception{
+	      System.out.println("in");
+	      
+	      user_Id = (String) session.get("user_Id");
+	      PlayerDAO pdao = new PlayerDAO();
+	      player = pdao.getUserInfo(user_Id);
+	      team_Id = player.getTeam2();
+	      int flag = player.getTeam2_Flag();
+	      if(team_Id==-1 || team_Id==0 || flag == 0) return "noteam";   //팀 없을때?
+	      
+	      TeamDAO tdao = new TeamDAO();
+	      
+	      team = tdao.getTeam(team_Id);
+	      team_winrate = Math.ceil(team.getTeam_WinGame()/(double)team.getTeam_TotalGame()*100);
+	      
+	      
+	      //팀원 목록 가져오기
+	      int type=1;   //1이면 정식 0이면 대기
+	      pdao = new PlayerDAO();//?????
+	      memberList = pdao.getPlayerList(2, type, team_Id);
+	      pdao = new PlayerDAO();
+	      applyList = pdao.getPlayerList(2, 0, team_Id);
+	      
+	      //팀장이면 session저장
+	      if(team.getTeam_Leader().equals(user_Id)) session.put("isLeader", "true");
+	      else session.put("isLeader", "false");
+	      
+	      session.put("t1Leader", team.getTeam_Leader());
+	      
+	      
+	      return SUCCESS;
+	   }
+	   
+	   
+	   public String makesoccerteam() throws Exception{   
+		   System.out.println(team);
+	      team.setTeam_Leader((String)session.get("user_Id"));
+	      team.setTeam_GameType("축구");
+	      if(team.getTeam_Score() == 1){
+	         team.setTeam_Score(50);   
+	      }else if(team.getTeam_Score() == 2){
+	         team.setTeam_Score(100);   
+	      }else if(team.getTeam_Score() == 3){
+	         team.setTeam_Score(150);   
+	      }else if(team.getTeam_Score() == 4){
+	         team.setTeam_Score(200);   
+	      }else if(team.getTeam_Score() == 5){
+	         team.setTeam_Score(250);   
+	      }
+	      new TeamDAO().maketeam(team);
+	      return SUCCESS;
+	   }
+	   public String makebaseballteam() throws Exception{      
+	      team.setTeam_Leader((String)session.get("user_Id"));
+	      team.setTeam_GameType("야구");
+	      if(team.getTeam_Score() == 1){
+	         team.setTeam_Score(50);   
+	      }else if(team.getTeam_Score() == 2){
+	         team.setTeam_Score(100);   
+	      }else if(team.getTeam_Score() == 3){
+	         team.setTeam_Score(150);   
+	      }else if(team.getTeam_Score() == 4){
+	         team.setTeam_Score(200);   
+	      }else if(team.getTeam_Score() == 5){
+	         team.setTeam_Score(250);   
+	      }
+	      new TeamDAO().maketeam(team);
+	      return SUCCESS;
+	   }
 	
 	public String t_delete() throws Exception{
 		//해체하기
@@ -122,18 +183,17 @@ public class TeamAction extends ActionSupport implements SessionAware {
 		System.out.println("kick_success");
 		return SUCCESS;
 	}
-	
+
 	public String getTeamList(){
-
+		System.out.println("/////////");
 	    teamlist = new TeamDAO().getTeamList(team);
-	    
-	     // teamlist = new TeamDAO().getTeamList(team);
-
-	      return SUCCESS;
+	    player = new PlayerDAO().getUserInfo((String)session.get("user_Id")); //session로그인아이디로 바꿔야함.
+	    return SUCCESS;
 	}
 	   
 	public String t_joinApply(){
 	   String rst = SUCCESS;
+	   System.out.println("123");
 		int result = new TeamDAO().t_joinApply(player);
 	   if(result == 1){
 		   rst = SUCCESS;   
@@ -165,6 +225,7 @@ public class TeamAction extends ActionSupport implements SessionAware {
 			return ERROR;
 		}
 	}   
+	
 	
 	//getter&setter
 	
@@ -239,7 +300,4 @@ public class TeamAction extends ActionSupport implements SessionAware {
 		public void setUser_Id(String user_Id) {
 			this.user_Id = user_Id;
 		}
-		
-		
-
 }

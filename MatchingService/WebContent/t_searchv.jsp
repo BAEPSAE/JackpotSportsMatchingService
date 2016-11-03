@@ -4,13 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sing - List Groups</title>
+    <title>골목대장 - 진행중인 매칭</title>
     <link href="../css/application.min.css" rel="stylesheet">
-    <!-- as of IE9 cannot parse css files with more that 4K classes separating in two files -->
-    <!--[if IE 9]>
-    <link href="css/application-ie9-part2.css" rel="stylesheet">
-    <![endif]-->
-    <link rel="shortcut icon" href="img/favicon.png">
+    <link rel="shortcut icon" href="../img/favicon.png">
+    <link rel="stylesheet" href="../css/jquery.confirm.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -21,6 +18,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#searchbtn').click(function() {
+				
 				var teamname = $('#search-input').val();
 				$.ajax({
 					url:'t_search',
@@ -33,40 +31,77 @@
 							var lose = tlist[index].team_TotalGame - tlist[index].team_WinGame - tlist[index].team_Draw;
 							var flag = '<button class="btn btn-success width-100 mb-xs" role="button">팀 참가</button>';
 							if(tlist[index].team_Open == false){
-								flag = '<button class="btn btn-gray width-100 mb-xs" role="button">참가 불가</button>';
+								flag = '<button class="btn btn-gray width-100 mb-xs" role="button" disabled="disabled">참가 불가</button>';
+							}else if(tlist[index].team_Id == resp.player.team1){
+								if(resp.player.team1_Flag == '0'){
+									flag = '<button class="btn btn-warning width-100 mb-xs" role="button" disabled="disabled">참가 요청중</button>';
+								}
+								if(resp.player.team1_Flag == '1'){
+									flag = '<button class="btn btn-danger width-100 mb-xs" role="button" disabled="disabled">우리팀</button>';
+								}
+							}else if(tlist[index].team_Id == resp.player.team2){
+								if(resp.player.team2_Flag == '0'){
+									flag = '<button class="btn btn-warning width-100 mb-xs" role="button" disabled="disabled">참가 요청중</button>';
+								}
+								if(resp.player.team2_Flag == '1'){
+									flag = '<button class="btn btn-danger width-100 mb-xs" role="button" disabled="disabled">우리팀</button>';
+								}
 							}
-							$('#teamlistbody').append('<tr><td>'+tlist[index].team_Id+'</td><td><span class="fw-semi-bold">'+tlist[index].team_Name+'</span></td><td><span class="fw-semi-bold">'+tlist[index].team_Leader+'</span></td><td class="hidden-sm-down">'+tlist[index].team_TotalGame + '전 - ' + tlist[index].team_WinGame+'승 '+ tlist[index].team_Draw + "무 "+ lose + "패 " +'</td><td class="hidden-sm-down">'+tlist[index].team_Score+'</td><td class="width-150">'+flag+'</td></tr>')
+							$('#teamlistbody').append('<tr><td>' + tlist[index].team_GameType +'</td><td>'+tlist[index].team_Id+'</td><td><span class="fw-semi-bold">'+tlist[index].team_Name+'</span></td><td><span class="fw-semi-bold">'+tlist[index].team_Leader+'</span></td><td class="hidden-sm-down">'+tlist[index].team_TotalGame + '전 - ' + tlist[index].team_WinGame+'승 '+ tlist[index].team_Draw + "무 "+ lose + "패 " +'</td><td class="hidden-sm-down">'+tlist[index].team_Score+'</td><td class="width-150">'+flag+'</td></tr>')
 						});
+					}, error: function() {
+						alert("2323");
 					}
 				});
 			});
 			$('#teamlistbody').on('click', 'button', function(index) {
 				var here=$(this);
-				var teamId=$(this).parent().parent().children().first().text();
-				$.ajax({
-					url: 't_joinApply'
-					, method: 'post'
-					, data: {
-						"player.user_Id" : 1
-						, "player.team1" : teamId
+
+				$.confirm({
+		            'title'         : '정말로 참가하시겠습니까?　　같은종목 팀에 가입된 경우 이전팀에서 자동탈퇴되며,　　　　 같은종목의 팀에 참가신청한 경우 마지막팀에만 전달됩니다.',
+		            'acceptTitle'   : '예!',
+		            'rejectTitle'	: '아니오!',
+		            'acceptAction'  : function() {
+						var game_type=here.parent().parent().children().first().text();
+						var teamId=here.parent().parent().children().first().next().text();
+						if(game_type == "축구"){
+							$.ajax({
+								url: 't_joinApply'
+								, method: 'post'
+								, data: {
+									"player.user_Id" : "USER193"
+									, "player.team1" : teamId
+								}
+								, success: function(response) {
+									
+									$('#searchbtn').trigger('click');
+								}
+								, error: function(request, status, error) {
+									
+									$('#searchbtn').trigger('click');
+								}
+							}); //$ajax
+						}else{
+							$.ajax({
+								url: 't_joinApply'
+								, method: 'post'
+								, data: {
+									"player.user_Id" : "USER193"
+									, "player.team2" : teamId
+								}
+								, success: function(response) {
+									
+									$('#searchbtn').trigger('click');
+								}
+								, error: function(request, status, error) {
+									
+									$('#searchbtn').trigger('click');
+								}
+							}); //$ajax
+						}
 					}
-					, success: function(response) {
-						$(here).addClass('btn btn-gray width-100 mb-xs');
-						$(here).attr('role', 'button');
-						$(here).text("요청완료");
-						$(here).attr('disabled', 'disabled');
-					}
-					, error: function(request, status, error) {
-						console.log(request);
-						console.log(status);
-						console.log(error);
-						console.log(here);
-						$(here).addClass('btn btn-gray width-100 mb-xs');
-						$(here).attr('role', 'button');
-						$(here).text("요청완료");
-						$(here).attr('disabled', 'disabled');
-					}
-				}); //$ajax
+		        });
+				
 			});
 		});
 	</script>
@@ -107,9 +142,7 @@
                <ul id="sidebar-ui" class="collapse in">
                   <li><s:a action="mypagev" namespace="/player">전적 보기</s:a></li>
                </ul>
-               <ul id="sidebar-ui" class="collapse in">
-                  <li><s:a action="../player/mypagev.action">신고(아직 없음)</s:a></li>
-               </ul></li>
+               </li>
             <li><a class="collapsed" href="#sidebar-maps"
                data-toggle="collapse" data-parent="#sidebar"> <span
                   class="icon"> <i class="fa fa-users"></i>
@@ -118,7 +151,8 @@
                <ul id="sidebar-maps" class="collapse">
                   <!-- data-no-pjax turns off pjax loading for this link. Use in case of complicated js loading on the
                          target page -->
-                  <li><s:a action="teamPage" namespace="/team">팀 관리</s:a></li>
+                  <li><s:a action="soccerteampage" namespace="/team">축구팀 관리</s:a></li>
+                  <li><s:a action="baseballteampage" namespace="/team">야구팀 관리</s:a></li>
                   <li><s:a action="t_searchv" namespace="/team">팀 찾기</s:a></li>
                </ul></li>
             <li>
@@ -129,18 +163,30 @@
                </span> Matching <i class="toggle fa fa-angle-down"></i>
             </a>
                <ul id="sidebar-tables" class="collapse">
-                  <li><a href="../matching/gamepage">진행 중</a></li>
-                  <li><a href="tables_dynamic.html">지난 매칭(아직없음)</a></li>
+                  <li><s:a action="Matching" namespace="/player">진행 중</s:a></li>
+                  <li><s:a action="prevMatching" namespace="/player">지난 매칭</s:a></li>
                </ul>
             </li>
-            <li><a href="../Ranking.action"> <span class="icon">
-                     <span class="glyphicon glyphicon-star"></span>
-               </span> Ranking
-            </a></li>
+            
+            <li><a class="collapsed" href="#sidebar-forms" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false">
+                    <span class="icon">
+                        <i class="glyphicon glyphicon-star"></i>
+                    </span>
+                    Ranking
+                    <i class="toggle fa fa-angle-down"></i>
+                </a>
+                <ul id="sidebar-forms" class="collapse" aria-expanded="false">
+                  <li><s:a action="scranking" namespace="/player">축구 명예의 전당</s:a></li>
+                  <li><s:a action="baranking" namespace="/player">야구 명예의 전당</s:a></li>
+                  <li><s:a action="blranking" namespace="/player">볼링 명예의 전당</s:a></li>
+                  <li><s:a action="ppranking" namespace="/player">탁구 명예의 전당</s:a></li>
+                </ul>
+            </li>
             <li><a href="grid.html"> <span class="icon"> <span
                      class="glyphicon glyphicon-list-alt"></span>
                </span> 자게
             </a></li>
+            
          </ul>
       </div>
    </nav>
@@ -175,12 +221,12 @@
                </li>
             </ul>
             <!-- xs & sm screen logo -->
-            <a class="navbar-brand hidden-md-up" href="index.html"> <i
+            <s:a class="navbar-brand hidden-md-up" action="index" namespace="/"> <i
                class="fa fa-circle text-gray mr-n-sm"></i> <i
                class="fa fa-circle text-warning"></i> &nbsp; 골목대장 &nbsp; <i
                class="fa fa-circle text-warning mr-n-sm"></i> <i
                class="fa fa-circle text-gray"></i>
-            </a>
+            </s:a>
          </div>
          <!-- this part is hidden for xs screens -->
          <div class="collapse navbar-collapse">
@@ -195,7 +241,7 @@
                            <s:property value="#session.user_Name" />
                         </s:if>
                         <s:else>
-                           <s:a action="../player/loginv">로그인하기</s:a>
+                           <s:a action="loginv" namespace="player">로그인하기</s:a>
                         </s:else>
                   </strong>&nbsp; <b class="caret"></b>
                </a> <!-- 드롭다운 -->
@@ -207,8 +253,8 @@
                      class="fa fa-cog fa-lg"></i>
                </a>
                   <ul class="dropdown-menu dropdown-menu-right">
-                     <li><a class="dropdown-item" href="profile.html"><i
-                           class="glyphicon glyphicon-user"></i> &nbsp; Join</a></li>
+                     <li><s:a class="dropdown-item" action="joinv" namespace="/player"><i
+                           class="glyphicon glyphicon-user"></i> &nbsp; Join</s:a></li>
                      <li><s:a class="dropdown-item" action="logout" namespace="player" ><i
                            class="fa fa-sign-out"></i> &nbsp; Log Out</s:a></li>
                   </ul></li>
@@ -262,6 +308,7 @@
 					<table id="datatable-table" class="table table-striped table-hover">
 						<thead>
 							<tr>
+								<th>종목</th>
 								<th>Id</th>
 								<th>팀명</th>
 								<th class="no-sort hidden-sm-down">팀 리더</th>
@@ -316,5 +363,6 @@
 
 <!-- page specific js -->
 <script src="../js/ui-list-groups.js"></script>
+<script src="../js/jquery.confirm.js"></script>
 </body>
 </html>

@@ -16,9 +16,21 @@ public class Player {
    private double bl_Score;   //볼링 승점
    private String saveFileName; //프로필 사진 이름
    private int user_Manner; //유저 매너 점수
-   
+   int onoff;
       
-   public Player() {
+   public int getOnoff() {
+	return onoff;
+}
+
+
+public void setOnoff(int onoff) {
+	this.onoff = onoff;
+}
+
+
+
+
+public Player() {
       // TODO Auto-generated constructor stub
    }
 

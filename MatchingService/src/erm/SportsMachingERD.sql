@@ -10,6 +10,7 @@ DROP TABLE MATCHING CASCADE CONSTRAINTS;
 DROP TABLE PLAYER CASCADE CONSTRAINTS;
 DROP TABLE RECORD CASCADE CONSTRAINTS;
 DROP TABLE TEAM CASCADE CONSTRAINTS;
+DROP TABLE NOTICE CASCADE CONSTRAINTS;
 
 
 select * from message;
@@ -24,8 +25,11 @@ CREATE SEQUENCE SEQ_REPLY INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_GROUND_REVIEW INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_MESSAGE INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_TEAM INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_GAMES INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_NOTICE INCREMENT BY 1 START WITH 1;
 
-drop sequence seq_message;
+
+--drop sequence seq_message;
 
 /*drop seq*/
 
@@ -37,6 +41,8 @@ DROP SEQUENCE SEQ_REPLY;
 DROP SEQUENCE SEQ_GROUND_REVIEW;
 DROP SEQUENCE SEQ_MESSAGE;
 DROP SEQUENCE SEQ_TEAM;
+DROP SEQUENCE SEQ_GAMES;
+DROP SEQUENCE SEQ_NOTICE;
 
 
 
@@ -119,10 +125,10 @@ CREATE TABLE MATCHING(
    -- 경기장예약여부
    GROUND_HOLD number(1),
    -- 경기지역
-   LATITUDE varchar2(20 char) NOT NULL,--위도
-   LONGITUDE varchar2(20 char) NOT NULL,--경도
-   -- 매칭시작시간
-   MATCHING_STARTTIME number(6) NOT NULL
+   LATITUDE varchar2(100 char) NOT NULL,--위도
+   LONGITUDE varchar2(100 char) NOT NULL,--경도
+   -- 이 시간까지 매칭안되면 강제매칭 시작하는 시간
+   MATCHING_TIME date NOT NULL
 );
 
 
@@ -155,19 +161,19 @@ CREATE TABLE REPLY
 );
 
 
-
-
-
-CREATE TABLE GAMES
-(
+CREATE TABLE GAMES(
    -- 경기ID
    GAME_ID number(10) primary key,
    -- 경기종류
    GAME_TYPE varchar2(15) NOT NULL,
-   LATITUDE varchar2(20 char) NOT NULL,--위도
-   LONGITUDE varchar2(20 char) NOT NULL,--경도
+   --경기하는 시간
+   GAME_TIME number NOT NULL,
    PLAYER1 varchar2(100 char) NOT NULL,
+   P1_LATITUDE varchar2(20 char),--위도
+   P1_LONGITUDE varchar2(20 char),--경도
    PLAYER2 varchar2(100 char) NOT NULL,
+   P2_LATITUDE varchar2(20 char),--위도
+   P2_LONGITUDE varchar2(20 char),--경도
    -- 승자ID
    WINNER_ID varchar2(20 char),
    -- 경기_무승부
@@ -186,16 +192,16 @@ CREATE TABLE GAMES
 CREATE TABLE GROUNDS
 (
    -- 경기장ID
-   GROUND_ID number(10) primary key,
-   -- 경기장_지역
-   LATITUDE varchar2(20 char) NOT NULL,--위도
-   LONGITUDE varchar2(20 char) NOT NULL,--경도
+   GROUND_ID number(20) primary key,
    -- 경기장_이름
-   GROUND_NAME varchar2(20) NOT NULL,
+   GROUND_NAME varchar2(50) NOT NULL,
    -- 경기장_전화번호
-   GROUND_PHONE varchar2(15 char) NOT NULL,
+   GROUND_PHONE varchar2(38 char) NOT NULL,
    -- 경기장_주소
-   GROUND_ADDRESS varchar2(50 char) NOT NULL
+   GROUND_ADDRESS varchar2(50 char) NOT NULL,
+   GROUND_LATITUDE varchar2(30 char),--위도백윤석이오류냄
+   GROUND_LONGITUDE varchar2(30 char),--경도
+   GROUND_TYPE number(2) not null
 );
 
 
@@ -210,9 +216,7 @@ CREATE TABLE GROUND_REVIEW(
    references GROUNDS(GROUND_ID)
 );
 
-
-CREATE TABLE MESSAGE
-(
+CREATE TABLE MESSAGE(
    MSGNUM number primary key,
    CONTENT varchar2(2000 char),
    -- 회원ID
@@ -222,7 +226,15 @@ CREATE TABLE MESSAGE
    INPUTDATE date
 );
 
-
+--알림용?
+CREATE TABLE NOTICE(
+    NOTICENUM number primary key,
+    USER_ID varchar2(100 char) NOT NULL,
+    GAME_ID number(10),
+    N_TYPE number(1) not null,   --1:경기 성사 2:매칭 실패 3:수락요청(예정)
+    constraint FK_NOTICE_USER_ID foreign key(USER_ID)
+      references PLAYER(USER_ID)
+);
 
 
 
@@ -264,7 +276,7 @@ COMMENT ON COLUMN PLAYER.TEAM1 IS '팀ID';
 COMMENT ON COLUMN PLAYER.TEAM1_FLAG IS '0 미승인
 1 승인';
 COMMENT ON COLUMN PLAYER.TEAM2 IS '팀ID';
-COMMENT ON COLUMN RECORD.RECORD_ID IS '승패ID';
+COMMENT ON COLUMN RECORD.RECORD_ID IS '승패ID'; 
 COMMENT ON COLUMN RECORD.FB_TOTAL IS '축구_토탈';
 COMMENT ON COLUMN RECORD.FB_WIN IS '축구_승';
 COMMENT ON COLUMN RECORD.FB_DRAW IS '축구_무승부';
@@ -284,5 +296,4 @@ COMMENT ON COLUMN TEAM.TEAM_SCORE IS '팀승점';
 COMMENT ON COLUMN TEAM.TEAM_MANNER IS '팀매너점수';
 COMMENT ON COLUMN TEAM.TEAM_GAMETYPE IS '팀종목';
 COMMENT ON COLUMN TEAM.TEAM_OPEN IS '팀 모집여부';
-
 

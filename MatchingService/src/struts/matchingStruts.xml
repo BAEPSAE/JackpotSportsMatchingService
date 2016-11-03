@@ -4,11 +4,65 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
-    <constant name="struts.devMode" value="true" />
-    <constant name="struts.mulipart.maxSize" value="104859600" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="false" />
+	<!-- <constant name="struts.mulipart.maxSize" value="104859600" /> -->
 
-    <package name="matching" namespace="/matching" extends="default">
+	<!-- 매칭 등록 -->
+	<package name="matching" namespace="/matching" extends="default">
+		<action name="insertMatching" class="action.MatchingAction" method="insertMatching">
+			<result type="json"></result>
+		</action>
 		
-    </package>
+		<action name="checkMatching" class="action.MatchingAction" method="checkMatching">
+			<result type="json"></result>
+		</action>
+		
+		<action name="gamepage" class="action.MatchingAction" method="select_Ground">
+			<result>../maptest.jsp</result>
+		</action>
+
+		<action name="sendMsg" class="action.MatchingAction" method="sendMsg">
+			<result type="json"></result>
+		</action>
+
+		<action name="getMsg" class="action.MatchingAction" method="getMsg">
+			<result type="json"></result>
+		</action>
+
+		<action name="ground" class="action.MatchingAction" method="insert_Ground">
+			<result type="json"></result>
+		</action>
+
+		<action name="List" class="action.MatchingAction" method="select_Ground">
+			<result type="json"></result>
+		</action>
+
+		<action name="review" class="action.MatchingAction" method="review">
+			<result>../reviewPopup.jsp</result>
+		</action>
+
+		<action name="comment" class="action.MatchingAction" method="comment">
+			<result type="chain">review</result>
+		</action>
+
+		<action name="select" class="action.MatchingAction" method="select">
+			<result type="chain">gamepage</result>
+		</action>
+		
+		<action name="gameResultv" class="action.MatchingAction">
+			<result>../gameResultv.jsp</result>
+		</action>
+		
+		<action name="win" class="action.MatchingAction" method="win">
+			<result name="success">../gameResultv.jsp</result>
+			<result name="input" type="chain">gameResultv</result>
+		</action>
+		
+		<action name="draw" class="action.MatchingAction" method="draw">
+			<result name="success">../gameResultv.jsp</result>
+			<result name="input" type="chain">gameResultv</result>
+		</action>
+		
+	</package>
 </struts>

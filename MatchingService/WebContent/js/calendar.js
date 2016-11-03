@@ -47,26 +47,30 @@ $(function(){
 
             // 받아온 정보로 이벤트 추가
             events: function(start, end, callback) {
-    	        $.ajax({
-    	            url: 'schedule',
+            var a = '#64bd63';
+            	$.ajax({
+    	            url: 'schedulelist',
     	            method : 'get',
     	            success: function(doc) {
     	                var events = [];
-    	                for(var c = 0; c <doc.events.length; c++ ) {
+    	                for(var c = 0; c <doc.schedule.length; c++ ) {
+    	                	if(doc.schedule[c].onoff < 0){
+    	                		a = '#e5603b';
+    	                	}
     	                    events.push({
-    	                    	id: "aaa",
-    	                        title: doc.events[c].title,
+    	                    	id: doc.schedule[c].matching_Id,
+    	                        title: doc.schedule[c].game_Type  + doc.schedule[c].game_Time,
     	                        allDay: true,
-    	                        start: doc.events[c].start,
-    	                        backgroundColor: '#e5603b',
+    	                        start: doc.schedule[c].game_Date,
+    	                        backgroundColor: a,
     	                        textColor: '#fff'
     	                    });
     	                }
     	                callback(events);
-    	            }/*
+    	            }
     		        , error : function(resp, statusCode) {
-    		        	alert(resp + " "+ statusCode);
-    		        }*/
+    		        	alert("새로고침 부탁드립니다.");
+    		        }
     	        });
     	    }
 

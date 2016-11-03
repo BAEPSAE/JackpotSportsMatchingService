@@ -8,11 +8,11 @@
     <constant name="struts.devMode" value="true" />
     <constant name="struts.mulipart.maxSize" value="104859600" />
 
-    <package name="player" namespace="/player" extends="default">
+    <package name="player" namespace="/player" extends="default, json-default">
 		<!-- 전적보기 화면 -->
 		
     	<action name="mypagev" class="action.PlayerAction" method="mypagev">
-    		<interceptor-ref name="loginInterceptorStack" />
+    		
 			<result>../mypagev.jsp</result>
 		</action>
 		
@@ -23,36 +23,81 @@
 		
 		<!-- 회원가입 디비에 넣기 -->
 		<action name="join" class="action.PlayerAction" method="join">
-			<interceptor-ref name="fileUpload"></interceptor-ref>
-			<interceptor-ref name="params" />
+			
 			<result type="redirect">loginv.action</result>
 		</action>
-		
 		<!-- 로그인 뷰 -->
 		<action name="loginv">
 			<result>/login.jsp</result>
 		</action>
-		
 		<!-- 로그인 하기 -->
 		<action name="login" class="action.PlayerAction" method="login">
-			<result name="success" type="redirect">../index_matching</result>
-			<result name="input">/login.jsp</result>
+			<result name="success" type="redirect">../index</result>
+			<result name="input" type="redirect">login</result>
 		</action>
-		
 		<!-- 로그아웃 -->
 		<action name="logout" class="action.PlayerAction" method="logout">
 			<result name="success" type="redirect">../index.action</result>
 		</action>
 		
-		<action name="Matching">
-			<result>/Matching.jsp</result>
-		</action>
-		
-		<action name="schedule" class="action.PlayerAction" method="getScheduler">
+		<action name="checkNotices" class="action.PlayerAction" method="checkNotices">
 			<result type="json"></result>
 		</action>
+		
+		
+		<action name="deleteNotice" class="action.PlayerAction" method="deleteNotice">
+			<result type="redirect">../player/Matching</result>
+		</action>
+		
+		
+		<!-- 이전경기페이지 열기 -->
+		<action name="prevMatching">
+			<result>../PrevMatching.jsp</result>
+		</action>
+		<!-- 이전경기리스트 받아오기 -->
+		<action name="prevgamelist" class="action.PlayerAction" method="prevgamelist">
+			<result type="json"></result>
+		</action>
+		<!-- 캘린더페이지 열기 -->
+		<action name="Matching" class="action.PlayerAction" method="getScheduler">
+			<result name="success">../Matching.jsp</result>
+		</action>
+		<!-- 갤린더에넣을 스케줄 리스트 불러오기 -->
 		<action name="schedulelist" class="action.PlayerAction" method="getScheduler">
 			<result type="json"></result>
 		</action>
+		<!-- 매치된게임페이지에서 게임룸 들어가는 버튼 -->
+		<action name="opengameroom" class="action.PlayerAction" method="opengameroom">
+			<result type="json"></result>
+		</action>
+		<!-- 매칭시간을 현제시간으로 다시시작 -->
+		<action name="tobecontinue" class="action.PlayerAction" method="tobecontinue">
+			<result type="json"></result>
+		</action>
+		<!-- 매칭풀안에 들어가있는 정보를 지운다 -->
+		<action name="deletematching" class="action.PlayerAction" method="deletematching">
+			<result type="json"></result>
+		</action>
+		<!-- 랭킹페이지 -->
+      <action name="ppranking" class="action.PlayerAction" method="getpprankinglist">
+         <result name="success">../ppranking.jsp</result>
+      </action>
+      <action name="ppranksearch" class="action.PlayerAction" method="ppranksearch">
+         <result name="success">../ppranking.jsp</result>
+      </action>
+      <action name="blranking" class="action.PlayerAction" method="getblrankinglist">
+         <result name="success">../blranking.jsp</result>
+      </action>
+      <action name="blranksearch" class="action.PlayerAction" method="blranksearch">
+         <result name="success">../blranking.jsp</result>
+      </action>
+      <action name="scranking" class="action.PlayerAction" method="getscrankinglist">
+         <result name="success">../scranking.jsp</result>
+      </action>
+      <action name="baranking" class="action.PlayerAction" method="getbarankinglist">
+         <result name="success">../baranking.jsp</result>
+      </action>
+      
+      
     </package>
 </struts>

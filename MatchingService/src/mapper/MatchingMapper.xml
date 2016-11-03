@@ -5,5 +5,151 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="mapper.MatchingMapper">
 	<!-- 매칭풀에 등록하기 -->
-	<insert id=""></insert>
+	<insert id="insertMatching" parameterType="Matching">
+		insert into matching values(SEQ_MATCHING.NEXTVAL, #{player}, #{score}, #{game_Type}, to_date(#{game_Date}), #{game_Time}, #{ground_Hold}, #{latitude}, #{longitude}, SYSDATE+24)
+	</insert>
+
+<!-- 그라운드를 뒤져서 위도, 경도, GroundID를 가지고 오기 -->
+
+
+<select parameterType="String" id="getLaLo" resultType="Grounds"> SELECT*FROM GROUNDS WHERE GROUND_NAME=#{ground_name} </select>
+	
+	<!-- 대상이 이미 매칭 대기 상태인지 아닌지를 확인 -->
+	<select id="checkMatching" parameterType="String" resultType="Matching">
+		select * from matching where player=#{user_Id}
+	</select>
+	<!-- 매칭 이어주기 -->
+	<select id="searchMatching" resultType="Matching" parameterType="HashMap">
+		
+		<![CDATA[
+		select *
+		from matching
+		where matching_id = (
+		select matching_id
+		from (
+		select matching_id, dscore+distance total
+		from (select matching_id, ABS(#{score}-score) dscore, 
+					((ACOS(SIN(#{latitude} * ACOS(-1) / 180) * SIN(LATITUDE * ACOS(-1) / 180)
+					+ COS(#{latitude} * ACOS(-1) / 180) * COS(LATITUDE * ACOS(-1) / 180)* COS((#{longitude} - LONGITUDE)
+					* ACOS(-1) / 180))* 180 / ACOS(-1)) * 60 * 1.1515) distance 
+			  from matching
+			  where game_type=#{game_type} and game_date=to_date(#{game_date}, 'yyyy-mm-dd hh24:mi:ss')
+			  		and game_time=#{game_time}
+			  		]]>
+			  		<!-- 그라운드 잡고 있을때는 없는 사람만 -->
+			  		<if test="hold==1">
+			  		 and ground_hold=0 
+			  		</if>
+			  		 <![CDATA[
+			  		 and matching_time>sysdate)
+		where dscore<#{s_range} and distance<#{d_range}
+		)
+		where total=(
+		select MIN(total)
+		from (select matching_id, dscore+distance total
+			  from (select matching_id, ABS(#{score}-score) dscore, 
+							((ACOS(SIN(#{latitude} * ACOS(-1) / 180) * SIN(LATITUDE * ACOS(-1) / 180)
+							+ COS(#{latitude} * ACOS(-1) / 180) * COS(LATITUDE * ACOS(-1) / 180)* COS((#{longitude} - LONGITUDE)
+							* ACOS(-1) / 180))* 180 / ACOS(-1)) * 60 * 1.1515) distance 
+			  		from matching
+			  		where game_type=#{game_type} and game_date=to_date(#{game_date}, 'yyyy-mm-dd hh24:mi:ss')
+			  				and game_time=#{game_time} 
+			  				]]>
+			  				<if test="hold==1">
+					  		 and ground_hold=0 
+					  		</if>
+			  				 <![CDATA[
+			  				  and matching_time>sysdate)
+			   where dscore<#{s_range} and distance<#{d_range})
+		)
+		)
+		
+		]]>
+	</select>
+	
+	<select id="getTimeEnd" resultType="Matching">
+		<![CDATA[
+		select * from matching where matching_time<sysdate
+		]]>
+	</select>
+	
+	<!-- 매칭 성사되면 매칭풀에서 지우기 -->
+	<delete id="deleteMatching" parameterType="int">
+		delete from matching where matching_id=#{matching_Id}
+	</delete>
+	
+	<!-- 매칭 성사되면 게임테이블까지 넣기 -->
+	<insert id="insertGame" parameterType="Games">
+		insert into games 
+		<if test="ground_Id!=0">
+			(game_id, game_type, game_time, player1, player2, ground_id, player1_key, player2_key)
+			values 
+			(seq_games.nextval, #{game_Type}, #{game_Time}, #{player1}, #{player2}, #{ground_Id}, #{player1_Key}, #{player2_Key})
+		</if>
+		<if test="ground_Id==0">
+			(game_id, game_type, game_time, player1, p1_latitude, p1_longitude, player2, p2_latitude, p2_longitude, player1_key, player2_key)
+			values 
+			(seq_games.nextval, #{game_Type}, #{game_Time}, #{player1}, #{p1_latitude}, #{p1_longitude}, 
+		 	#{player2}, #{p2_latitude}, #{p2_longitude},  #{player1_Key}, #{player2_Key})
+		</if>
+	</insert>
+	
+	<!-- 알림사항 넣기 -->
+	<insert id="insertNotice" parameterType="Notice">
+		insert into notice (noticenum, user_id, n_type) values (seq_notice.nextval, #{user_Id}, #{n_Type})
+	</insert>
+	
+	<!-- 규은 윤석 -->
+	<insert id="sendMsg" parameterType="Message">
+		INSERT INTO MESSAGE VALUES (SEQ_MESSAGE.nextval, #{content}, #{user_Id}, #{game_Id}, #{inputDate})
+	</insert>
+	
+	<select id="getMsg" parameterType="int" resultType="Message">
+		SELECT * FROM MESSAGE WHERE GAME_ID = #{game_Id} order by msgnum asc
+	</select>
+	
+	<select id="review" parameterType="int" resultType="Ground_Review">
+		SELECT * FROM GROUND_REVIEW WHERE GROUND_ID = #{ground_Id}
+	</select>
+	
+	<insert id="insertGround" parameterType="Item">
+      INSERT INTO GROUNDS VALUES (#{ground_id},#{ground_name}, #{ground_phone}, #{ground_address}, #{ground_latitude,jdbcType=VARCHAR}, #{ground_longitude,jdbcType=VARCHAR}, #{ground_type})
+   </insert>
+   
+   <select id="getItem" parameterType="int" resultType="Item">
+      SELECT * FROM GROUNDS WHERE ground_type = #{ground_type}
+   </select>
+   
+   <insert id="comment" parameterType="Ground_Review">
+   		INSERT INTO GROUND_REVIEW VALUES (SEQ_GROUND_REVIEW.nextval, #{ground_Id}, #{content}, #{user_Id})
+   </insert>
+   
+   <select id="ground" parameterType="int" resultType="Item">
+      SELECT * FROM GROUNDS WHERE ground_id = #{ground_Id}
+   </select>
+   
+   <update id="select" parameterType="Games">
+		update games set GROUND_ID=#{ground_Id} where GAME_ID = #{game_Id}
+	</update>
+	
+	<select id="key" parameterType="Item" resultType="Games">
+		SELECT * FROM GAMES WHERE GAME_ID = #{ground_phone}
+	</select>
+	
+	<update id="winner" parameterType="Item">
+		update games set WINNER_ID=#{ground_address} where GAME_ID = #{ground_phone}
+	</update>	
+	
+	<update id="draw" parameterType="Item">
+		update games set GAME_DRAW=1 where GAME_ID = #{ground_phone}
+	</update>	
+	
+	<delete id="deleteChat" parameterType="Item">
+		DELETE MESSAGE WHERE GAME_ID = #{ground_phone}
+	</delete>
+	
+	<select id="searchGame" parameterType="Games" resultType="Games">
+		SELECT * FROM GAMES WHERE GAME_ID = #{game_Id}
+	</select>
+
 </mapper>

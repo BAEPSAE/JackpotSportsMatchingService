@@ -37,9 +37,9 @@
         			,data:{"user_Id":id}
         			,dataType:'json'
         			,success:function(data){
-        				location.href="teamPage";
+        				location.href="soccerteampage";
         			}, error: function(request, status, error) {
-						location.href="teamPage";
+						location.href="soccerteampage";
 					}
         		})
         	})
@@ -52,9 +52,9 @@
         			, data:{"user_Id":id}
         			, dataType:'json'
         			, success:function(){
-        				location.href="teamPage";
+        				location.href="soccerteampage";
         			}, error: function(request, status, error) {
-						location.href="teamPage";
+						location.href="soccerteampage";
 					}
         		})
         	});
@@ -87,10 +87,10 @@
 								"player.user_Id" : playerId
 							}
 							, success: function(response) {
-								location.href="teamPage";
+								location.href="soccerteampage";
 							}
 							, error: function(request, status, error) {
-								location.href="teamPage";
+								location.href="soccerteampage";
 							}
 						}); //$ajax
 					}
@@ -103,10 +103,10 @@
 								"player.user_Id" : playerId
 							}
 							, success: function(response) {
-								location.href="teamPage";
+								location.href="soccerteampage";
 							}
 							, error: function(request, status, error) {
-								location.href="teamPage";
+								location.href="soccerteampage";
 							}
 						}); //$ajax
 					}
@@ -152,9 +152,7 @@
                <ul id="sidebar-ui" class="collapse in">
                   <li><s:a action="mypagev" namespace="/player">전적 보기</s:a></li>
                </ul>
-               <ul id="sidebar-ui" class="collapse in">
-                  <li><s:a action="../player/mypagev.action">신고(아직 없음)</s:a></li>
-               </ul></li>
+               </li>
             <li><a class="collapsed" href="#sidebar-maps"
                data-toggle="collapse" data-parent="#sidebar"> <span
                   class="icon"> <i class="fa fa-users"></i>
@@ -163,7 +161,8 @@
                <ul id="sidebar-maps" class="collapse">
                   <!-- data-no-pjax turns off pjax loading for this link. Use in case of complicated js loading on the
                          target page -->
-                  <li><s:a action="teamPage" namespace="/team">팀 관리</s:a></li>
+                  <li><s:a action="soccerteampage" namespace="/team">축구팀 관리</s:a></li>
+                  <li><s:a action="baseballteampage" namespace="/team">야구팀 관리</s:a></li>
                   <li><s:a action="t_searchv" namespace="/team">팀 찾기</s:a></li>
                </ul></li>
             <li>
@@ -174,18 +173,30 @@
                </span> Matching <i class="toggle fa fa-angle-down"></i>
             </a>
                <ul id="sidebar-tables" class="collapse">
-                  <li><a href="../matching/gamepage">진행 중</a></li>
-                  <li><a href="tables_dynamic.html">지난 매칭(아직없음)</a></li>
+                  <li><s:a action="Matching" namespace="/player">진행 중</s:a></li>
+                  <li><s:a action="prevMatching" namespace="/player">지난 매칭</s:a></li>
                </ul>
             </li>
-            <li><a href="../Ranking.action"> <span class="icon">
-                     <span class="glyphicon glyphicon-star"></span>
-               </span> Ranking
-            </a></li>
+            
+            <li><a class="collapsed" href="#sidebar-forms" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false">
+                    <span class="icon">
+                        <i class="glyphicon glyphicon-star"></i>
+                    </span>
+                    Ranking
+                    <i class="toggle fa fa-angle-down"></i>
+                </a>
+                <ul id="sidebar-forms" class="collapse" aria-expanded="false">
+                  <li><s:a action="scranking" namespace="/player">축구 명예의 전당</s:a></li>
+                  <li><s:a action="baranking" namespace="/player">야구 명예의 전당</s:a></li>
+                  <li><s:a action="blranking" namespace="/player">볼링 명예의 전당</s:a></li>
+                  <li><s:a action="ppranking" namespace="/player">탁구 명예의 전당</s:a></li>
+                </ul>
+            </li>
             <li><a href="grid.html"> <span class="icon"> <span
                      class="glyphicon glyphicon-list-alt"></span>
                </span> 자게
             </a></li>
+            
          </ul>
       </div>
    </nav>
@@ -220,12 +231,12 @@
                </li>
             </ul>
             <!-- xs & sm screen logo -->
-            <a class="navbar-brand hidden-md-up" href="index.html"> <i
+            <s:a class="navbar-brand hidden-md-up" action="index" namespace="/"> <i
                class="fa fa-circle text-gray mr-n-sm"></i> <i
                class="fa fa-circle text-warning"></i> &nbsp; 골목대장 &nbsp; <i
                class="fa fa-circle text-warning mr-n-sm"></i> <i
                class="fa fa-circle text-gray"></i>
-            </a>
+            </s:a>
          </div>
          <!-- this part is hidden for xs screens -->
          <div class="collapse navbar-collapse">
@@ -240,7 +251,7 @@
                            <s:property value="#session.user_Name" />
                         </s:if>
                         <s:else>
-                           <s:a action="../player/loginv">로그인하기</s:a>
+                           <s:a action="loginv" namespace="player">로그인하기</s:a>
                         </s:else>
                   </strong>&nbsp; <b class="caret"></b>
                </a> <!-- 드롭다운 -->
@@ -252,8 +263,8 @@
                      class="fa fa-cog fa-lg"></i>
                </a>
                   <ul class="dropdown-menu dropdown-menu-right">
-                     <li><a class="dropdown-item" href="profile.html"><i
-                           class="glyphicon glyphicon-user"></i> &nbsp; Join</a></li>
+                     <li><s:a class="dropdown-item" action="joinv" namespace="/player"><i
+                           class="glyphicon glyphicon-user"></i> &nbsp; Join</s:a></li>
                      <li><s:a class="dropdown-item" action="logout" namespace="player" ><i
                            class="fa fa-sign-out"></i> &nbsp; Log Out</s:a></li>
                   </ul></li>

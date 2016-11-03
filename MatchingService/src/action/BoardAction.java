@@ -12,7 +12,17 @@ import vo.Board;
 import dao.BoardDAO;
 
 public class BoardAction extends ActionSupport implements SessionAware {
+	
 	private Board board;
+	private String num;
+	public String getNum() {
+		return num;
+	}
+
+	public void setNum(String num) {
+		this.num = num;
+	}
+
 	private Map<String, Object> session;
 	BoardDAO DAO = new BoardDAO();
 	private ArrayList<Board> boardlist;
@@ -24,9 +34,7 @@ public class BoardAction extends ActionSupport implements SessionAware {
 	}
 
 	public String insertBoard() throws Exception {
-		System.out.println("인서트실행");
-		System.out.println(board);
-
+		board.setUser_Id((String) session.get("user_Id") );
 		int result = DAO.insertBoard(board);
 
 		if (result > 0)
@@ -36,26 +44,17 @@ public class BoardAction extends ActionSupport implements SessionAware {
 	}
 
 	public String boardView() throws Exception {
-		System.out.println("select실행");
 		boardlist = (ArrayList<Board>) DAO.getBoardList();
-		System.out.println(boardlist);
 		return SUCCESS;
 	}
 
-	public String readboard() throws Exception {
-		System.out.println("selectboard실행");
-		System.out.println(board.getboardNum());
-		board = DAO.getBoard(board.getboardNum());
+	public String readBoard() throws Exception {
+		board = DAO.getBoard(Integer.parseInt(num));
 		return SUCCESS;
 	}
-	public String deleteboard() throws Exception {
-		System.out.println("deleteboard실행");
-		System.out.println(board.getboardNum());
-		int result = DAO.deleteBoard(board.getboardNum());
-		if (result > 0)
-			return SUCCESS;
-		else
-			return ERROR;
+	public String deleteBoard() throws Exception {
+		 DAO.deleteBoard(board.getBoardNum());
+		return SUCCESS;
 	}
 
 	//  get,set method
