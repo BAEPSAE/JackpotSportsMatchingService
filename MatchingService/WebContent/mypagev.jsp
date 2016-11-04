@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sing - List Groups</title>
+    <title>우리동네 골목대장</title>
     <link href="../css/application.min.css" rel="stylesheet">
-    <link rel="shortcut icon" href="../img/favicon.png">
+    <!-- <link rel="shortcut icon" href="../img/favicon.png"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -231,9 +231,6 @@
                   class="dropdown-toggle dropdown-toggle-notifications nav-link"
                   id="notifications-dropdown-toggle" data-toggle="dropdown">
                      &nbsp; <strong> <s:if test="#session.user_Id != null">
-                           <span class="thumb-sm avatar pull-xs-left"> <img
-                              id="picture" class="img-circle" src="../img/" alt="...">
-                           </span>
                            <s:property value="#session.user_Name" />
                         </s:if>
                         <s:else>
@@ -283,21 +280,21 @@
                                     <span class="thumb-xlg">
                                         <img class="img-circle" src="../css/images/logo.jpg" alt="...">
                                     </span><br><br>
-                                    <h5 class="fw-normal" style="text-align: center; margin-left: -5.8%;"><s:property value="%{player.user_Id}"/><span class="fw-semi-bold" id="user_Id"></span></h5>
+                                    <h5 class="fw-normal" style="text-align: center; margin-left: 1%;"><s:property value="%{player.user_Name}"/><span class="fw-semi-bold" id="user_Id"></span></h5>
                                     <%-- <p style="text-align: center; margin-left: -5%;" id="team_Name">[<s:property value="%{player.user_Id}"/>]</p> --%>
-                                    <ul class="contacts" style="margin-left: -5%;">
+                                    <ul class="contacts" style="margin-left: 2%;">
                                         <li><i class="fa fa-phone fa-fw mr-xs"></i><a href="#" id="user_Phone"><s:property value="%{player.user_Phone}"/></a></li><br>
                                         <li><i class="fa fa-map-marker fa-fw mr-xs"></i><a href="#" id="user_Location"><s:property value="%{player.user_Location}"/></a></li>
                                     </ul>
                                 </div>
-                            <div class="col-md-7" style="margin-left: -1%;">
+                            <div class="col-md-7" style="margin-left: 5%;">
                                 <div class="stats-row stats-row-profile mt text-xs-right">
                                     <div class="stat-item">
                                         <p class="value text-xs-right" id="win"><s:property value="%{aver}"/>%</p>
                                         <h6 class="name">평균 승률</h6>
                                     </div>
                                     <div class="stat-item">
-                                        <p class="value text-xs-right" id="manner">TODO</p>
+                                        <p class="value text-xs-right" id="manner"><s:property value="%{player.user_Manner}"/></p>
                                         <h6 class="name">매너점수</h6>
                                     </div>
                                 </div>
