@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sing - Dashboard</title>
+    <link href="css/application.min.css" rel="stylesheet">
+    <!-- as of IE9 cannot parse css files with more that 4K classes separating in two files -->
+    <!--[if IE 9]>
+        <link href="css/application-ie9-part2.css" rel="stylesheet">
+    <![endif]-->
+    <link rel="shortcut icon" href="img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <script>
+        /* yeah we need this empty stylesheet here. It's cool chrome & chromium fix
+         chrome fix https://code.google.com/p/chromium/issues/detail?id=167083
+         https://code.google.com/p/chromium/issues/detail?id=332189
+         */
+    </script>
+</head>
+<body>
+
+<div class="content-wrap">
+    <!-- main page content. the place to put widgets in. usually consists of .row > .col-lg-* > .widget.  -->
+    <main id="content" class="content" role="main">
+        <h1 class="page-title">우리동내 골목대장 <small><small>생활체육 매칭 서비스</small></small></h1>
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- minimal widget consist of .widget class. note bg-transparent - it can be any background like bg-gray,
+                bg-primary, bg-white -->
+                <section class="widget bg-transparent">
+                    <!-- .widget-body is a mostly semantic class. may be a sibling to .widget>header or .widget>footer -->
+                    <div class="widget-body">
+                        <div id="map" class="mapael">
+                           
+                            <div class="map">
+                            		ㅇㅇㅇㅇ
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-4">
+                <section class="widget bg-transparent">
+                    <header>
+                        <h5>
+                            	우리동내 골목대장
+                            <span class="fw-semi-bold">전체통계</span>
+                        </h5>
+                        <div class="widget-controls widget-controls-hover">
+                            <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                            <a href="#"><i class="fa fa-refresh"></i></a>
+                            <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+                        </div>
+                    </header>
+                    <div class="widget-body">
+                        <p>
+                            <p class="h3 text-warning no-margin"><i class="fa fa-map-marker"><strong id="geo-locations-number">5 035</strong> </i>개의 매칭이 성사되었습니다.</p>
+                        </p>
+                        <div class="row progress-stats">
+                            <div class="col-md-9">
+                                <h6 class="name m-t-1">서비스 이용 만족도</h6>
+                                <div class="bg-white progress-bar">
+                                    <progress class="progress progress-primary progress-sm js-progress-animate" value="100" max="100" style="width: 0%" data-width="60%"></progress>
+                                </div>
+                            </div>
+                            <div class="col-md-3 text-xs-center">
+                                <span class="status rounded rounded-lg bg-body-light">
+                                    <small><span id="percent-1">72</span>%</small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row progress-stats">
+                            <div class="col-md-9">
+                                <h6 class="name m-t-1">무효된 게임</h6>
+                                <div class="bg-white progress-bar">
+                                    <progress class="progress progress-sm progress-danger js-progress-animate" value="100" max="100" style="width: 0%" data-width="39%"></progress>
+                                </div>
+                            </div>
+                            <div class="col-md-3 text-xs-center">
+                                <span class="status rounded rounded-lg bg-body-light">
+                                    <small><span  id="percent-2">28</span>%</small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row progress-stats">
+                            <div class="col-md-9">
+                                <h6 class="name m-t-1">매칭 성공률</h6>
+                                <div class="bg-white progress-bar">
+                                    <progress class="progress progress-sm progress-success js-progress-animate" value="100" max="100" style="width: 0%" data-width="80%"></progress>
+                                </div>
+                            </div>
+                            <div class="col-md-3 text-xs-center">
+                                <span class="status rounded rounded-lg bg-body-light">
+                                    <small><span id="percent-3">92</span>%</small>
+                                </span>
+                            </div>
+                        </div>
+                        <h6 class="fw-semi-bold mt">지금바로 시작하기!</h6>
+                        <div class="input-group mt">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default">회원가입</button>
+                                <button type="submit" class="btn btn-default">로그인</button>
+                            </span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <section class="widget">
+                    <!-- .widget>header is generally a place for widget title and widget controls. see .widget in _base.scss -->
+                    <header>
+                        <h6>
+                            	볼링매칭
+                        </h6>
+                        <div class="widget-controls">
+                            <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                            <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+                        </div>
+                    </header>
+                    <div class="widget-body">
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">전체이용자 중</h6>
+                                <p class="value">76.38%</p>
+                            </div>
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">월증가</h6>
+                                <p class="value">10.38%</p>
+                            </div>
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">24시간</h6>
+                                <p class="value">3.38%</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-lighter progress-bar">
+                            <progress class="progress progress-xs progress-success" value="100" max="100" style="width: 60%"></progress>
+                        </div>
+                        <p>
+                            <small><span class="circle bg-warning"><i class="glyphicon glyphicon-chevron-up"></i></span></small>
+                            <span class="fw-semi-bold">17% higher</span>
+                            than last month</p>
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-4">
+                <section class="widget">
+                    <header>
+                        <h6>
+                            	탁구매칭
+                        </h6>
+                        <div class="widget-controls">
+                            <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                            <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+                        </div>
+                    </header>
+                    <div class="widget-body">
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">전체이용자 중</h6>
+                                <p class="value">71.81%</p>
+                            </div>
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">월증가</h6>
+                                <p class="value">19.31%</p>
+                            </div>
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">24시간</h6>
+                                <p class="value">9.10%</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-lighter progress-bar">
+                            <progress class="progress progress-xs progress-danger" value="100" max="100" style="width: 60%"></progress>
+                        </div>
+                        <p>
+                            <small><span class="circle bg-warning"><i class="fa fa-chevron-down"></i></span></small>
+                            <span class="fw-semi-bold">8% lower</span>
+                            than last month
+                        </p>
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-4">
+                <section class="widget">
+                    <header>
+                        <h6>
+                           	축구매칭
+                        </h6>
+                        <div class="widget-controls">
+                            <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                            <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+                        </div>
+                    </header>
+                    <div class="widget-body">
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">전체이용자 중</h6>
+                                <p class="value">80.12%</p>
+                            </div>
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">월증가</h6>
+                                <p class="value">14.38%</p>
+                            </div>
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">24시간</h6>
+                                <p class="value">10.29%</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-lighter progress-bar">
+                            <progress class="progress progress-primary progress-xs" value="100" max="100" style="width: 60%"></progress>
+                        </div>
+                        <p>
+                            <small><span class="circle bg-warning"><i class="fa fa-chevron-down"></i></span></small>
+                            <span class="fw-semi-bold">2% lower</span>
+                            than last month
+                        </p>
+                    </div>
+                    
+                </section>
+            </div>
+             <div class="col-lg-4">
+                <section class="widget">
+                    <!-- .widget>header is generally a place for widget title and widget controls. see .widget in _base.scss -->
+                    <header>
+                        <h6>
+                            	야구매칭
+                        </h6>
+                        <div class="widget-controls">
+                            <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                            <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+                        </div>
+                    </header>
+                    <div class="widget-body">
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">전체이용자 중</h6>
+                                <p class="value">76.38%</p>
+                            </div>
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">월증가</h6>
+                                <p class="value">10.38%</p>
+                            </div>
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">24시간</h6>
+                                <p class="value">3.38%</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-lighter progress-bar">
+                            <progress class="progress progress-xs progress-success" value="100" max="100" style="width: 60%"></progress>
+                        </div>
+                        <p>
+                            <small><span class="circle bg-warning"><i class="glyphicon glyphicon-chevron-up"></i></span></small>
+                            <span class="fw-semi-bold">17% higher</span>
+                            than last month</p>
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-4">
+                <section class="widget">
+                    <header>
+                        <h6>
+                            	OO매칭
+                        </h6>
+                        <div class="widget-controls">
+                            <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                            <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+                        </div>
+                    </header>
+                    <div class="widget-body">
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">전체이용자 중</h6>
+                                <p class="value">71.81%</p>
+                            </div>
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">월증가</h6>
+                                <p class="value">19.31%</p>
+                            </div>
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">24시간</h6>
+                                <p class="value">9.10%</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-lighter progress-bar">
+                            <progress class="progress progress-xs progress-danger" value="100" max="100" style="width: 60%"></progress>
+                        </div>
+                        <p>
+                            <small><span class="circle bg-warning"><i class="fa fa-chevron-down"></i></span></small>
+                            <span class="fw-semi-bold">8% lower</span>
+                            than last month
+                        </p>
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-4">
+                <section class="widget">
+                    <header>
+                        <h6>
+                           	OO매칭
+                        </h6>
+                        <div class="widget-controls">
+                            <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                            <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+                        </div>
+                    </header>
+                    <div class="widget-body">
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">전체이용자 중</h6>
+                                <p class="value">80.12%</p>
+                            </div>
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">월증가</h6>
+                                <p class="value">14.38%</p>
+                            </div>
+                            <div class="stat-item">
+                                <h6 class="name fs-sm">24시간</h6>
+                                <p class="value">10.29%</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-lighter progress-bar">
+                            <progress class="progress progress-primary progress-xs" value="100" max="100" style="width: 60%"></progress>
+                        </div>
+                        <p>
+                            <small><span class="circle bg-warning"><i class="fa fa-chevron-down"></i></span></small>
+                            <span class="fw-semi-bold">2% lower</span>
+                            than last month
+                        </p>
+                    </div>
+                    
+                </section>
+            </div>
+        </div>
+    </main>
+</div>
+<!-- The Loader. Is shown when pjax happens -->
+<div class="loader-wrap hiding hide">
+    <i class="fa fa-circle-o-notch fa-spin-fast"></i>
+</div>
+
+<!-- common libraries. required for every page-->
+<script src="vendor/jquery/dist/jquery.min.js"></script>
+<script src="vendor/jquery-pjax/jquery.pjax.js"></script>
+<script src="vendor/tether/dist/js/tether.js"></script>
+<script src="vendor/bootstrap/js/dist/util.js"></script>
+<script src="vendor/bootstrap/js/dist/collapse.js"></script>
+<script src="vendor/bootstrap/js/dist/dropdown.js"></script>
+<script src="vendor/bootstrap/js/dist/button.js"></script>
+<script src="vendor/bootstrap/js/dist/tooltip.js"></script>
+<script src="vendor/bootstrap/js/dist/alert.js"></script>
+<script src="vendor/slimScroll/jquery.slimscroll.js"></script>
+<script src="vendor/widgster/widgster.js"></script>
+<script src="vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
+<script src="vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
+<script src="js/bootstrap-fix/button.js"></script>
+
+<!-- common app js -->
+<script src="js/settings.js"></script>
+<script src="js/app.js"></script>
+
+<!-- page specific libs -->
+<script id="test" src="vendor/underscore/underscore.js"></script>
+<script src="vendor/jquery.sparkline/index.js"></script>
+<script src="vendor/jquery.sparkline/index.js"></script>
+<script src="vendor/d3/d3.min.js"></script>
+<script src="vendor/rickshaw/rickshaw.min.js"></script>
+<script src="vendor/raphael/raphael-min.js"></script>
+<script src="vendor/jQuery-Mapael/js/jquery.mapael.js"></script>
+<script src="vendor/jQuery-Mapael/js/maps/usa_states.js"></script>
+<script src="vendor/jQuery-Mapael/js/maps/world_countries.js"></script>
+<script src="vendor/bootstrap/js/dist/popover.js"></script>
+<script src="vendor/bootstrap_calendar/bootstrap_calendar/js/bootstrap_calendar.min.js"></script>
+<script src="vendor/jquery-animateNumber/jquery.animateNumber.min.js"></script>
+
+<!-- page specific js -->
+<script src="js/index.js"></script>
+</body>
+</html>

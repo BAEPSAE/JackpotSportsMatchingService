@@ -258,8 +258,6 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 		player = dao.getUserInfo((String) session.get("user_Id"));
 		dao = new PlayerDAO();
 		teamlist = dao.getscrankinglist();
-		System.out.println(teamlist);
-		System.out.println(player);
 		return SUCCESS;
 	}
 

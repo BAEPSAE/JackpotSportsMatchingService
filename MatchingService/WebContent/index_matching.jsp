@@ -101,6 +101,47 @@
 	    			window.open('${pageContext.request.contextPath}/map2.jsp','희망 위치 찾기','resizable=no scrollbars=yes top=100 left=100 width=1080 height=600');
 	    		}
 	      });
+	      $('#sports1').on('click', function() {
+	    	  $.ajax({
+	    		  url: 'matching/findMatching',
+	    		  data: $('#type1').val(),
+	    		  success: function(response) {
+	    			  /* if(){
+	    				  $('#comecome').append('')  
+	    			  }else{
+	    				  $('#comecome').append('')
+	    			  } */
+	    			  
+	    		  }
+	    	  }); 
+	      });
+	      $('#sports2').on('click', function() {
+	    	  $.ajax({
+	    		  url: 'matching/findMatching',
+	    		  data: $('#type2').val(),
+	    		  success: function(response) {
+	    			  
+	    		  }
+	    	  }); 
+	      });
+	      $('#sports3').on('click', function() {
+	    	  $.ajax({
+	    		  url: 'matching/findMatching',
+	    		  data: $('#type3').val(),
+	    		  success: function(response) {
+	    			  
+	    		  }
+	    	  }); 
+	      });
+	      $('#sports4').on('click', function() {
+	    	  $.ajax({
+	    		  url: 'matching/findMatching',
+	    		  data: $('#type4').val(),
+	    		  success: function(response) {
+	    			  
+	    		  }
+	    	  }); 
+	      });
 	    });//document.ready
 	    //창 보이기
 	    
@@ -279,37 +320,95 @@
     <main id="content" class="content" role="main">
         <div class="row">
 	        <div class="col-lg-12">
-				<a href="#" class="block1">
-				<!-- 축구 -->
-				<s:if test="#session.sports==1">
-  					<img src="images/12.jpg" style="width: 100%;">
-  					<span class="price"><span></span><span>SOCCER<input type="hidden" id="type" value="1"/></span><strong></strong></span>
-				</s:if>
-				<!-- 야구 -->
-				<s:if test="#session.sports==2">
-  					<img src="images/13.jpg" style="width: 100%;">
-  					<span class="price"><span></span><span>Baseball<input type="hidden" id="type" value="2"/></span><strong></strong></span>
-				</s:if>
-				<!-- 탁구 -->
-				<s:if test="#session.sports==3">
-  					<img src="images/14.jpg" style="width: 100%;">
-  					<span class="price"><span></span><span>Pingpong<input type="hidden" id="type" value="3"/></span><strong></strong></span>
-				</s:if>
-				<!-- 볼링 -->
-				<s:if test="#session.sports==4">
-  					<img src="images/15.jpg" style="width: 100%;">
-  					<span class="price"><span></span><span>Bowling<input type="hidden" id="type" value="4"/></span><strong></strong></span>
-				</s:if>
-				</a>
+	        	<a href="#" class="block1" >
+  				<img src="images/159.png" style="width: 100%;">
+  				<span class="price"><span></span><span><small></small>Matching</span><strong></strong></span>
+  				</a>
 			</div>
             <div class="col-lg-12">
                 <div class="panel-group mb-lg" id="accordion" data-toggle="collapse">
-                <!-- 1. 날짜, 시간 선택 -->
+                
+                <!-- 1. 종목선택 -->
+                
+                <div class="panel panel-default">
+                        <div class="panel-heading collapsed" style="text-align: center;">
+                            <h6 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                    <span class="label label-pill label-warning">01</span><span style="font-size: 20px; font-weight: bold;"> 종목 선택</span>
+                                    <i class="fa fa-angle-down pull-xs-right"></i>
+                                </a>
+                            </h6>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                               <!-- 날짜 선택 입력 -->
+                            <div class="widget-body" style="text-align: center;">
+	                        	<form role="form">
+	                        	<label for="datepicker2i">
+	                                        <span class="help-block">
+	                            				종목당 한번에 매칭을 요청할 수 있는 횟수는 1회 입니다.
+	                                        </span>
+	                                    </label>
+	                            <fieldset>
+	                                <div class="form-group">
+	                                    	<div style="float: left; width: 50%;" id="sports1">
+											<a href="#" class="block1"><input type="hidden" id="type1" value="1"/>
+												<img src="images/12.jpg" style="width: 100%;">
+		  										<span class="price"><span></span><span>SOCCER</span><strong></strong></span>
+		  									</a>
+		  									</div>
+		  									<div style="float: left; width: 50%;" id="sports2">
+		  									<a href="#" class="block1"><input type="hidden" id="type2" value="2"/>
+												<img src="images/13.jpg" style="width: 100%;">
+  												<span class="price"><span></span><span>Baseball</span><strong></strong></span>
+		  									</a>
+		  									</div>
+		  									<div style="float: left; width: 50%;" id="sports3">
+		  									<a href="#" class="block1"><input type="hidden" id="type3" value="3"/>
+												<img src="images/14.jpg" style="width: 100%;">
+  												<span class="price"><span></span><span>Pingpong</span><strong></strong></span>
+		  									</a>
+		  									</div>
+		  									<div style="float: left; width: 50%;" id="sports4">
+		  									<a href="#" class="block1"><input type="hidden" id="type4" value="4"/>
+												<img src="images/15.jpg" style="width: 100%;">
+  												<span class="price"><span></span><span>Bowling</span><strong></strong></span>
+		  									</a>
+		  									</div>
+	                                </div><!-- form=group -->
+	                                
+	                                <div id="gostop">
+		                                <div style="margin-left: 38.3%">
+		                                	<label for="datepicker2i" style="float: left; font-size: 2em">
+		                                        <span class="help-block" id="comecome">
+		                                            	이미 매칭진행중인 종목입니다. <button class="btn btn-inverse width-100 mb-xs" role="button" style="float: left;">스케줄보기</button>
+		                                        </span>
+		                                    </label>
+	                                	</div>
+	                                	
+	                                	<div style="margin-left: 38.3%">
+		                                	<label for="datepicker2i" style="float: left; font-size: 2em">
+		                                        <span class="help-block">
+		                                            	좋습니다. 매칭을 계속 진행하세요!
+		                                        </span>
+		                                    </label>
+	                                	</div>
+                                	</div>
+                                	
+	                            </fieldset>
+	                            </form>
+                            </div>
+                               <!-- 날짜 선택 완료 -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2. 날짜, 시간 선택 -->
+                    
                     <div class="panel panel-default">
                         <div class="panel-heading collapsed" style="text-align: center;">
                             <h6 class="panel-title">
                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                    <span class="label label-pill label-danger">01</span><span style="font-size: 20px; font-weight: bold;"> 날짜 선택</span>
+                                    <span class="label label-pill label-danger">02</span><span style="font-size: 20px; font-weight: bold;"> 날짜 선택</span>
                                     <i class="fa fa-angle-down pull-xs-right"></i>
                                 </a>
                             </h6>
@@ -323,7 +422,7 @@
 	                                <div class="form-group" style="width: 40%; text-align: center;">
 	                                    <label for="datepicker2i" style="margin-left: -10%;">
 	                                        <span class="help-block">
-	                                            날짜와 시간을 선택해 주세요
+	                                            	날짜와 시간을 선택해 주세요
 	                                        </span>
 	                                    </label>
 	                                    <div id="datetimepicker2" class="input-group">
@@ -340,12 +439,12 @@
                             </div>
                         </div>
                     </div>
-                    <!-- 2. 구장 유무 -->
+                    <!-- 3. 구장 유무 -->
                     <div class="panel panel-default">
                         <div class="panel-heading" style="text-align: center;">
                             <h6 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" id="locationOwn">
-                                    <span class="label label-pill label-success">02</span><span style="font-size: 20px; font-weight: bold;"> 장소 선택</span>
+                                    <span class="label label-pill label-success">03</span><span style="font-size: 20px; font-weight: bold;"> 장소 선택</span>
                                     <i class="fa fa-angle-down pull-xs-right"></i>
                                 </a>
                             </h6>
@@ -397,6 +496,7 @@
             	<button type="button" style="height: 100px;" class="btn btn-warning btn-block" id="matching"><span style="font-size: 30px;">MATCHING!</span></button>
             </div>
         </div><!-- row -->
+        <input type="hidden" id="type" value="0"/>
         <input type="button" id="resize" style="visibility: hidden;"/>
         <br><br><br>
     </main>

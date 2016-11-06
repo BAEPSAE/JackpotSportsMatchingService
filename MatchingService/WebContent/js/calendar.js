@@ -59,7 +59,7 @@ $(function(){
     	                	}
     	                    events.push({
     	                    	id: doc.schedule[c].matching_Id,
-    	                        title: doc.schedule[c].game_Type  + doc.schedule[c].game_Time,
+    	                        title: doc.schedule[c].game_Type,
     	                        allDay: true,
     	                        start: doc.schedule[c].game_Date,
     	                        backgroundColor: a,
@@ -68,9 +68,6 @@ $(function(){
     	                }
     	                callback(events);
     	            }
-    		        , error : function(resp, statusCode) {
-    		        	alert("새로고침 부탁드립니다.");
-    		        }
     	        });
     	    }
 
