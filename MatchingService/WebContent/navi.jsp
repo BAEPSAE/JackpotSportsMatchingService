@@ -97,10 +97,10 @@
                   <li><s:a action="ppranking" namespace="/player">탁구 명예의 전당</s:a></li>
                 </ul>
             </li>
-            <li><a href="grid.html"> <span class="icon"> <span
+                <li><s:a action="list" namespace="/board"> <span class="icon"> <span
                      class="glyphicon glyphicon-list-alt"></span>
                </span> 자게
-            </a></li>\
+            </s:a></li>
             
          </ul>
       </div>
