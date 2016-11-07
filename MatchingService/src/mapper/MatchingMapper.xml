@@ -15,8 +15,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select parameterType="String" id="getLaLo" resultType="Grounds"> SELECT*FROM GROUNDS WHERE GROUND_NAME=#{ground_name} </select>
 	
 	<!-- 대상이 이미 매칭 대기 상태인지 아닌지를 확인 -->
-	<select id="checkMatching" parameterType="String" resultType="Matching">
-		select * from matching where player=#{user_Id}
+	<select id="checkMatching" parameterType="HashMap" resultType="Matching">
+		select * from matching where player=#{user_Id} and 
+		<if test="sports==1">
+			game_Type='축구'
+		</if>
+		<if test="sports==2">
+			game_Type='야구'
+		</if>
+		<if test="sports==3">
+			game_Type='탁구'
+		</if>
+		<if test="sports==4">
+			game_Type='볼링'
+		</if>
 	</select>
 	<!-- 매칭 이어주기 -->
 	<select id="searchMatching" resultType="Matching" parameterType="HashMap">

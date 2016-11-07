@@ -75,14 +75,16 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 		System.out.println("2. 종목별 승률: " + winSC + ", " + winBS + ", " + winTB + ", " + winBW + ", 평균: " + aver);
 
 		// 종목별 경기장 정보 가져오기
-		// 축구
-		/*
-		 * for(sports=1; sports<=4; sports++) { dao=new PlayerDAO();
-		 * if(sports==1) SCGrounds=dao.getUserGround(user_Id, sports); else
-		 * if(sports==2) BSGrounds=dao.getUserGround(user_Id, sports); else
-		 * if(sports==3) TBGrounds=dao.getUserGround(user_Id, sports); else
-		 * BWGrounds=dao.getUserGround(user_Id, sports); }
-		 */
+		for(sports=1; sports<=4; sports++) {
+			dao=new PlayerDAO();
+			System.out.println(sports);
+			System.out.println("경기장 정보!!!");
+			if(sports==1) SCGrounds=dao.getUserGround(user_Id, sports); else
+			if(sports==2) BSGrounds=dao.getUserGround(user_Id, sports); else
+			if(sports==3) TBGrounds=dao.getUserGround(user_Id, sports); else
+			BWGrounds=dao.getUserGround(user_Id, sports);
+		}
+		
 
 		NoticeDAO ndao = new NoticeDAO();
 		notices = (ArrayList<Notice>) ndao.getNotices((String) session.get("user_Id"));

@@ -44,12 +44,17 @@ public class PlayerDAO {
 	
 	//종목별 경기장 정보 가져오기
 	public Grounds getUserGround(String user_Id, int sports) {
+		Grounds getGrounds=new Grounds();
+		try {
 		sqlSession = MybatisConfig.getSqlSessionFactory().openSession();
 		Map<String, Object> map=new HashMap<>();
 		map.put("user_Id", user_Id);
 		map.put("sports", sports);	//축구==1, 야구==2, 탁구==3, 볼링==4
-		Grounds getGrounds=new Grounds();
 		getGrounds=sqlSession.selectOne("mapper.PlayerMapper.getUserGround", map);
+		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		return getGrounds;
 	}
 	

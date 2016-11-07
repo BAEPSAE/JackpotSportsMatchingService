@@ -12,7 +12,6 @@
 		<!-- 전적보기 화면 -->
 		
     	<action name="mypagev" class="action.PlayerAction" method="mypagev">
-    		
 			<result>../mypagev.jsp</result>
 		</action>
 		

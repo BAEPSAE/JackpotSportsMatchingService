@@ -27,14 +27,16 @@ public class MatchingDAO {
 	}
 	
 	//대상이 이미 매칭 대기 상태인지 아닌지를 확인
-	public Matching checkMatching(String user_Id) {
+	public Matching checkMatching(String user_Id, int sports) {
 		Matching getMatching=new Matching();
-		System.out.println("dao.checkMatching(");
+		Map<String, Object> map = new HashMap<>();
+		map.put("user_Id", user_Id);
+		map.put("sports", sports);
+		System.out.println("매칭중? "+user_Id+", "+sports);
 		try {
 			sqlSession = MybatisConfig.getSqlSessionFactory().openSession();
-			getMatching=sqlSession.selectOne("mapper.MatchingMapper.checkMatching", user_Id);
-			System.out.println("get" + getMatching);
-
+			getMatching=sqlSession.selectOne("mapper.MatchingMapper.checkMatching", map);
+			System.out.println("get: " + getMatching);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,6 +48,7 @@ public class MatchingDAO {
 	// 매칭상대 찾기
 	// 상대 찾기
 	public Matching searchMatching(Matching matching, int type) {
+		System.out.println("ddddddddddddddd");
 		Matching result = null;
 		// 변수 보내는 해시맵
 		Map<String, Object> map = new HashMap<>();
@@ -73,12 +76,15 @@ public class MatchingDAO {
 			// 개인경기 3km
 			map.put("d_range", 1.86411);
 		}
-
+		try{
 		sqlSession = MybatisConfig.getSqlSessionFactory().openSession();
 		result = sqlSession.selectOne("mapper.MatchingMapper.searchMatching", map);
-		sqlSession.close();
+		System.out.println(result);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		/*sqlSession.close();*/
 		return result;
-
 	}
 
 	// 매칭타임 다된거 꺼내기
