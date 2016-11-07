@@ -62,8 +62,71 @@
     
     <!-- 상단 블러 -->
     <script>
+    var sports;	//매칭용 변수
 	    $(document).ready(function(){
-	    	    	
+
+	      //대상의 타입에 따라 매칭 대기 상태인지 아닌지를 확인
+	      //축구
+	      $('#sports1').on('click', function() {
+	    	  sports=1;
+	    	  $.ajax({
+	    		url: 'matching/checkMatching',
+	    		data: {'sports':1},
+	    		success: function(response) {
+	    			$('#go').css('visibility', 'visible');
+	    			$('#stop').css('visibility', 'hidden');
+	    		}, error: function(response) {
+	    			$('#go').css('visibility', 'hidden');
+	    			$('#stop').css('visibility', 'visible');
+	    		}
+	    	});
+	      });
+	    	//야구
+	    	$('#sports2').on('click', function() {
+	    		sports=2;
+	    	  $.ajax({
+	    		url: 'matching/checkMatching',
+	    		data: {'sports':2},
+	    		success: function(response) {
+	    			$('#go').css('visibility', 'visible');
+	    			$('#stop').css('visibility', 'hidden');
+	    		}, error: function(response) {
+	    			$('#go').css('visibility', 'hidden');
+	    			$('#stop').css('visibility', 'visible');
+	    		}
+	    	});
+	      });
+	    	//탁구
+	    	$('#sports3').on('click', function() {
+	    		sports=3;
+	    	  $.ajax({
+	    		url: 'matching/checkMatching',
+	    		data: {'sports':3},
+	    		success: function(response) {
+	    			$('#go').css('visibility', 'visible');
+	    			$('#stop').css('visibility', 'hidden');
+	    		}, error: function(response) {
+	    			$('#go').css('visibility', 'hidden');
+	    			$('#stop').css('visibility', 'visible');
+	    		}
+	    	});
+	      });
+	    	//볼링
+	    	$('#sports4').on('click', function() {
+	    		sports=4;
+	    	  $.ajax({
+	    		url: 'matching/checkMatching',
+	    		data: {'sports':4},
+	    		success: function(response) {
+	    			$('#go').css('visibility', 'visible');
+	    			$('#stop').css('visibility', 'hidden');
+	    		}, error: function(response) {
+	    			$('#go').css('visibility', 'hidden');
+	    			$('#stop').css('visibility', 'visible');
+	    		}
+	    	});
+	      });
+	     
 	      //매칭 등록하기
 	      $('#matching').on('click', function() {
 	    	  $.ajax({
@@ -93,12 +156,17 @@
 	    			window.open('${pageContext.request.contextPath}/map2.jsp','희망 위치 찾기','resizable=no scrollbars=yes top=100 left=100 width=1080 height=600');
 	    		}
 	      });
+	      
+	      //버튼을 누르면 스케줄로 이동
+	      $('#showSc').on('click', function() {
+	    	location.href='player/Matching.action';
+	      });
 	    });//document.ready
 	    //창 보이기
 	    
 	    //데이터 가지고 오기
 	    function data() {
-	    	var game_Type=$('#type').val();
+	    	/* var game_Type=$('#type').val(); */
 	    	var cutDate=$('#time').val();
 	    	var ground_name=$('#ground_name').val();
 	    	var latitude=$('#la').val();
@@ -110,7 +178,7 @@
 	    	else if(latitude.replace(/\s/g,"").length != 0) {
 	    		ground_Hold=0;
 	    	}
-	    	var returnData={"sports": game_Type, "cutDate": cutDate, "matching.ground_Hold": ground_Hold, "matching.latitude": latitude, "matching.longitude": longitude, "ground_name": ground_name};
+	    	var returnData={"sports": sports, "cutDate": cutDate, "matching.ground_Hold": ground_Hold, "matching.latitude": latitude, "matching.longitude": longitude, "ground_name": ground_name};
 	    	return returnData;
 	    }
     </script>
@@ -271,9 +339,9 @@
     <main id="content" class="content" role="main">
         <div class="row">
 	        <div class="col-lg-12">
-	        	<a href="#" class="block1" >
+	        	<!-- <a href="#" class="block1" > -->
   				<img src="images/159.png" style="width: 100%;">
-  				<span class="price"><span></span><span><small></small>Matching</span><strong></strong></span>
+  				<%-- <span class="price"><span></span><span><small></small>Matching</span><strong></strong></span> --%>
   				</a>
 			</div>
             <div class="col-lg-12">
@@ -297,7 +365,7 @@
 	                        	<form role="form">
 	                        	<label for="datepicker2i">
 	                                        <span class="help-block">
-	                            				종목당 한번에 매칭을 요청할 수 있는 횟수는 1회 입니다.
+	                            				종목당 한 번에 매칭을 요청할 수 있는 횟수는 1회입니다.
 	                                        </span>
 	                                    </label>
 	                            <fieldset>
@@ -329,18 +397,18 @@
 	                                </div><!-- form=group -->
 	                                
 	                                <div id="gostop">
-		                                <div style="margin-left: 38.3%">
-		                                	<label for="datepicker2i" style="float: left; font-size: 2em">
+		                                <div style="margin-left: 42.3%; visibility: hidden;" id="stop">
+		                                	<label for="datepicker2i" style="float: left; font-size: 1.3em;">
 		                                        <span class="help-block" id="comecome">
-		                                            	이미 매칭진행중인 종목입니다. <button class="btn btn-inverse width-100 mb-xs" role="button" style="float: left;">스케줄보기</button>
+		                                            	<br>이미 <span style="font-weight: bold;">매칭 진행 중</span>인 종목입니다!<br><br>
+		                                            	<button class="btn btn-inverse width-100 mb-xs" role="button" id="showSc">스케줄 보기</button>
 		                                        </span>
 		                                    </label>
 	                                	</div>
-	                                	
-	                                	<div style="margin-left: 38.3%">
-		                                	<label for="datepicker2i" style="float: left; font-size: 2em">
+	                                	<div style="display:inline; margin-left: -57%; visibility: hidden;" id="go">
+		                                	<label for="datepicker2i" style="font-size: 1.3em">
 		                                        <span class="help-block">
-		                                            	좋습니다. 매칭을 계속 진행하세요!
+		                                            	<br><br>좋습니다. <span style="font-weight: bold;">매칭을 계속 진행</span>하세요!
 		                                        </span>
 		                                    </label>
 	                                	</div>

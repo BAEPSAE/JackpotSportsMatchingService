@@ -122,14 +122,10 @@
                     Ranking
                 </a>
             </li>
-            <li>
-                <a href="grid.html">
-                    <span class="icon">
-                        <span class="glyphicon glyphicon-list-alt"></span>
-                    </span>
-                    자게
-                </a>
-            </li>
+             <li><s:a action="list" namespace="/board"> <span class="icon"> <span
+                     class="glyphicon glyphicon-list-alt"></span>
+               </span> 자게
+            </s:a></li>
         </ul>
     </div>
 </nav>

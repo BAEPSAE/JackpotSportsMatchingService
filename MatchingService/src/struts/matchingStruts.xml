@@ -63,6 +63,5 @@
 			<result name="success">../gameResultv.jsp</result>
 			<result name="input" type="chain">gameResultv</result>
 		</action>
-		
 	</package>
 </struts>

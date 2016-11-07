@@ -216,14 +216,12 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 	public String checkMatching() throws Exception{
 		user_Id=(String)session.get("user_Id");
 		Matching tmpMatching=new Matching();
-		
-		tmpMatching=dao.checkMatching(user_Id);
+		tmpMatching=dao.checkMatching(user_Id, sports);
 		if(tmpMatching == null) return SUCCESS;
 		else return ERROR;
 	}
 
 	public String insertMatching() throws Exception{
-		System.out.println(matching.toString());
 		user_Id = (String) session.get("user_Id"); // session을 검사함
 		matching.setPlayer(user_Id); // 1. 매칭풀에 들어갈 player을 설정
 
@@ -307,7 +305,6 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 		matching.setGame_Date(date);
 		matching.setGame_Time(Integer.parseInt(time));
 		System.out.println("** 셋팅: date-" + date + ", 시간대-" + time);
-
 		// 경기장 확인
 		if (matching.getGround_Hold() == 1) {
 			groundsDao = new GroundDAO();
@@ -319,6 +316,7 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 		}
 
 		// 풀에 넣기전에 검사하기
+		System.out.println(matching.toString());
 		Matching rival = searchMatching(matching, 1);
 		if (rival != null) {
 			System.out.println("매칭됨");
@@ -331,7 +329,6 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 			dao.insertMatching(matching);
 			System.out.println(">> 매칭 풀에 등록 완료!");
 		}
-
 		return SUCCESS;
 	}
 
@@ -342,6 +339,7 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 		Matching result = null;
 		MatchingDAO mdao = new MatchingDAO();
 		result = mdao.searchMatching(matching, type);
+		System.out.println(result);
 		return result;
 	}
 
@@ -558,7 +556,7 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 		sports = 1;
 		return SUCCESS;
 	}
-
+	
 	// session
 	@Override
 	public void setSession(Map<String, Object> arg0) {

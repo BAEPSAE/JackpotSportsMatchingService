@@ -27,10 +27,8 @@ public class BoardDAO {
 		return (ArrayList<Board>) list;
 	}
 	public int insertBoard(Board board){
-		System.out.println("dao인서트");
 		int result=sqlSession.insert("mapper.BoardMapper.insertBoard",board);
 		sqlSession.commit();
-		System.out.println("커밋끝");
 		return result;
 	}
 	public Board getBoard(int boardNum){
@@ -40,10 +38,10 @@ public class BoardDAO {
 		
 		return result;
 	}
-	public int deleteBoard(int boardNum) {
-		int result=sqlSession.delete("mapper.BoardMapper.deleteBoard",boardNum);
+	public void deleteBoard(int boardNum) {
+		sqlSession.delete("mapper.BoardMapper.deleteBoard",boardNum);
 		sqlSession.commit();
-		return result;
+		System.out.println("삭제끝");
 	}
 	public int updateBoard(Board board){
 		int result=sqlSession.update("mapper.BoardMapper.updateBoard",board);
