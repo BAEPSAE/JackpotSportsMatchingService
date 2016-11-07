@@ -36,11 +36,14 @@
 						, method: 'post'
 						, data: {
 							"board.boardNum" : num
-						}
-						, success: function(response) {
+						},
+						 success: function(response) {
+							alert("삭제성공");
 							location.href="list";
+							
 						}
 						, error: function(request, status, error) {
+							alert("삭제실패");
 							location.href="list";
 						}
 					}); //$ajax
@@ -285,7 +288,7 @@ color: #333333;
        <h1 class="page-title">게시글 읽기 - <span class="fw-semi-bold">목록</span></h1> 
      	<div id="contents"><!--내용-->
 			<h1>글 읽기 게시판<span></span></h1><!-- 내용제목 -->
-			<s:form action="write" theme="simple">
+	 	<s:form theme="simple"> 
 			<table class="wr_board">
 				<tr>
 					<th>작성자</th>
@@ -319,14 +322,14 @@ color: #333333;
 				
 			
 			</table>
-			
+		
 			<p class="list_btn">
-<%-- 			<s:if test="#session.loginId==board.user_Id"> --%>
+			<s:if test="#session.user_Id==board.user_Id"> 
 	     <button  class="btn btn-primary" id="update">수정</button>
-    	 <button class="btn btn-primary" id="delete">삭제</button>
-<%-- 				</s:if> --%>
+    	 <button class="btn btn-primary"  id="delete">삭제</button>
+				</s:if> 
 			</p>
-  		    </s:form>
+  		   </s:form> 
         
        <button class="btn btn-gray width-100 mb-xs" role="button" id="list">목록으로</button>
 
