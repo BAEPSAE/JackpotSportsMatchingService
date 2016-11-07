@@ -63,15 +63,7 @@
     <!-- 상단 블러 -->
     <script>
 	    $(document).ready(function(){
-	    	//대상이 이미 매칭 대기 상태인지 아닌지를 확인
-	    	$.ajax({
-	    		url: 'matching/checkMatching',
-	    		success: function(response) {
-	    		}, error: function(response) {
-	    			location.href="loading.jsp";
-	    		}
-	    	});
-	    	
+	    	    	
 	      //매칭 등록하기
 	      $('#matching').on('click', function() {
 	    	  $.ajax({
@@ -100,47 +92,6 @@
 	    	  function pop() {
 	    			window.open('${pageContext.request.contextPath}/map2.jsp','희망 위치 찾기','resizable=no scrollbars=yes top=100 left=100 width=1080 height=600');
 	    		}
-	      });
-	      $('#sports1').on('click', function() {
-	    	  $.ajax({
-	    		  url: 'matching/findMatching',
-	    		  data: $('#type1').val(),
-	    		  success: function(response) {
-	    			  /* if(){
-	    				  $('#comecome').append('')  
-	    			  }else{
-	    				  $('#comecome').append('')
-	    			  } */
-	    			  
-	    		  }
-	    	  }); 
-	      });
-	      $('#sports2').on('click', function() {
-	    	  $.ajax({
-	    		  url: 'matching/findMatching',
-	    		  data: $('#type2').val(),
-	    		  success: function(response) {
-	    			  
-	    		  }
-	    	  }); 
-	      });
-	      $('#sports3').on('click', function() {
-	    	  $.ajax({
-	    		  url: 'matching/findMatching',
-	    		  data: $('#type3').val(),
-	    		  success: function(response) {
-	    			  
-	    		  }
-	    	  }); 
-	      });
-	      $('#sports4').on('click', function() {
-	    	  $.ajax({
-	    		  url: 'matching/findMatching',
-	    		  data: $('#type4').val(),
-	    		  success: function(response) {
-	    			  
-	    		  }
-	    	  }); 
 	      });
 	    });//document.ready
 	    //창 보이기

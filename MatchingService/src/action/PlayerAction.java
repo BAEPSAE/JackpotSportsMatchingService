@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
@@ -52,6 +54,9 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 
 	// method
 	// 화면 가져오기
+	
+	
+	
 	public String mypagev() {
 		// 개인정보 가져오기
 		String user_Id = (String) session.get("user_Id");
@@ -136,14 +141,15 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 
 	// 매칭 스케줄 리스트 받아오기
 	public String getScheduler() throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat();
+		sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
+		
 		Player plr = new Player();
-
-		plr.setUser_Id((String) session.get("user_Id")); // session.loginid로
-															// 바꿔야함.
+		plr.setUser_Id((String) session.get("user_Id"));
 		plr = dao.getUserInfo(plr.getUser_Id());
 
 		schedule = dao.getMatchingList(plr);
-		
+
 		for (Matching m : schedule) {
 			cal1 = new GregorianCalendar();
 			Date to = transFormat.parse(m.getMatching_Time());
@@ -152,8 +158,10 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 			cal2 = new GregorianCalendar();
 			int i = cal1.compareTo(cal2);
 			m.setOnoff(i);
+			m.setMatching_End(sdf.format(cal1.getTime()));
 		}
 		return SUCCESS;
+		
 	}
 
 	int noticenum;

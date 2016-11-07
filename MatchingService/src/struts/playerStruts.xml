@@ -23,7 +23,6 @@
 		
 		<!-- 회원가입 디비에 넣기 -->
 		<action name="join" class="action.PlayerAction" method="join">
-			
 			<result type="redirect">loginv.action</result>
 		</action>
 		<!-- 로그인 뷰 -->

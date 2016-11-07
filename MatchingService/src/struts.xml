@@ -41,10 +41,10 @@
            <result>/index.jsp</result>
 		</action>
 		
-		<action name="index_matching" class="action.MatchingAction" method="index_matching">
-         <interceptor-ref name="loginInterceptorStack" />
-         <result>/index_matching.jsp</result>
-      </action>
+		<action name="index_matching">
+         <result>/intro.jsp</result>
+      	</action>
+      	
 		
     </package>
 
