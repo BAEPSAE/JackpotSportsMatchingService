@@ -83,10 +83,10 @@
                      <span class="glyphicon glyphicon-star"></span>
                </span> Ranking
             </a></li>
-            <li><a href="grid.html"> <span class="icon"> <span
+              <li><s:a action="list" namespace="/board"> <span class="icon"> <span
                      class="glyphicon glyphicon-list-alt"></span>
                </span> 자게
-            </a></li>
+            </s:a></li>
          </ul>
       </div>
    </nav>
