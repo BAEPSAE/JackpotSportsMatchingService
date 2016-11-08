@@ -74,7 +74,6 @@
 		    		data: {"sports":1},
 		    		success: function(response) {
 		    			var vg = response.validGame;
-		    			alert(vg);
 		    			 if(vg=='notLeader'){
 		    				$('#notLeader').css('visibility', 'visible');
 		    			}
@@ -103,11 +102,23 @@
 	    		url: 'matching/checkMatching',
 	    		data: {"sports":2},
 	    		success: function(response) {
-	    			$('#go').css('visibility', 'visible');
-	    			$('#stop').css('visibility', 'hidden');
+	    			var vg = response.validGame;
+	    			 if(vg=='notLeader'){
+	    				$('#notLeader').css('visibility', 'visible');
+	    			}
+	    			else if(vg=='notEnoughMember'){
+	    				$('#notEnoughMember').css('visibility', 'visible');
+	    			}
+	    			else if(vg=='goMatch'){
+	    				$('#go').css('visibility', 'visible');
+	    			}
+	    			else if(vg=='stopMatch'){
+		    			$('#stop').css('visibility', 'hidden');
+	    			} 
 	    		}, error: function(response) {
-	    			$('#go').css('visibility', 'hidden');
-	    			$('#stop').css('visibility', 'visible');
+	    			/* $('#go').css('visibility', 'hidden');
+	    			$('#stop').css('visibility', 'visible'); */
+	    			alert('error');
 	    		}
 	    	});
 	      });
