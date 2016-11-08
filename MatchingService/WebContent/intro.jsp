@@ -152,9 +152,9 @@
                   class="dropdown-toggle dropdown-toggle-notifications nav-link"
                   id="notifications-dropdown-toggle" data-toggle="dropdown">
                      &nbsp; <strong> <s:if test="#session.user_Id != null">
-                           <span class="thumb-sm avatar pull-xs-left"> <img
+                          <%--  <span class="thumb-sm avatar pull-xs-left"> <img
                               id="picture" class="img-circle" src="../img/" alt="...">
-                           </span>
+                           </span> --%>
                            <s:property value="#session.user_Name" />
                         </s:if>
                         <s:else>
@@ -256,13 +256,26 @@
                                 </span>
                             </div>
                         </div>
-                        <h6 class="fw-semi-bold mt">지금바로 시작하기!</h6>
+                        <s:if test="#session.user_Id==null">
                         <div class="input-group mt">
                             <span class="input-group-btn">
                                 <button class="btn btn-info btn-block" onclick="applybtn()">회원가입</button>
                                 <button class="btn btn-warning btn-block" onclick="loginbtn()">로그인</button>
                             </span>
                         </div>
+                        </s:if>
+                        <s:else>
+                        <div class="input-group mt" style="margin-left: 10%;">
+                                 <h6 class="fw-semi-bold mt" style="margin-left: 100px;">
+                                 	<s:property value="#session.user_Name"/>님 로그인 중
+                                 </h6>
+                            <div style="width: 350px; height: 80px;">
+                        	<button class="btn btn-info btn-block" style="width: 100%; height: 100%;" onclick="location.href='index_matching'">
+                        		<p style="font-size: 20px; font-weight: bold;">매칭하러가기</p>
+                        	</button>
+                        	</div>
+                        </div>
+                        </s:else>
                     </div>
                 </section>
             </div>
