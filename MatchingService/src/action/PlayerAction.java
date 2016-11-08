@@ -14,6 +14,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
 import dao.PlayerDAO;
+import dao.TeamDAO;
 import vo.Events;
 import vo.Games;
 import vo.Grounds;
@@ -129,6 +130,26 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 		if (player == null) {
 			return INPUT;
 		} else {
+			//매칭할때 팀장인지 아닌지 거르는 정보 필요해서 추가합니다
+			
+			TeamDAO tdao = new TeamDAO();
+			int team1_id = player.getTeam1();
+			if(team1_id>0){
+				Team team1 = tdao.getTeam(team1_id);
+				if(team1!=null){
+					if(team1.getTeam_Leader().equals(player.getUser_Id())) session.put("isSCLeader", "true");
+					else session.put("isSCLeader", "false");
+				}
+			}
+			int team2_id = player.getTeam2();
+			if(team2_id>0){
+				Team team2 = tdao.getTeam(team2_id);
+				if(team2!=null){
+					if(team2.getTeam_Leader().equals(player.getUser_Id())) session.put("isBBLeader", "true");
+					else session.put("isBBLeader", "false");
+				}
+			}
+			
 			session.put("user_Id", player.getUser_Id());
 			session.put("user_Name", player.getUser_Name());
 			session.put("profile", player.getSaveFileName());
