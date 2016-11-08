@@ -76,15 +76,19 @@
 		    		success: function(response) {
 		    			var vg = response.validGame;
 		    			 if(vg=='notLeader'){
+		    				 clearNotice();
 		    				$('#notLeader').css('visibility', 'visible');
 		    			}
 		    			else if(vg=='notEnoughMember'){
+		    				clearNotice();
 		    				$('#notEnoughMember').css('visibility', 'visible');
 		    			}
 		    			else if(vg=='goMatch'){
+		    				clearNotice();
 		    				$('#go').css('visibility', 'visible');
 		    			}
 		    			else if(vg=='stopMatch'){
+		    				clearNotice();
 			    			$('#stop').css('visibility', 'hidden');
 		    			} 
 		    		}, error: function(response) {
@@ -105,15 +109,19 @@
 	    		success: function(response) {
 	    			var vg = response.validGame;
 	    			 if(vg=='notLeader'){
+	    				 clearNotice();
 	    				$('#notLeader').css('visibility', 'visible');
 	    			}
 	    			else if(vg=='notEnoughMember'){
+	    				clearNotice();
 	    				$('#notEnoughMember').css('visibility', 'visible');
 	    			}
 	    			else if(vg=='goMatch'){
+	    				clearNotice();
 	    				$('#go').css('visibility', 'visible');
 	    			}
 	    			else if(vg=='stopMatch'){
+	    				clearNotice();
 		    			$('#stop').css('visibility', 'hidden');
 	    			} 
 	    		}, error: function(response) {
@@ -130,9 +138,11 @@
 	    		url: 'matching/checkMatching',
 	    		data: {'sports':3},
 	    		success: function(response) {
+	    			clearNotice();
 	    			$('#go').css('visibility', 'visible');
 	    			$('#stop').css('visibility', 'hidden');
 	    		}, error: function(response) {
+	    			clearNotice();
 	    			$('#go').css('visibility', 'hidden');
 	    			$('#stop').css('visibility', 'visible');
 	    		}
@@ -145,9 +155,11 @@
 	    		url: 'matching/checkMatching',
 	    		data: {'sports':4},
 	    		success: function(response) {
+	    			clearNotice();
 	    			$('#go').css('visibility', 'visible');
 	    			$('#stop').css('visibility', 'hidden');
 	    		}, error: function(response) {
+	    			clearNotice();
 	    			$('#go').css('visibility', 'hidden');
 	    			$('#stop').css('visibility', 'visible');
 	    		}
@@ -195,6 +207,16 @@
 	      
 	    });//document.ready
 	    //창 보이기
+	    
+	    //알림말 초기화하기allhidden
+	    function clearNotice(){
+	    	$('#go').css('visibility', 'hidden');
+	    	$('#stop').css('visibility', 'hidden');
+	    	$('#notLeader').css('visibility', 'hidden');
+	    	$('#notEnoughMember').css('visibility', 'hidden');
+	    	
+	    }
+	    
 	    
 	    //데이터 가지고 오기
 	    function data() {
@@ -445,7 +467,7 @@
 		                                        </span>
 		                                    </label>
 	                                	</div>
-		                                <div style="margin-left: -57%; visibility: hidden;" id="notEnoughMember">
+		                                <div style="margin-left: 42.3%; visibility: hidden;" id="notEnoughMember">
 		                                	<label for="datepicker2i" style="float: left; font-size: 1.3em;">
 		                                        <span class="help-block" id="comecome">
 		                                            	<br>팀에 사람이 모자랍니다!<br><br>
@@ -453,7 +475,7 @@
 		                                        </span>
 		                                    </label>
 	                                	</div>
-	                                	<div style="display:inline; margin-left: -57%; visibility: hidden;" id="go">
+	                                	<div style="display:inline; margin-left: 42.3%; visibility: hidden;" id="go">
 		                                	<label for="datepicker2i" style="font-size: 1.3em">
 		                                        <span class="help-block">
 		                                            	<br><br>좋습니다. <span style="font-weight: bold;">매칭을 계속 진행</span>하세요!
