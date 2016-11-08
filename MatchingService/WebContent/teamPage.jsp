@@ -18,6 +18,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../dist/overhang.min.css" />
+	<script type="text/javascript" src="../dist/overhang.min.js"></script>
+
+
 <script>
         $(function(){
         	//팀해체
@@ -268,6 +273,49 @@ body {
    overflow-x: visible;
 }
 </style>
+
+ <s:if test="#session.notice1!=-1">
+	<div id="value">
+		<input type='hidden' value="<s:property value='#session.notice1' />">
+	</div>
+	<script>
+		$("body").overhang({
+			type: "confirm",
+			  primary: "#3498DB",
+			  accent: "#2980B9",
+			  yesColor: "#53BBFF",
+			  message: "매칭이 성사되었습니다! 확인하시겠습니까?",
+			  callback: function (value) {
+					var noticenum = $('#value input[type=hidden]').val();
+				    if(value==true)location.href="../player/deleteNotice?noticenum="+noticenum;
+				  }
+			});
+	</script>
+</s:if>
+<s:if test="#session.notice2==true">
+	<div id="value">
+		<input type='hidden' value="<s:property value='#session.notice1' />">
+	</div>
+	<script>
+		$("body").overhang({
+			  type: "confirm",
+			  primary: "#DB9634",
+			  accent: "#8E5605",
+			  yesColor: "#53BBFF",
+			  message: "매칭에 실패했습니다..다시 시도하시겠습니까?",
+			  callback: function (value) {
+				  var noticenum = $('#value input[type=hidden]').val();
+				    if(value==true)location.href="../player/deleteNotice?noticenum="+noticenum;
+				  }
+			});
+	</script>
+</s:if>
+
+
+
+
+
+
 
       <div class="row">
          <section class="widget">

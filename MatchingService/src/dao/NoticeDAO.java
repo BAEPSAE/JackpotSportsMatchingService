@@ -26,7 +26,7 @@ public class NoticeDAO {
 
    public void deleteNotices(int noticenum){
       sqlSession=MybatisConfig.getSqlSessionFactory().openSession();
-      sqlSession.selectList("mapper.NoticeMapper.deleteNotice", noticenum);
+      sqlSession.delete("mapper.NoticeMapper.deleteNotice", noticenum);
       sqlSession.commit();
    }
    

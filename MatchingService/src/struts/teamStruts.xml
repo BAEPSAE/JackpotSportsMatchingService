@@ -12,6 +12,7 @@
 
     <!-- 팀페이지 액션들 -->
        <action name="soccerteampage" class="action.TeamAction" method="soccerteampage">
+       		<interceptor-ref name="noticeInterceptorStack" />
              <result name="success">../teamPage.jsp</result>
              <result name="noteam">../makesoccerteam.jsp</result>
        </action>

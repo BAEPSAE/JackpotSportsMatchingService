@@ -98,42 +98,7 @@
     </style>
 </head>
 <body>
-<%-- <s:if test="#session.notice1!=-1">
-	<div id="value">
-		<input type='hidden' value="<s:property value='#session.notice1' />">
-	</div>
-	<script>
-		$("body").overhang({
-			type: "confirm",
-			  primary: "#3498DB",
-			  accent: "#2980B9",
-			  yesColor: "#53BBFF",
-			  message: "매칭이 성사되었습니다! 확인하시겠습니까?",
-			  callback: function (value) {
-					var noticenum = $('#value input[type=hidden]').val();
-				    if(value==true)location.href="../player/deleteNotice?noticenum="+noticenum;
-				  }
-			});
-	</script>
-</s:if>
-<s:if test="#session.notice2==true">
-	<div id="value">
-		<input type='hidden' value="<s:property value='#session.notice1' />">
-	</div>
-	<script>
-		$("body").overhang({
-			  type: "confirm",
-			  primary: "#DB9634",
-			  accent: "#8E5605",
-			  yesColor: "#53BBFF",
-			  message: "매칭에 실패했습니다..다시 시도하시겠습니까?",
-			  callback: function (value) {
-				  var noticenum = $('#value input[type=hidden]').val();
-				    if(value==true)location.href="../player/deleteNotice?noticenum="+noticenum;
-				  }
-			});
-	</script>
-</s:if> --%>
+
 
 <nav id="sidebar" class="sidebar" role="navigation">
       <!-- need this .js class to initiate slimscroll -->

@@ -17,14 +17,14 @@ public class NoticeInterceptor extends AbstractInterceptor{
 		// TODO Auto-generated method stub
 		
 		Map<String, Object> session = invocation.getInvocationContext().getSession();
-		session.put("notice1", false);
-		session.put("notice2", false);
+		session.put("notice1", -1);
+		session.put("notice2", -1);
 		
 		NoticeDAO dao = new NoticeDAO();
 		ArrayList<Notice> n = (ArrayList<Notice>) dao.getNotices((String)session.get("user_Id"));
 		for (Notice notice : n) {
-			if(notice.getN_Type()==1) session.put("notice1", true);
-			if(notice.getN_Type()==2) session.put("notice1", true);
+			if(notice.getN_Type()==1) session.put("notice1", notice.getNoticenum());
+			if(notice.getN_Type()==2) session.put("notice1", notice.getNoticenum());
 		}
 		
 		return invocation.invoke();

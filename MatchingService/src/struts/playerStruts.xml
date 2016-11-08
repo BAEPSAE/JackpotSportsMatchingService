@@ -46,7 +46,7 @@
 		
 		
 		<action name="deleteNotice" class="action.PlayerAction" method="deleteNotice">
-			<result type="redirect">../player/Matching</result>
+			<result type="redirect">../player/mypagev</result>
 		</action>
 		
 		
