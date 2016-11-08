@@ -59,7 +59,6 @@
           float: left;
        }
     </style>
-    
     <!-- 상단 블러 -->
     <script>
     var sports;	//매칭용 변수
@@ -136,15 +135,19 @@
 	    		sports=3;
 	    	  $.ajax({
 	    		url: 'matching/checkMatching',
-	    		data: {'sports':3},
+	    		data: {"sports":3},
 	    		success: function(response) {
-	    			clearNotice();
-	    			$('#go').css('visibility', 'visible');
-	    			$('#stop').css('visibility', 'hidden');
+	    			var vg = response.validGame;
+	    			if(vg=='goMatch'){
+	    				clearNotice();
+	    				$('#go').css('visibility', 'visible');
+	    			}
+	    			else if(vg=='stopMatch'){
+	    				clearNotice();
+		    			$('#stop').css('visibility', 'hidden');
+	    			} 
 	    		}, error: function(response) {
-	    			clearNotice();
-	    			$('#go').css('visibility', 'hidden');
-	    			$('#stop').css('visibility', 'visible');
+	    			
 	    		}
 	    	});
 	      });
@@ -153,15 +156,19 @@
 	    		sports=4;
 	    	  $.ajax({
 	    		url: 'matching/checkMatching',
-	    		data: {'sports':4},
+	    		data: {"sports":4},
 	    		success: function(response) {
-	    			clearNotice();
-	    			$('#go').css('visibility', 'visible');
-	    			$('#stop').css('visibility', 'hidden');
+	    			var vg = response.validGame;
+	    			if(vg=='goMatch'){
+	    				clearNotice();
+	    				$('#go').css('visibility', 'visible');
+	    			}
+	    			else if(vg=='stopMatch'){
+	    				clearNotice();
+		    			$('#stop').css('visibility', 'hidden');
+	    			} 
 	    		}, error: function(response) {
-	    			clearNotice();
-	    			$('#go').css('visibility', 'hidden');
-	    			$('#stop').css('visibility', 'visible');
+	    			
 	    		}
 	    	});
 	      });
@@ -451,7 +458,7 @@
 	                                </div><!-- form=group -->
 	                                
 	                                <div id="gostop">
-		                                <div style="margin-left: 42.3%; visibility: hidden;" id="stop">
+		                                <div style="margin-left: -12.3%; visibility: hidden;" id="stop">
 		                                	<label for="datepicker2i" style="float: left; font-size: 1.3em;">
 		                                        <span class="help-block" id="comecome">
 		                                            	<br>이미 <span style="font-weight: bold;">매칭 진행 중</span>인 종목입니다!<br><br>
@@ -459,7 +466,7 @@
 		                                        </span>
 		                                    </label>
 	                                	</div>
-		                                <div style="margin-left: 42.3%; visibility: hidden;" id="notLeader">
+		                                <div style="margin-left: 43.7%; visibility: hidden;" id="notLeader">
 		                                	<label for="datepicker2i" style="float: left; font-size: 1.3em;">
 		                                        <span class="help-block" id="comecome">
 		                                            	<br>팀장만 신청할 수 있습니다!<br><br>
@@ -467,7 +474,7 @@
 		                                        </span>
 		                                    </label>
 	                                	</div>
-		                                <div style="margin-left: 42.3%; visibility: hidden;" id="notEnoughMember">
+		                                <div style="margin-left: -42.3%; visibility: hidden;" id="notEnoughMember">
 		                                	<label for="datepicker2i" style="float: left; font-size: 1.3em;">
 		                                        <span class="help-block" id="comecome">
 		                                            	<br>팀에 사람이 모자랍니다!<br><br>

@@ -54,9 +54,11 @@
        		<result>../FindOther.jsp</result>
        </action>
        
+       <!-- 팀 찾기 페이지 -->
        <action name="t_searchv">
 			<result>../t_searchv.jsp</result>
 		</action>
+		
 		<action name="t_search" class="action.TeamAction" method="getTeamList">
 			<result type="json"></result>
 		</action>

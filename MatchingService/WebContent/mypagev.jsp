@@ -27,11 +27,10 @@
 	       		$('#col'+index).animate({height: ha}, 1500).html("<div>"+ha+"</div>");
 	       		});
        	}
-
-  
-    	
    		$(document).ready(function() {
+   			//페이지 자동 새로고침
    			viewGraph();
+   			location.reload();
    		});
     </script>
     
