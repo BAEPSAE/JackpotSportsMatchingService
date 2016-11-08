@@ -56,8 +56,8 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	      applyList = pdao.getPlayerList(1, 0, team_Id);
 	      
 	      //팀장이면 session저장
-	      if(team.getTeam_Leader().equals(user_Id)) session.put("isLeader", "true");
-	      else session.put("isLeader", "false");
+	  /*    if(team.getTeam_Leader().equals(user_Id)) session.put("isSCLeader", "true");
+	      else session.put("isSCLeader", "false");*/
 	      
 	      session.put("t1Leader", team.getTeam_Leader());
 	      
@@ -88,10 +88,10 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	      applyList = pdao.getPlayerList(2, 0, team_Id);
 	      
 	      //팀장이면 session저장
-	      if(team.getTeam_Leader().equals(user_Id)) session.put("isLeader", "true");
-	      else session.put("isLeader", "false");
-	      
-	      session.put("t1Leader", team.getTeam_Leader());
+	     /* if(team.getTeam_Leader().equals(user_Id)) session.put("isBBLeader", "true");
+	      else session.put("isBBLeader", "false");
+	      */
+	      session.put("t2Leader", team.getTeam_Leader());
 	      
 	      
 	      return SUCCESS;

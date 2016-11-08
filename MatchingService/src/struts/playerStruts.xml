@@ -12,6 +12,7 @@
 		<!-- 전적보기 화면 -->
 		
     	<action name="mypagev" class="action.PlayerAction" method="mypagev">
+    		<interceptor-ref name="loginInterceptorStack"></interceptor-ref>
 			<result>../mypagev.jsp</result>
 		</action>
 		
@@ -24,6 +25,7 @@
 		<action name="join" class="action.PlayerAction" method="join">
 			<result type="redirect">loginv.action</result>
 		</action>
+		
 		<!-- 로그인 뷰 -->
 		<action name="loginv">
 			<result>/login.jsp</result>

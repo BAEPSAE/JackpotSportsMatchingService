@@ -89,7 +89,7 @@
 		    			}
 		    			else if(vg=='stopMatch'){
 		    				clearNotice();
-			    			$('#stop').css('visibility', 'hidden');
+			    			$('#stop').css('visibility', 'visible');
 		    			} 
 		    		}, error: function(response) {
 		    		/* 	$('#go').css('visibility', 'hidden');
@@ -122,7 +122,7 @@
 	    			}
 	    			else if(vg=='stopMatch'){
 	    				clearNotice();
-		    			$('#stop').css('visibility', 'hidden');
+		    			$('#stop').css('visibility', 'visible');
 	    			} 
 	    		}, error: function(response) {
 	    			/* $('#go').css('visibility', 'hidden');
@@ -138,13 +138,17 @@
 	    		url: 'matching/checkMatching',
 	    		data: {'sports':3},
 	    		success: function(response) {
-	    			clearNotice();
-	    			$('#go').css('visibility', 'visible');
-	    			$('#stop').css('visibility', 'hidden');
+	    			var vg = response.validGame;
+	    			if(vg=='goMatch'){
+	    				clearNotice();
+	    				$('#go').css('visibility', 'visible');
+	    			}
+	    			if(vg=='stopMatch'){
+	    				clearNotice();
+		    			$('#stop').css('visibility', 'visible');
+	    			} 
 	    		}, error: function(response) {
-	    			clearNotice();
-	    			$('#go').css('visibility', 'hidden');
-	    			$('#stop').css('visibility', 'visible');
+	    			
 	    		}
 	    	});
 	      });
@@ -155,13 +159,17 @@
 	    		url: 'matching/checkMatching',
 	    		data: {'sports':4},
 	    		success: function(response) {
-	    			clearNotice();
-	    			$('#go').css('visibility', 'visible');
-	    			$('#stop').css('visibility', 'hidden');
+	    			var vg = response.validGame;
+	    			if(vg=='goMatch'){
+	    				clearNotice();
+	    				$('#go').css('visibility', 'visible');
+	    			}
+	    			if(vg=='stopMatch'){
+	    				clearNotice();
+		    			$('#stop').css('visibility', 'visible');
+	    			} 
 	    		}, error: function(response) {
-	    			clearNotice();
-	    			$('#go').css('visibility', 'hidden');
-	    			$('#stop').css('visibility', 'visible');
+	    			
 	    		}
 	    	});
 	      });
@@ -437,8 +445,8 @@
 		  									</div>
 	                                </div><!-- form=group -->
 	                                
-	                                <div id="gostop">
-		                                <div style="margin-left: 42.3%; visibility: hidden;" id="stop">
+	                                <div id="gostop" style="margin-left: 40%">
+		                                <div style="visibility: hidden;" id="stop">
 		                                	<label for="datepicker2i" style="float: left; font-size: 1.3em;">
 		                                        <span class="help-block" id="comecome">
 		                                            	<br>이미 <span style="font-weight: bold;">매칭 진행 중</span>인 종목입니다!<br><br>
@@ -446,7 +454,7 @@
 		                                        </span>
 		                                    </label>
 	                                	</div>
-		                                <div style="margin-left: 42.3%; visibility: hidden;" id="notLeader">
+		                                <div style="visibility: hidden;" id="notLeader">
 		                                	<label for="datepicker2i" style="float: left; font-size: 1.3em;">
 		                                        <span class="help-block" id="comecome">
 		                                            	<br>팀장만 신청할 수 있습니다!<br><br>
@@ -454,7 +462,7 @@
 		                                        </span>
 		                                    </label>
 	                                	</div>
-		                                <div style="margin-left: 42.3%; visibility: hidden;" id="notEnoughMember">
+		                                <div style="visibility: hidden;" id="notEnoughMember">
 		                                	<label for="datepicker2i" style="float: left; font-size: 1.3em;">
 		                                        <span class="help-block" id="comecome">
 		                                            	<br>팀에 사람이 모자랍니다!<br><br>
@@ -462,7 +470,7 @@
 		                                        </span>
 		                                    </label>
 	                                	</div>
-	                                	<div style="display:inline; margin-left: 42.3%; visibility: hidden;" id="go">
+	                                	<div style="display:inline; margin-left: -100%; visibility: hidden;" id="go">
 		                                	<label for="datepicker2i" style="font-size: 1.3em">
 		                                        <span class="help-block">
 		                                            	<br><br>좋습니다. <span style="font-weight: bold;">매칭을 계속 진행</span>하세요!
