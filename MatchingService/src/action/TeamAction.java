@@ -114,9 +114,17 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	         team.setTeam_Score(250);   
 	      }
 	      new TeamDAO().maketeam(team);
+	      teamlist = new TeamDAO().getmyteam((String)session.get("user_Id"));
+	      for(Team t : teamlist){
+	    	  if(t.getTeam_GameType().equals("축구")){
+	    		  new TeamDAO().insertscleader(t);
+	    	  }
+	      }
+	      
 	      return SUCCESS;
 	   }
-	   public String makebaseballteam() throws Exception{      
+	   public String makebaseballteam() throws Exception{
+		   
 	      team.setTeam_Leader((String)session.get("user_Id"));
 	      team.setTeam_GameType("야구");
 	      if(team.getTeam_Score() == 1){
@@ -131,6 +139,14 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	         team.setTeam_Score(250);   
 	      }
 	      new TeamDAO().maketeam(team);
+	      teamlist = new TeamDAO().getmyteam((String)session.get("user_Id"));
+	      System.out.println(teamlist);
+	      for(Team t : teamlist){
+	    	  if(t.getTeam_GameType().equals("야구")){
+	    		  new TeamDAO().insertbaleader(t);
+	    	  }
+	      }
+	      
 	      return SUCCESS;
 	   }
 	
@@ -185,15 +201,13 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	}
 
 	public String getTeamList(){
-		System.out.println("/////////");
 	    teamlist = new TeamDAO().getTeamList(team);
-	    player = new PlayerDAO().getUserInfo((String)session.get("user_Id")); //session로그인아이디로 바꿔야함.
+	    player = new PlayerDAO().getUserInfo((String)session.get("user_Id"));
 	    return SUCCESS;
 	}
 	   
 	public String t_joinApply(){
 	   String rst = SUCCESS;
-	   System.out.println("123");
 		int result = new TeamDAO().t_joinApply(player);
 	   if(result == 1){
 		   rst = SUCCESS;   

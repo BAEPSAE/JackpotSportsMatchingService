@@ -26,10 +26,10 @@
          <result>../makebaseballteam.jsp</result>
        </action>
        <action name="makesoccerteam" class="action.TeamAction" method="makesoccerteam">
-         <result type="redirect">soccerteampage.action</result>
+         <result type="redirect">soccerteampage</result>
        </action>
        <action name="makebaseballteam" class="action.TeamAction" method="makebaseballteam">
-         <result type="redirect">baseballteampage.action</result>
+         <result type="redirect">baseballteampage</result>
        </action>
        
        

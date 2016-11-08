@@ -172,7 +172,10 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	// 매칭 스케줄 리스트 받아오기
 	public String getScheduler() throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat();
+		SimpleDateFormat sdf2 = new SimpleDateFormat();
+
 		sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
+		sdf2.applyPattern("yyyy-MM-dd");
 		
 		Player plr = new Player();
 		plr.setUser_Id((String) session.get("user_Id"));
@@ -189,6 +192,8 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 			int i = cal1.compareTo(cal2);
 			m.setOnoff(i);
 			m.setMatching_End(sdf.format(cal1.getTime()));
+			Date dd = transFormat.parse(m.getGame_Date());
+			m.setGame_Date(sdf2.format(dd));
 		}
 		return SUCCESS;
 		

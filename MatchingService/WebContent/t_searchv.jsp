@@ -264,7 +264,7 @@
    </nav>
 
 <div class="content-wrap">
-    <main id="content" class="content" role="main">
+    <main class="content" role="main">
 		<h1 class="page-title">
 			팀 <span class="fw-semi-bold">찾기</span>
 		</h1>

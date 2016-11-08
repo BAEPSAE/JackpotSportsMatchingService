@@ -14,26 +14,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-    <!-- charts -->
-    <script src="../vendor/nvd3/build/nv.d3.min.js"></script>
-	<script src="../vendor/morris.js/morris.min.js"></script>
-	<script src="../vendor/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
-	<script src="../js/bootstrap-fix/button.js"></script>
-<link rel="stylesheet" type="text/css" href="../dist/overhang.min.css" />
-<script type="text/javascript" src="../dist/overhang.min.js"></script>
-<%-- <script>
-	$(document).ready(function(){
-		viewGraph();
-		$.ajax({
-			url: 'player/mypagev',
-			success: function(response) {
-				viewGraph();
-			}
-		});
-	});
-	
-	location.reload(true);
-</script> --%>
+	<link rel="stylesheet" type="text/css" href="../dist/overhang.min.css" />
+	<script type="text/javascript" src="../dist/overhang.min.js"></script>
+    <script>
+    	//팀의 매너점수 가져오기
+   		
+   		//막대 그래프 함수
+   		function viewGraph(){
+       		$('.column').css('height','0');
+	       		$('table tr').each(function(index) {
+	       		var ha = $(this).children('td').eq(1).text();
+	       		$('#col'+index).animate({height: ha}, 1500).html("<div>"+ha+"</div>");
+	       		});
+       	}
+
+  
+    	
+   		$(document).ready(function() {
+   			viewGraph();
+   		});
+    </script>
+    
     <style type="text/css">
    		#contenitore{
 		position: relative;
@@ -138,7 +139,7 @@
       <!-- need this .js class to initiate slimscroll -->
       <div class="js-sidebar-content">
          <header class="logo hidden-sm-down">
-            <s:a action="../index.action">Matching</s:a>
+            <s:a action="../intro">Matching</s:a>
          </header>
          <!-- seems like lots of recent admin template have this feature of user info in the sidebar.
              looks good, so adding it and enhancing with notifications -->
@@ -147,8 +148,8 @@
                class="thumb-sm avatar pull-xs-right"> <!-- <img class="img-circle" src="demo/img/people/a5.jpg" alt="..."> -->
             </span> <!-- .circle is a pretty cool way to add a bit of beauty to raw data.
                      should be used with bg-* and text-* classes for colors -->
-               <span class="circle bg-warning fw-bold text-gray-dark"> 13 </span>
-               &nbsp; Philip <strong>Smith</strong> <b class="caret"></b>
+               <span class="circle bg-warning fw-bold text-gray-dark"> </span>
+               &nbsp; 우리동내 <strong>골목대장</strong> <b class="caret"></b>
             </a>
             <!-- #notifications-dropdown-menu goes here when screen collapsed to xs or sm -->
          </div>
@@ -160,7 +161,7 @@
                </span> My Page <i class="toggle fa fa-angle-down"></i>
             </a>
                <ul id="sidebar-ui" class="collapse in">
-                  <li><s:a action="mypagev" namespace="/player">전적 보기</s:a></li>
+                  <li><s:a action="mypagev" namespace="/player">전적/게임 정보</s:a></li>
                </ul>
                </li>
             <li><a class="collapsed" href="#sidebar-maps"
@@ -183,8 +184,8 @@
                </span> Matching <i class="toggle fa fa-angle-down"></i>
             </a>
                <ul id="sidebar-tables" class="collapse">
+                  <li><s:a action="index_matching" namespace="..">매칭신청</s:a></li>
                   <li><s:a action="Matching" namespace="/player">진행 중</s:a></li>
-                  <li><s:a action="prevMatching" namespace="/player">지난 매칭</s:a></li>
                </ul>
             </li>
             
@@ -204,7 +205,7 @@
             </li>
             <li><s:a action="list" namespace="/board"> <span class="icon"> <span
                      class="glyphicon glyphicon-list-alt"></span>
-               </span> 자게
+               </span> 자유게시판
             </s:a></li>
             
          </ul>
@@ -258,21 +259,12 @@
                            <s:property value="#session.user_Name" />
                         </s:if>
                         <s:else>
-                           <s:a action="loginv" namespace="player">로그인하기</s:a>
+                           <s:a action="loginv" namespace="/player">로그인하기</s:a>
                         </s:else>
                   </strong>&nbsp; <b class="caret"></b>
                </a> <!-- 드롭다운 -->
-                  <div class="dropdown-menu dropdown-menu-right animated fadeInUp"
-                     id="notifications-dropdown-menu"></div></li>
-
-               <li class="dropdown nav-item"><a href="#"
-                  class="dropdown-toggle nav-link" data-toggle="dropdown"> <i
-                     class="fa fa-cog fa-lg"></i>
-               </a>
                   <ul class="dropdown-menu dropdown-menu-right">
-                     <li><s:a class="dropdown-item" action="joinv" namespace="/player"><i
-                           class="glyphicon glyphicon-user"></i> &nbsp; Join</s:a></li>
-                     <li><s:a class="dropdown-item" action="logout" namespace="player" ><i
+                     <li><s:a class="dropdown-item" action="logout" namespace="/player" ><i
                            class="fa fa-sign-out"></i> &nbsp; Log Out</s:a></li>
                   </ul></li>
             </ul>
@@ -330,7 +322,7 @@
                 <s:iterator value="prevgamelist">
 		            	<section class="search-result-item">
 			            	<s:if test="game_Type == '축구'">
-			            		<a class="image-link"><img class="image" src="../demo/img/pictures/555.jpg"></a>
+			            		<a class="image-link"><img class="image" src="/demo/img/pictures/555.jpg"></a>
 			            	</s:if>
 			            	<s:elseif test="game_Type == '야구'">
 			            		<a class="image-link"><img class="image" src="../demo/img/pictures/666.jpg"></a>

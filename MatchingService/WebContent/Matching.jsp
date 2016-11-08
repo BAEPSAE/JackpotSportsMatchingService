@@ -99,7 +99,7 @@
       <!-- need this .js class to initiate slimscroll -->
       <div class="js-sidebar-content">
          <header class="logo hidden-sm-down">
-            <s:a action="../index.action">Matching</s:a>
+            <s:a action="../intro">Matching</s:a>
          </header>
          <!-- seems like lots of recent admin template have this feature of user info in the sidebar.
              looks good, so adding it and enhancing with notifications -->
@@ -108,8 +108,8 @@
                class="thumb-sm avatar pull-xs-right"> <!-- <img class="img-circle" src="demo/img/people/a5.jpg" alt="..."> -->
             </span> <!-- .circle is a pretty cool way to add a bit of beauty to raw data.
                      should be used with bg-* and text-* classes for colors -->
-               <span class="circle bg-warning fw-bold text-gray-dark"> 13 </span>
-               &nbsp; Philip <strong>Smith</strong> <b class="caret"></b>
+               <span class="circle bg-warning fw-bold text-gray-dark"> </span>
+               &nbsp; 우리동내 <strong>골목대장</strong> <b class="caret"></b>
             </a>
             <!-- #notifications-dropdown-menu goes here when screen collapsed to xs or sm -->
          </div>
@@ -121,7 +121,7 @@
                </span> My Page <i class="toggle fa fa-angle-down"></i>
             </a>
                <ul id="sidebar-ui" class="collapse in">
-                  <li><s:a action="mypagev" namespace="/player">전적 보기</s:a></li>
+                  <li><s:a action="mypagev" namespace="/player">전적/게임 정보</s:a></li>
                </ul>
                </li>
             <li><a class="collapsed" href="#sidebar-maps"
@@ -144,8 +144,8 @@
                </span> Matching <i class="toggle fa fa-angle-down"></i>
             </a>
                <ul id="sidebar-tables" class="collapse">
+                  <li><s:a action="index_matching" namespace="..">매칭신청</s:a></li>
                   <li><s:a action="Matching" namespace="/player">진행 중</s:a></li>
-                  <li><s:a action="prevMatching" namespace="/player">지난 매칭</s:a></li>
                </ul>
             </li>
             
@@ -163,9 +163,9 @@
                   <li><s:a action="ppranking" namespace="/player">탁구 명예의 전당</s:a></li>
                 </ul>
             </li>
-              <li><s:a action="list" namespace="/board"> <span class="icon"> <span
+            <li><s:a action="list" namespace="/board"> <span class="icon"> <span
                      class="glyphicon glyphicon-list-alt"></span>
-               </span> 자게
+               </span> 자유게시판
             </s:a></li>
             
          </ul>
@@ -216,27 +216,15 @@
                   class="dropdown-toggle dropdown-toggle-notifications nav-link"
                   id="notifications-dropdown-toggle" data-toggle="dropdown">
                      &nbsp; <strong> <s:if test="#session.user_Id != null">
-                           <span class="thumb-sm avatar pull-xs-left"> <img
-                              id="picture" class="img-circle" src="../img/" alt="...">
-                           </span>
                            <s:property value="#session.user_Name" />
                         </s:if>
                         <s:else>
-                           <s:a action="loginv" namespace="player">로그인하기</s:a>
+                           <s:a action="loginv" namespace="/player">로그인하기</s:a>
                         </s:else>
                   </strong>&nbsp; <b class="caret"></b>
                </a> <!-- 드롭다운 -->
-                  <div class="dropdown-menu dropdown-menu-right animated fadeInUp"
-                     id="notifications-dropdown-menu"></div></li>
-
-               <li class="dropdown nav-item"><a href="#"
-                  class="dropdown-toggle nav-link" data-toggle="dropdown"> <i
-                     class="fa fa-cog fa-lg"></i>
-               </a>
                   <ul class="dropdown-menu dropdown-menu-right">
-                     <li><s:a class="dropdown-item" action="joinv" namespace="/player"><i
-                           class="glyphicon glyphicon-user"></i> &nbsp; Join</s:a></li>
-                     <li><s:a class="dropdown-item" action="logout" namespace="player" ><i
+                     <li><s:a class="dropdown-item" action="logout" namespace="/player" ><i
                            class="fa fa-sign-out"></i> &nbsp; Log Out</s:a></li>
                   </ul></li>
             </ul>
@@ -276,7 +264,7 @@
 					                                CountDownTimer(matchingtime, "countdown<s:property value="matching_Id" />");
 		                                    })    
 		                                    </script>
-                            <s:if test="onoff > 0">
+                            <s:if test="onoff < 0">
 	                            
 	                            <li><input type="hidden" value="<s:property value="matching_Id" />" name="hidden">
 	                                <span class="icon bg-danger text-white">
@@ -285,8 +273,7 @@
 	                                <div class="news-item-info">
 	                                    <h5 class="name no-margin mb-xs"><s:property value="game_Type" />매칭 실패</h5>
 	                                    <p class="fs-mini">
-	                                        	경기날짜: <s:property value="game_Date" /><br>
-	                                        	매칭시작: <s:property value="matching_Time" />
+	                                        	경기날짜: <s:property value="game_Date" />
 	                                        	<s:if test="ground_Hold == 1">
 	                                        		<br>경기장 유무: 있음
 	                                        	</s:if>
@@ -294,19 +281,19 @@
 	                                        		<br>경기장 유무: 없음
 	                                        	</s:else>
 	                                        	<s:if test="game_Time == 1">
-	                                        		<br>경기시간: 06시~09시
+	                                        		<br>매칭시간: 06시~09시
 	                                        	</s:if>
 	                                        	<s:elseif test="game_Time == 2">
-	                                        		<br>경기시간: 09시~12시
+	                                        		<br>매칭시간: 09시~12시
 	                                        	</s:elseif>
 	                                        	<s:elseif test="game_Time == 3">
-	                                        		<br>경기시간: 12시~15시
+	                                        		<br>매칭시간: 12시~15시
 	                                        	</s:elseif>
 	                                        	<s:elseif test="game_Time == 4">
-	                                        		<br>경기시간: 15시~18시
+	                                        		<br>매칭시간: 15시~18시
 	                                        	</s:elseif>
 	                                        	<s:elseif test="game_Time == 5">
-	                                        		<br>경기시간: 18시~21시
+	                                        		<br>매칭시간: 18시~21시
 	                                        	</s:elseif>
 	                                    </p>
 		                                    
@@ -325,8 +312,7 @@
 	                                <div class="news-item-info">
 	                                    <h5 class="name no-margin mb-xs"><s:property value="game_Type" />상대 매칭중!</h5>
 	                                    <p class="fs-mini">
-	                                        	경기날짜: <s:property value="game_Date" /><br>
-	                                        	매칭시작: <s:property value="matching_Time" />
+	                                        	경기날짜: <s:property value="game_Date" />
 	                                        	<s:if test="ground_Hold == 1">
 	                                        		<br>경기장 유무: 있음
 	                                        	</s:if>
@@ -334,19 +320,19 @@
 	                                        		<br>경기장 유무: 없음
 	                                        	</s:else>
 	                                        	<s:if test="game_Time == 1">
-	                                        		<br>경기시간: 06시~09시
+	                                        		<br>매칭시간: 06시~09시
 	                                        	</s:if>
 	                                        	<s:elseif test="game_Time == 2">
-	                                        		<br>경기시간: 09시~12시
+	                                        		<br>매칭시간: 09시~12시
 	                                        	</s:elseif>
 	                                        	<s:elseif test="game_Time == 3">
-	                                        		<br>경기시간: 12시~15시
+	                                        		<br>매칭시간: 12시~15시
 	                                        	</s:elseif>
 	                                        	<s:elseif test="game_Time == 4">
-	                                        		<br>경기시간: 15시~18시
+	                                        		<br>매칭시간: 15시~18시
 	                                        	</s:elseif>
 	                                        	<s:elseif test="game_Time == 5">
-	                                        		<br>경기시간: 18시~21시
+	                                        		<br>매칭시간: 18시~21시
 	                                        	</s:elseif>
 	                                    </p>
 		                                    

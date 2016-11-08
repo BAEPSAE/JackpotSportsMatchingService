@@ -8,6 +8,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="maketeam" parameterType="Team">
       insert into team (team_id, team_name, team_leader, team_score, team_manner, team_gametype, team_open) values(SEQ_TEAM.nextval, #{team_Name}, #{team_Leader}, #{team_Score}, 100, #{team_GameType}, 1)
    </insert>
+   
+   
+   <select id="myteam" parameterType="String" resultType="Team">
+   	select * from team where team_leader = #{userid}
+   </select>
+   
+   
+	<update id="scleaderinsert" parameterType="Team">
+		update player set team1 = #{team_Id}, team1_flag = 1 where user_id = #{team_Leader}
+	</update>
+	<update id="baleaderinsert" parameterType="Team">
+		update player set team2 = #{team_Id}, team2_flag = 1 where user_id = #{team_Leader}
+	</update>
 	
 	<select id="getTeam" resultType="Team" parameterType="int">
       select * from TEAM where team_id=#{team_Id}
