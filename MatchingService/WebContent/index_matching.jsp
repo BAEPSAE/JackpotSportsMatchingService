@@ -136,15 +136,19 @@
 	    		sports=3;
 	    	  $.ajax({
 	    		url: 'matching/checkMatching',
-	    		data: {'sports':3},
+	    		data: {"sports":3},
 	    		success: function(response) {
-	    			clearNotice();
-	    			$('#go').css('visibility', 'visible');
-	    			$('#stop').css('visibility', 'hidden');
+	    			var vg = response.validGame;
+	    			if(vg=='goMatch'){
+	    				clearNotice();
+	    				$('#go').css('visibility', 'visible');
+	    			}
+	    			else if(vg=='stopMatch'){
+	    				clearNotice();
+		    			$('#stop').css('visibility', 'hidden');
+	    			} 
 	    		}, error: function(response) {
-	    			clearNotice();
-	    			$('#go').css('visibility', 'hidden');
-	    			$('#stop').css('visibility', 'visible');
+	    			
 	    		}
 	    	});
 	      });
@@ -153,15 +157,19 @@
 	    		sports=4;
 	    	  $.ajax({
 	    		url: 'matching/checkMatching',
-	    		data: {'sports':4},
+	    		data: {"sports":4},
 	    		success: function(response) {
-	    			clearNotice();
-	    			$('#go').css('visibility', 'visible');
-	    			$('#stop').css('visibility', 'hidden');
+	    			var vg = response.validGame;
+	    			if(vg=='goMatch'){
+	    				clearNotice();
+	    				$('#go').css('visibility', 'visible');
+	    			}
+	    			else if(vg=='stopMatch'){
+	    				clearNotice();
+		    			$('#stop').css('visibility', 'hidden');
+	    			} 
 	    		}, error: function(response) {
-	    			clearNotice();
-	    			$('#go').css('visibility', 'hidden');
-	    			$('#stop').css('visibility', 'visible');
+	    			
 	    		}
 	    	});
 	      });

@@ -226,7 +226,7 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 		System.out.println("check");
 		System.out.println("sports");
 		if(sports==1){
-			if(session.get("isSCLeader")!=null){
+			if(session.get("isSCLeader").equals("true")){
 				//팀멤버수 가져와서 모자라면 게임안됨
 				int memberCount = 1;
 				if(memberCount<11){
@@ -238,7 +238,7 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 				return SUCCESS;
 			}
 		}else if(sports==2){
-			if(session.get("isBBLeader")!=null){
+			if(session.get("isBBLeader").equals("true")){
 				int memberCount = 1;
 				if(memberCount<9){
 					validGame = "notEnoughMember";
