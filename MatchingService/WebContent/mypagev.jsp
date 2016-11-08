@@ -14,26 +14,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <!-- charts -->
+    <script src="../vendor/nvd3/build/nv.d3.min.js"></script>
+	<script src="../vendor/morris.js/morris.min.js"></script>
+	<script src="../vendor/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+	<script src="../js/bootstrap-fix/button.js"></script>
 <link rel="stylesheet" type="text/css" href="../dist/overhang.min.css" />
 <script type="text/javascript" src="../dist/overhang.min.js"></script>
-    <script>
-    	//팀의 매너점수 가져오기
-   		
-   		//막대 그래프 함수
-   		function viewGraph(){
-       		$('.column').css('height','0');
-	       		$('table tr').each(function(index) {
-	       		var ha = $(this).children('td').eq(1).text();
-	       		$('#col'+index).animate({height: ha}, 1500).html("<div>"+ha+"</div>");
-	       		});
-       	}
-   		$(document).ready(function() {
-   			//페이지 자동 새로고침
-   			viewGraph();
-   			location.reload();
-   		});
-    </script>
-    
+<%-- <script>
+	$(document).ready(function(){
+		viewGraph();
+		$.ajax({
+			url: 'player/mypagev',
+			success: function(response) {
+				viewGraph();
+			}
+		});
+	});
+	
+	location.reload(true);
+</script> --%>
     <style type="text/css">
    		#contenitore{
 		position: relative;
@@ -95,46 +95,44 @@
 		}
 		    	
     </style>
-    
 </head>
 <body>
-<s:if test="#session.notice1!=-1">
-<div id="value">
-<input type='hidden' value="<s:property value='#session.notice1' />">
-</div>
-<script>
-	$("body").overhang({
-		type: "confirm",
-		  primary: "#3498DB",
-		  accent: "#2980B9",
-		  yesColor: "#53BBFF",
-		  message: "매칭이 성사되었습니다! 확인하시겠습니까?",
-		  callback: function (value) {
-				var noticenum = $('#value input[type=hidden]').val();
-			    if(value==true)location.href="../player/deleteNotice?noticenum="+noticenum;
-			  }
-		});
-</script>
+<%-- <s:if test="#session.notice1!=-1">
+	<div id="value">
+		<input type='hidden' value="<s:property value='#session.notice1' />">
+	</div>
+	<script>
+		$("body").overhang({
+			type: "confirm",
+			  primary: "#3498DB",
+			  accent: "#2980B9",
+			  yesColor: "#53BBFF",
+			  message: "매칭이 성사되었습니다! 확인하시겠습니까?",
+			  callback: function (value) {
+					var noticenum = $('#value input[type=hidden]').val();
+				    if(value==true)location.href="../player/deleteNotice?noticenum="+noticenum;
+				  }
+			});
+	</script>
 </s:if>
 <s:if test="#session.notice2==true">
-<div id="value">
-<input type='hidden' value="<s:property value='#session.notice1' />">
-</div>
-<script>
-	$("body").overhang({
-		  type: "confirm",
-		  primary: "#DB9634",
-		  accent: "#8E5605",
-		  yesColor: "#53BBFF",
-		  message: "매칭에 실패했습니다..다시 시도하시겠습니까?",
-		  callback: function (value) {
-			  var noticenum = $('#value input[type=hidden]').val();
-			    if(value==true)location.href="../player/deleteNotice?noticenum="+noticenum;
-			  }
-		});
-</script>
-</s:if>
-
+	<div id="value">
+		<input type='hidden' value="<s:property value='#session.notice1' />">
+	</div>
+	<script>
+		$("body").overhang({
+			  type: "confirm",
+			  primary: "#DB9634",
+			  accent: "#8E5605",
+			  yesColor: "#53BBFF",
+			  message: "매칭에 실패했습니다..다시 시도하시겠습니까?",
+			  callback: function (value) {
+				  var noticenum = $('#value input[type=hidden]').val();
+				    if(value==true)location.href="../player/deleteNotice?noticenum="+noticenum;
+				  }
+			});
+	</script>
+</s:if> --%>
 
 <nav id="sidebar" class="sidebar" role="navigation">
       <!-- need this .js class to initiate slimscroll -->
@@ -348,7 +346,23 @@
 						            	<div class="col-md-9">
 							            	<h5 class="search-result-item-heading">경기종목 <s:property value="game_Type" />
 							            	<s:if test="game_Draw == null && winner_Id == null"><span class="label label-pill label-danger fw-normal pull-xs-right">게임이 성사되었습니다!</span><br></s:if></h5>
-							            	<p class="info">경기시간 : <s:property value="game_Time" /></p>
+							            	<p class="info">경기시간 : 
+							            	<s:if test="game_Time==1">
+							            		06:00 ~ 09:00
+							            	</s:if>
+							            	<s:if test="game_Time==2">
+							            		09:00 ~ 12:00
+							            	</s:if>
+							            	<s:if test="game_Time==3">
+							            		12:00 ~ 15:00
+							            	</s:if>
+							            	<s:if test="game_Time==4">
+							            		15:00 ~ 18:00
+							            	</s:if>
+							            	<s:if test="game_Time==5">
+							            		18:00 ~ 21:00
+							            	</s:if>
+							            	</p>
 							            	<p class="description">경기장 번호 : <s:property value="ground_Id" /></p>
 						            	</div>
 						            	<div class="col-md-3 text-xs-center">
@@ -396,8 +410,19 @@
 										<tr><td>볼링</td><td id="winBW"><s:property value="%{winBW}"/>%</td><td style="background-color:#5d8fc2">&nbsp;</td></tr>
 										</tbody>
 									</table>
-									<!-- <div class="button" onclick="viewGraph()">Rerun</div> --><!-- return button -->
 								</div>
+								<script type="text/javascript">
+								$(document).ready(function() {
+									function viewGraph(){
+								  		$('.column').css('height','0');
+								      		$('table tr').each(function(index) {
+									      		var ha = $(this).children('td').eq(1).text();
+									      		$('#col'+index).animate({height: ha}, 1500).html("<div>"+ha+"</div>");
+								      		});
+								  	}
+									viewGraph();
+								});
+								</script>
 								<div style="margin-left: 10%; width: 80%;">
 									<div id="grafico" style="font-size: 18px;">
 										<!-- 눈금선 -->
@@ -422,9 +447,9 @@
 	                            <th class="hidden-sm-down" style="text-align: center; font-size: 15px;">경기장 이름</th>
 	                            <th class="hidden-sm-down" style="text-align: center; font-size: 15px;">경기장 주소</th>
 	                            <th class="hidden-sm-down" style="text-align: center; font-size: 15px;">경기장 연락처</th>
-	                            <th class="hidden-sm-down" style="text-align: center; font-size: 15px;">보유 경기장</th>
+	                            <!-- <th class="hidden-sm-down" style="text-align: center; font-size: 15px;">보유 경기장</th> -->
                             </tr>
-                            <tbody style="text-align: center; font-size: 18px;">
+                            <tbody style="text-align: center; font-size: 15px;">
                             <!-- 축구 -->
                             <tr>
                                 <td><button class="btn btn-success width-100 mb-xs" role="button">축구</button></td>
@@ -464,7 +489,6 @@
                         </table>
                     </div>
                 </section>
-            	
             </div>
             
 		</div>
@@ -474,7 +498,6 @@
 <div class="loader-wrap hiding hide">
     <i class="fa fa-circle-o-notch fa-spin-fast"></i>
 </div>
-
 <!-- common libraries. required for every page-->
 <script src="../vendor/jquery-pjax/jquery.pjax.js"></script>
 <script src="../vendor/tether/dist/js/tether.js"></script>
@@ -488,7 +511,7 @@
 <script src="../vendor/widgster/widgster.js"></script>
 <script src="../vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
 <script src="../vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
-<script src="../js/bootstrap-fix/button.js"></script>
+
 
 <!-- common app js -->
 <script src="../js/settings.js"></script>
@@ -505,12 +528,9 @@
 <script src="../vendor/flot/jquery.flot.selection.js"></script>
 <script src="../vendor/flot/jquery.flot.time.js"></script>
 
-<script src="../vendor/nvd3/build/nv.d3.min.js"></script>
-<script src="../vendor/morris.js/morris.min.js"></script>
-<script src="../vendor/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+
 
 <!-- page specific js -->
 <%-- <script src="../js/charts.js"></script> --%>
-
 </body>
 </html>
