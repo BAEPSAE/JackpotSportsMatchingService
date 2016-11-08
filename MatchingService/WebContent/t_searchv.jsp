@@ -69,7 +69,7 @@
 								url: 't_joinApply'
 								, method: 'post'
 								, data: {
-									"player.user_Id" : "USER193"
+									"player.user_Id" : "USER110"
 									, "player.team1" : teamId
 								}
 								, success: function(response) {
@@ -86,7 +86,7 @@
 								url: 't_joinApply'
 								, method: 'post'
 								, data: {
-									"player.user_Id" : "USER193"
+									"player.user_Id" : "USER110"
 									, "player.team2" : teamId
 								}
 								, success: function(response) {
@@ -235,9 +235,9 @@
                   class="dropdown-toggle dropdown-toggle-notifications nav-link"
                   id="notifications-dropdown-toggle" data-toggle="dropdown">
                      &nbsp; <strong> <s:if test="#session.user_Id != null">
-                           <span class="thumb-sm avatar pull-xs-left"> <img
+                          <%--  <span class="thumb-sm avatar pull-xs-left"> <img
                               id="picture" class="img-circle" src="../img/" alt="...">
-                           </span>
+                           </span> --%>
                            <s:property value="#session.user_Name" />
                         </s:if>
                         <s:else>
