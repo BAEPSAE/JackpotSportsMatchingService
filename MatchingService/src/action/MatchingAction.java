@@ -224,7 +224,8 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 	//
 	public String checkMatching() throws Exception{
 		System.out.println("check");
-		System.out.println("sports");
+		System.out.println(sports);
+		System.out.println(session.get("isBBLeader"));
 		if(sports==1){
 			if(session.get("isSCLeader").equals("true")){
 				//팀멤버수 가져와서 모자라면 게임안됨
@@ -237,7 +238,8 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 				validGame = "notLeader";
 				return SUCCESS;
 			}
-		}else if(sports==2){
+		}
+		if(sports==2){
 			if(session.get("isBBLeader").equals("true")){
 				int memberCount = 1;
 				if(memberCount<9){
@@ -251,8 +253,7 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 		}
 		
 		user_Id=(String)session.get("user_Id");
-		Matching tmpMatching=new Matching();
-		tmpMatching=dao.checkMatching(user_Id, sports);
+		Matching tmpMatching=dao.checkMatching(user_Id, sports);
 		if(tmpMatching == null) {
 			validGame="goMatch";
 			return SUCCESS;
