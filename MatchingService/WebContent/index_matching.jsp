@@ -68,24 +68,40 @@
 	      //축구
 	      $('#sports1').on('click', function() {
 	    	  sports=1;
+	    	  
 	    	  $.ajax({
-	    		url: 'matching/checkMatching',
-	    		data: {'sports':1},
-	    		success: function(response) {
-	    			$('#go').css('visibility', 'visible');
-	    			$('#stop').css('visibility', 'hidden');
-	    		}, error: function(response) {
-	    			$('#go').css('visibility', 'hidden');
-	    			$('#stop').css('visibility', 'visible');
-	    		}
-	    	});
+		    		url: 'matching/checkMatching',
+		    		data: {"sports":1},
+		    		success: function(response) {
+		    			var vg = response.validGame;
+		    			alert(vg);
+		    			 if(vg=='notLeader'){
+		    				$('#notLeader').css('visibility', 'visible');
+		    			}
+		    			else if(vg=='notEnoughMember'){
+		    				$('#notEnoughMember').css('visibility', 'visible');
+		    			}
+		    			else if(vg=='goMatch'){
+		    				$('#go').css('visibility', 'visible');
+		    			}
+		    			else if(vg=='stopMatch'){
+			    			$('#stop').css('visibility', 'hidden');
+		    			} 
+		    		}, error: function(response) {
+		    		/* 	$('#go').css('visibility', 'hidden');
+		    			$('#stop').css('visibility', 'visible'); */
+		    			alert('error');
+		    		}
+		    	});	    				  
+	    	  
+	    	  
 	      });
 	    	//야구
 	    	$('#sports2').on('click', function() {
 	    		sports=2;
 	    	  $.ajax({
 	    		url: 'matching/checkMatching',
-	    		data: {'sports':2},
+	    		data: {"sports":2},
 	    		success: function(response) {
 	    			$('#go').css('visibility', 'visible');
 	    			$('#stop').css('visibility', 'hidden');
@@ -160,6 +176,11 @@
 	      $('#showSc').on('click', function() {
 	    	location.href='player/Matching.action';
 	      });
+	      
+	      $('#teamView').on('click', function() {
+		    	location.href='team/soccerteampage';
+		   });
+	      
 	    });//document.ready
 	    //창 보이기
 	    
@@ -401,6 +422,22 @@
 		                                        <span class="help-block" id="comecome">
 		                                            	<br>이미 <span style="font-weight: bold;">매칭 진행 중</span>인 종목입니다!<br><br>
 		                                            	<button class="btn btn-inverse width-100 mb-xs" role="button" id="showSc">스케줄 보기</button>
+		                                        </span>
+		                                    </label>
+	                                	</div>
+		                                <div style="margin-left: 42.3%; visibility: hidden;" id="notLeader">
+		                                	<label for="datepicker2i" style="float: left; font-size: 1.3em;">
+		                                        <span class="help-block" id="comecome">
+		                                            	<br>팀장만 신청할 수 있습니다!<br><br>
+		                                            	<button class="btn btn-inverse width-100 mb-xs" role="button" id="teamView">팀 보러가기</button>
+		                                        </span>
+		                                    </label>
+	                                	</div>
+		                                <div style="margin-left: -57%; visibility: hidden;" id="notEnoughMember">
+		                                	<label for="datepicker2i" style="float: left; font-size: 1.3em;">
+		                                        <span class="help-block" id="comecome">
+		                                            	<br>팀에 사람이 모자랍니다!<br><br>
+		                                            	<button class="btn btn-inverse width-100 mb-xs" role="button" id="teamView">팀 보러가기</button>
 		                                        </span>
 		                                    </label>
 	                                	</div>
