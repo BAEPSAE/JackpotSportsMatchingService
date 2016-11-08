@@ -23,6 +23,7 @@
     <script src="../js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
+    	
 			$('#nowlist').on('click', 'li', function(index) {
 	            var hereiam = $(this);
 	            var matchingid = hereiam.children().first().val();
@@ -55,6 +56,7 @@
 	            
 	         });
 			
+			
 	});
     function CountDownTimer(dt, id){
     var end = new Date(dt);
@@ -83,11 +85,16 @@
 
     timer = setInterval(showRemaining, 1000);
     }
+    
+	function gomatchingpage() {
+		location.href = "../index_matching";	
+	}
     </script>
     
     
 </head>
 <body>
+ 
 <nav id="sidebar" class="sidebar" role="navigation">
       <!-- need this .js class to initiate slimscroll -->
       <div class="js-sidebar-content">
@@ -239,7 +246,7 @@
 
 <div class="content-wrap">
     <!-- main page content. the place to put widgets in. usually consists of .row > .col-lg-* > .widget.  -->
-    <main id="content" class="content" role="main">
+    <main class="content" role="main">
         <ol class="breadcrumb">
             <li>매칭</li>
             <li class="active">진행중인 매칭</li>
@@ -249,8 +256,19 @@
         	<div class="col-xl-4">
                 <h1 class="page-title" id="calender-current-date">Calendar - <span class="fw-semi-bold">Events</span></h1>
             	<div class="widget-body no-padding">
+			            	<s:if test="schedule.size == 0">
+				            	<ul class="news-list stretchable" id="nulllist" onclick="gomatchingpage()">
+					                <li>
+							            <span class="icon bg-info text-white"><i class="fa fa-microphone"></i></span>
+							            <div class="news-item-info"><h5 class="name no-margin mb-xs">매칭중인 경기가 없습니다!</h5>
+							            <p class="fs-mini">클릭하시면 매칭페이지로 연결됩니다 :)</p>
+								        </div>
+						            </li>
+					            </ul>
+				            </s:if>
+				            
+				            
                         <ul class="news-list stretchable" id="nowlist">
-                         	
                          	<s:iterator value="schedule">
                          	<script type="text/javascript">
 		                                    $(function() {
@@ -258,7 +276,7 @@
 					                                CountDownTimer(matchingtime, "countdown<s:property value="matching_Id" />");
 		                                    })    
 		                                    </script>
-                            <s:if test="onoff < 0">
+                            <s:if test="onoff > 0">
 	                            
 	                            <li><input type="hidden" value="<s:property value="matching_Id" />" name="hidden">
 	                                <span class="icon bg-danger text-white">
@@ -337,8 +355,8 @@
 	                            </li>
 	                            
 	                         </s:else>
-	                            
                            </s:iterator>
+                           </ul>
                     </div>
             </div>
             <div class="col-lg-3 col-xl-4"><p>　　　</p></div>

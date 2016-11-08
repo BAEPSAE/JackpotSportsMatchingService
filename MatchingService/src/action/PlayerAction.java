@@ -147,7 +147,7 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 		sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
 		
 		Player plr = new Player();
-		plr.setUser_Id((String) session.get("user_Id"));
+		plr.setUser_Id("USER1");//(String) session.get("user_Id")
 		plr = dao.getUserInfo(plr.getUser_Id());
 
 		schedule = dao.getMatchingList(plr);
