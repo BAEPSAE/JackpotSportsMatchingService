@@ -1,6 +1,9 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 
 import vo.Player;
@@ -100,6 +103,16 @@ user 테이블 전부 돌아서 해당 팀 id 가지고 있는 애들 목록 긁
 		String result = null;
 		session = MybatisConfig.getSqlSessionFactory().openSession();
 	    result = session.selectOne("mapper.TeamMapper.getTeamLeaderId", team_Id);
+		return result;
+	}
+	
+	public int getMemberCount(int sports, int team_Id){
+		int result = -1;
+		Map<String, Object> map = new HashMap<>();
+		map.put("sports", sports);
+		map.put("team_Id", team_Id);
+		session = MybatisConfig.getSqlSessionFactory().openSession();
+	    result = session.selectOne("mapper.TeamMapper.getMemberCount", map);
 		return result;
 	}
 	

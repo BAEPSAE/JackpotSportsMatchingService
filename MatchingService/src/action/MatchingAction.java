@@ -223,13 +223,15 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 	
 	//
 	public String checkMatching() throws Exception{
-		System.out.println("check");
-		System.out.println(sports);
-		System.out.println(session.get("isBBLeader"));
+		
+		user_Id=(String)session.get("user_Id");
+		
 		if(sports==1){
 			if(session.get("isSCLeader").equals("true")){
 				//팀멤버수 가져와서 모자라면 게임안됨
-				int memberCount = 1;
+				PlayerDAO pdao = new PlayerDAO();
+				Player player = pdao.getUserInfo(user_Id);
+				int memberCount = new TeamDAO().getMemberCount(1, player.getTeam1());
 				if(memberCount<11){
 					validGame = "notEnoughMember";
 					return SUCCESS;
@@ -241,7 +243,9 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 		}
 		if(sports==2){
 			if(session.get("isBBLeader").equals("true")){
-				int memberCount = 1;
+				PlayerDAO pdao = new PlayerDAO();
+				Player player = pdao.getUserInfo(user_Id);
+				int memberCount = new TeamDAO().getMemberCount(2, player.getTeam2());
 				if(memberCount<9){
 					validGame = "notEnoughMember";
 					return SUCCESS;
@@ -252,7 +256,6 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 			}
 		}
 		
-		user_Id=(String)session.get("user_Id");
 		Matching tmpMatching=dao.checkMatching(user_Id, sports);
 		if(tmpMatching == null) {
 			validGame="goMatch";

@@ -111,6 +111,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into notice (noticenum, user_id, n_type) values (seq_notice.nextval, #{user_Id}, #{n_Type})
 	</insert>
 	
+	
+	
 	<!-- 규은 윤석 -->
 	<insert id="sendMsg" parameterType="Message">
 		INSERT INTO MESSAGE VALUES (SEQ_MESSAGE.nextval, #{content}, #{user_Id}, #{game_Id}, #{inputDate})

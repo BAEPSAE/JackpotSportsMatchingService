@@ -52,5 +52,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select team_leader from team where team_id = #{team_Id}
 	</select>
 	
+	<!-- 팀 멤버 수 구해오기 -->
+	<select id="getMemberCount" parameterType="HashMap" resultType="int">
+		select count(*) from player where
+		<if test="sports==1">
+			team1=#{team_Id} and team1_flag=1
+		</if>
+		<if test="sports==2">
+			team2=#{team_Id} and team2_flag=1
+		</if>
+	</select>
+	
 	
 </mapper>
