@@ -77,9 +77,40 @@ user 테이블 전부 돌아서 해당 팀 id 가지고 있는 애들 목록 긁
 	      result = session.insert("mapper.TeamMapper.maketeam", team);
 	      session.commit();
 	      session.close();
+	      
 	      return result;
 	   }
+	public List<Team> getmyteam(String userid){
+		try {
+			session = MybatisConfig.getSqlSessionFactory().openSession();
+			teamList = session.selectList("mapper.TeamMapper.myteam", userid);			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return teamList;
+	}
 	
+	public int insertscleader(Team team){
+		int result = 0;
+		
+		session = MybatisConfig.getSqlSessionFactory().openSession();
+	    session.update("mapper.TeamMapper.scleaderinsert", team);
+	    session.commit();
+	    session.close();
+	    
+		return result;
+	}
+	public int insertbaleader(Team team){
+		int result = 0;
+		
+		session = MybatisConfig.getSqlSessionFactory().openSession();
+	    session.update("mapper.TeamMapper.baleaderinsert", team);
+	    session.commit();
+	    session.close();
+	    
+		return result;
+	}
 	
 	//하연
 	public Team getTeam(int team_Id){

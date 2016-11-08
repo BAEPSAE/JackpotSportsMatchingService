@@ -30,12 +30,12 @@
 		</action>
 		<!-- 로그인 하기 -->
 		<action name="login" class="action.PlayerAction" method="login">
-			<result name="success" type="redirect">../index_matching</result>
+			<result name="success" type="redirect">mypagev</result>
 			<result name="input" type="redirect">login</result>
 		</action>
 		<!-- 로그아웃 -->
 		<action name="logout" class="action.PlayerAction" method="logout">
-			<result name="success" type="redirect">../index.action</result>
+			<result name="success" type="redirect">../intro</result>
 		</action>
 		
 		<action name="checkNotices" class="action.PlayerAction" method="checkNotices">

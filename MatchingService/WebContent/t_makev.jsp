@@ -29,7 +29,7 @@
       <!-- need this .js class to initiate slimscroll -->
       <div class="js-sidebar-content">
          <header class="logo hidden-sm-down">
-            <s:a action="../index.action">Matching</s:a>
+            <s:a action="../intro">Matching</s:a>
          </header>
          <!-- seems like lots of recent admin template have this feature of user info in the sidebar.
              looks good, so adding it and enhancing with notifications -->
@@ -38,8 +38,8 @@
                class="thumb-sm avatar pull-xs-right"> <!-- <img class="img-circle" src="demo/img/people/a5.jpg" alt="..."> -->
             </span> <!-- .circle is a pretty cool way to add a bit of beauty to raw data.
                      should be used with bg-* and text-* classes for colors -->
-               <span class="circle bg-warning fw-bold text-gray-dark"> 13 </span>
-               &nbsp; Philip <strong>Smith</strong> <b class="caret"></b>
+               <span class="circle bg-warning fw-bold text-gray-dark"> </span>
+               &nbsp; 우리동내 <strong>골목대장</strong> <b class="caret"></b>
             </a>
             <!-- #notifications-dropdown-menu goes here when screen collapsed to xs or sm -->
          </div>
@@ -51,11 +51,9 @@
                </span> My Page <i class="toggle fa fa-angle-down"></i>
             </a>
                <ul id="sidebar-ui" class="collapse in">
-                  <li><s:a action="mypagev" namespace="/player">전적 보기</s:a></li>
+                  <li><s:a action="mypagev" namespace="/player">전적/게임 정보</s:a></li>
                </ul>
-               <ul id="sidebar-ui" class="collapse in">
-                  <li><s:a action="../player/mypagev.action">신고(아직 없음)</s:a></li>
-               </ul></li>
+               </li>
             <li><a class="collapsed" href="#sidebar-maps"
                data-toggle="collapse" data-parent="#sidebar"> <span
                   class="icon"> <i class="fa fa-users"></i>
@@ -64,7 +62,8 @@
                <ul id="sidebar-maps" class="collapse">
                   <!-- data-no-pjax turns off pjax loading for this link. Use in case of complicated js loading on the
                          target page -->
-                  <li><s:a action="teamPage" namespace="/team">팀 관리</s:a></li>
+                  <li><s:a action="soccerteampage" namespace="/team">축구팀 관리</s:a></li>
+                  <li><s:a action="baseballteampage" namespace="/team">야구팀 관리</s:a></li>
                   <li><s:a action="t_searchv" namespace="/team">팀 찾기</s:a></li>
                </ul></li>
             <li>
@@ -75,18 +74,30 @@
                </span> Matching <i class="toggle fa fa-angle-down"></i>
             </a>
                <ul id="sidebar-tables" class="collapse">
-                  <li><a href="../matching/gamepage">진행 중</a></li>
-                  <li><a href="tables_dynamic.html">지난 매칭(아직없음)</a></li>
+                  <li><s:a action="index_matching" namespace="..">매칭신청</s:a></li>
+                  <li><s:a action="Matching" namespace="/player">진행 중</s:a></li>
                </ul>
             </li>
-            <li><a href="../Ranking.action"> <span class="icon">
-                     <span class="glyphicon glyphicon-star"></span>
-               </span> Ranking
-            </a></li>
-              <li><s:a action="list" namespace="/board"> <span class="icon"> <span
+            
+            <li><a class="collapsed" href="#sidebar-forms" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false">
+                    <span class="icon">
+                        <i class="glyphicon glyphicon-star"></i>
+                    </span>
+                    Ranking
+                    <i class="toggle fa fa-angle-down"></i>
+                </a>
+                <ul id="sidebar-forms" class="collapse" aria-expanded="false">
+                  <li><s:a action="scranking" namespace="/player">축구 명예의 전당</s:a></li>
+                  <li><s:a action="baranking" namespace="/player">야구 명예의 전당</s:a></li>
+                  <li><s:a action="blranking" namespace="/player">볼링 명예의 전당</s:a></li>
+                  <li><s:a action="ppranking" namespace="/player">탁구 명예의 전당</s:a></li>
+                </ul>
+            </li>
+            <li><s:a action="list" namespace="/board"> <span class="icon"> <span
                      class="glyphicon glyphicon-list-alt"></span>
-               </span> 자게
+               </span> 자유게시판
             </s:a></li>
+            
          </ul>
       </div>
    </nav>
@@ -121,12 +132,12 @@
                </li>
             </ul>
             <!-- xs & sm screen logo -->
-            <a class="navbar-brand hidden-md-up" href="index.html"> <i
+            <s:a class="navbar-brand hidden-md-up" action="index" namespace="/"> <i
                class="fa fa-circle text-gray mr-n-sm"></i> <i
                class="fa fa-circle text-warning"></i> &nbsp; 골목대장 &nbsp; <i
                class="fa fa-circle text-warning mr-n-sm"></i> <i
                class="fa fa-circle text-gray"></i>
-            </a>
+            </s:a>
          </div>
          <!-- this part is hidden for xs screens -->
          <div class="collapse navbar-collapse">
@@ -135,27 +146,15 @@
                   class="dropdown-toggle dropdown-toggle-notifications nav-link"
                   id="notifications-dropdown-toggle" data-toggle="dropdown">
                      &nbsp; <strong> <s:if test="#session.user_Id != null">
-                           <span class="thumb-sm avatar pull-xs-left"> <img
-                              id="picture" class="img-circle" src="../img/" alt="...">
-                           </span>
                            <s:property value="#session.user_Name" />
                         </s:if>
                         <s:else>
-                           <s:a action="../player/loginv">로그인하기</s:a>
+                           <s:a action="loginv" namespace="/player">로그인하기</s:a>
                         </s:else>
                   </strong>&nbsp; <b class="caret"></b>
                </a> <!-- 드롭다운 -->
-                  <div class="dropdown-menu dropdown-menu-right animated fadeInUp"
-                     id="notifications-dropdown-menu"></div></li>
-
-               <li class="dropdown nav-item"><a href="#"
-                  class="dropdown-toggle nav-link" data-toggle="dropdown"> <i
-                     class="fa fa-cog fa-lg"></i>
-               </a>
                   <ul class="dropdown-menu dropdown-menu-right">
-                     <li><a class="dropdown-item" href="profile.html"><i
-                           class="glyphicon glyphicon-user"></i> &nbsp; Join</a></li>
-                     <li><s:a class="dropdown-item" action="logout" namespace="player" ><i
+                     <li><s:a class="dropdown-item" action="logout" namespace="/player" ><i
                            class="fa fa-sign-out"></i> &nbsp; Log Out</s:a></li>
                   </ul></li>
             </ul>
