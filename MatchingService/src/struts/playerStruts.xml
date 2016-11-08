@@ -30,7 +30,7 @@
 		</action>
 		<!-- 로그인 하기 -->
 		<action name="login" class="action.PlayerAction" method="login">
-			<result name="success" type="redirect">../index</result>
+			<result name="success" type="redirect">../index_matching</result>
 			<result name="input" type="redirect">login</result>
 		</action>
 		<!-- 로그아웃 -->

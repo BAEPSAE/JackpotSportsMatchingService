@@ -36,6 +36,7 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 	String user_Id;
 	int sports; // 축구==1, 야구==2, 탁구==3, 볼링==4: jsp에서 가지고 옴
 	String cutDate; // 데이터 자르기 용: jsp에서 가지고 옴
+	String validGame; //게임 신청 가능한지 안한지..
 	Player player;
 	Team team;
 	Map<String, Object> session;
@@ -203,6 +204,14 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 		this.ground_Id1 = ground_Id1;
 	}
 
+	public String getValidGame() {
+		return validGame;
+	}
+
+	public void setValidGame(String validGame) {
+		this.validGame = validGame;
+	}
+
 	// method
 	// 인덱스 분기를 위한 메소드
 	public String index_matching() {
@@ -214,12 +223,45 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 	
 	//
 	public String checkMatching() throws Exception{
+		System.out.println("check");
+		System.out.println("sports");
+		if(sports==1){
+			if(session.get("isSCLeader")!=null){
+				//팀멤버수 가져와서 모자라면 게임안됨
+				int memberCount = 1;
+				if(memberCount<11){
+					validGame = "notEnoughMember";
+					return SUCCESS;
+				} 
+			}else{
+				validGame = "notLeader";
+				return SUCCESS;
+			}
+		}else if(sports==2){
+			if(session.get("isBBLeader")!=null){
+				int memberCount = 1;
+				if(memberCount<9){
+					validGame = "notEnoughMember";
+					return SUCCESS;
+				} 
+			}else{
+				validGame = "notLeader";
+				return SUCCESS;
+			}
+		}
+		
 		user_Id=(String)session.get("user_Id");
 		Matching tmpMatching=new Matching();
 		tmpMatching=dao.checkMatching(user_Id, sports);
-		if(tmpMatching == null) return SUCCESS;
-		else return ERROR;
+		if(tmpMatching == null) {
+			validGame="goMatch";
+			return SUCCESS;
+		}else{
+			validGame="stopMatch";
+			return SUCCESS;
+		} 
 	}
+	
 
 	public String insertMatching() throws Exception{
 		user_Id = (String) session.get("user_Id"); // session을 검사함
