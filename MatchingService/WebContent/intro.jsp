@@ -13,6 +13,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
+
+	<script type="text/javascript">
+		function applybtn() {
+			location.href = 'player/joinv';
+		}
+		function loginbtn() {
+			location.href = 'player/loginv';
+		}
+	</script>
 </head>
 <body>
 <!--
@@ -250,8 +259,8 @@
                         <h6 class="fw-semi-bold mt">지금바로 시작하기!</h6>
                         <div class="input-group mt">
                             <span class="input-group-btn">
-                                <button type="submit" class="btn btn-info btn-block">회원가입</button>
-                                <button type="submit" class="btn btn-warning btn-block">로그인</button>
+                                <button class="btn btn-info btn-block" onclick="applybtn()">회원가입</button>
+                                <button class="btn btn-warning btn-block" onclick="loginbtn()">로그인</button>
                             </span>
                         </div>
                     </div>

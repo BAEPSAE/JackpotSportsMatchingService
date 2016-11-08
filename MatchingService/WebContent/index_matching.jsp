@@ -64,6 +64,7 @@
     <script>
     var sports;	//매칭용 변수
 	    $(document).ready(function(){
+
 	      //대상의 타입에 따라 매칭 대기 상태인지 아닌지를 확인
 	      //축구
 	      $('#sports1').on('click', function() {

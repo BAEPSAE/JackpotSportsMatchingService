@@ -25,9 +25,9 @@
             <result name="success">/boardRead.jsp</result>
        </action>
        <action name="delete" class="action.BoardAction" method="deleteBoard"> 
-            <result name="success" type="redirectAction">
+          <result name="success" type="redirectAction">
             <param name="actionName">list</param>
-           </result> 
+           </result>
        </action>
             <action name="update" class="action.BoardAction" method="updateBoard"> 
            <result name="success" type="redirectAction">

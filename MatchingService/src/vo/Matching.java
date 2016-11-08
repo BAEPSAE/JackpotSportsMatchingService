@@ -13,25 +13,19 @@ public class Matching {
 	String longitude;	//경도
 	String matching_Time;	//게임 시작시간
 	int onoff;
+	String matching_End;
+	
+	public String getMatching_End() {
+		return matching_End;
+	}
+	public void setMatching_End(String matching_End) {
+		this.matching_End = matching_End;
+	}
 	public int getOnoff() {
 		return onoff;
 	}
 	public void setOnoff(int onoff) {
 		this.onoff = onoff;
-	}
-	public Matching(int matching_Id, String player, int score, String game_Type, String game_Date, int game_Time,
-			int ground_Hold, String latitude, String longitude, String matching_Time) {
-		super();
-		this.matching_Id = matching_Id;
-		this.player = player;
-		this.score = score;
-		this.game_Type = game_Type;
-		this.game_Date = game_Date;
-		this.game_Time = game_Time;
-		this.ground_Hold = ground_Hold;
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.matching_Time = matching_Time;
 	}
 	public Matching() {
 		super();
@@ -100,6 +94,8 @@ public class Matching {
 	public String toString() {
 		return "Matching [matching_Id=" + matching_Id + ", player=" + player + ", score=" + score + ", game_Type="
 				+ game_Type + ", game_Date=" + game_Date + ", game_Time=" + game_Time + ", ground_Hold=" + ground_Hold
-				+ ", latitude=" + latitude + ", longitude=" + longitude + ", matching_Time=" + matching_Time + "]";
+				+ ", latitude=" + latitude + ", longitude=" + longitude + ", matching_Time=" + matching_Time
+				+ ", onoff=" + onoff + ", matching_End=" + matching_End + "]";
 	}
+	
 }

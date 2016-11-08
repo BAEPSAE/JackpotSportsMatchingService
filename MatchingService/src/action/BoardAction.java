@@ -55,7 +55,7 @@ public class BoardAction extends ActionSupport implements SessionAware {
 	public String deleteBoard() throws Exception {
 		System.out.println("삭제");
 		System.out.println(board.getBoardNum());
-		 DAO.deleteBoard(board.getBoardNum());
+		DAO.deleteBoard(board.getBoardNum());
 		return SUCCESS;
 	}
 

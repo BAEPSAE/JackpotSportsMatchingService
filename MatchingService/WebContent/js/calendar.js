@@ -47,7 +47,7 @@ $(function(){
 
             // 받아온 정보로 이벤트 추가
             events: function(start, end, callback) {
-            var a = '#64bd63';
+            var a = '';
             	$.ajax({
     	            url: 'schedulelist',
     	            method : 'get',
@@ -56,6 +56,8 @@ $(function(){
     	                for(var c = 0; c <doc.schedule.length; c++ ) {
     	                	if(doc.schedule[c].onoff < 0){
     	                		a = '#e5603b';
+    	                	}else{
+    	                		a = '#64bd63';
     	                	}
     	                    events.push({
     	                    	id: doc.schedule[c].matching_Id,

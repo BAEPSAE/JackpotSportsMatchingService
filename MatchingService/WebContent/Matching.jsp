@@ -23,7 +23,6 @@
     <script src="../js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
-    	
 			$('#nowlist').on('click', 'li', function(index) {
 	            var hereiam = $(this);
 	            var matchingid = hereiam.children().first().val();
@@ -57,6 +56,33 @@
 	         });
 			
 	});
+    function CountDownTimer(dt, id){
+    var end = new Date(dt);
+    var _second = 1000;
+    var _minute = _second * 60;
+    var _hour = _minute * 60;
+    var _day = _hour * 48;
+    var timer;
+
+	    function showRemaining() {
+	    var now = new Date();
+	    var distance = end - now;
+		    if (distance < 0) {
+		
+		    clearInterval(timer);
+		    document.getElementById(id).innerHTML = '매칭시간이 지났습니다!';
+		
+		    return;
+		    }
+		    
+	    var hours = Math.floor((distance % _day) / _hour);
+	    var minutes = Math.floor((distance % _hour) / _minute);
+	    var seconds = Math.floor((distance % _minute) / _second);
+	    document.getElementById(id).innerHTML = hours + '시간 ' + minutes + '분 '+seconds + '초';
+	    }
+
+    timer = setInterval(showRemaining, 1000);
+    }
     </script>
     
     
@@ -226,7 +252,12 @@
                         <ul class="news-list stretchable" id="nowlist">
                          	
                          	<s:iterator value="schedule">
-                         	
+                         	<script type="text/javascript">
+		                                    $(function() {
+				                                var matchingtime = '<s:property value="matching_End" />';
+					                                CountDownTimer(matchingtime, "countdown<s:property value="matching_Id" />");
+		                                    })    
+		                                    </script>
                             <s:if test="onoff < 0">
 	                            
 	                            <li><input type="hidden" value="<s:property value="matching_Id" />" name="hidden">
@@ -236,9 +267,32 @@
 	                                <div class="news-item-info">
 	                                    <h5 class="name no-margin mb-xs"><s:property value="game_Type" />매칭 실패</h5>
 	                                    <p class="fs-mini">
-	                                        	경기날짜: <s:property value="game_Date" /> 
+	                                        	경기날짜: <s:property value="game_Date" /><br>
+	                                        	매칭시작: <s:property value="matching_Time" />
+	                                        	<s:if test="ground_Hold == 1">
+	                                        		<br>경기장 유무: 있음
+	                                        	</s:if>
+	                                        	<s:else>
+	                                        		<br>경기장 유무: 없음
+	                                        	</s:else>
+	                                        	<s:if test="game_Time == 1">
+	                                        		<br>경기시간: 06시~09시
+	                                        	</s:if>
+	                                        	<s:elseif test="game_Time == 2">
+	                                        		<br>경기시간: 09시~12시
+	                                        	</s:elseif>
+	                                        	<s:elseif test="game_Time == 3">
+	                                        		<br>경기시간: 12시~15시
+	                                        	</s:elseif>
+	                                        	<s:elseif test="game_Time == 4">
+	                                        		<br>경기시간: 15시~18시
+	                                        	</s:elseif>
+	                                        	<s:elseif test="game_Time == 5">
+	                                        		<br>경기시간: 18시~21시
+	                                        	</s:elseif>
 	                                    </p>
-	                                    <time class="help-block">매칭시작시간 : <s:property value="matching_Time" /></time>
+		                                    
+	                                    <time class="help-block">매칭종료시간 : <div id="countdown<s:property value="matching_Id" />"></div> </time>
 	                                </div>
 	                            </li>
 	                            
@@ -253,9 +307,32 @@
 	                                <div class="news-item-info">
 	                                    <h5 class="name no-margin mb-xs"><s:property value="game_Type" />상대 매칭중!</h5>
 	                                    <p class="fs-mini">
-	                                        	경기날짜: <s:property value="game_Date" /> 
+	                                        	경기날짜: <s:property value="game_Date" /><br>
+	                                        	매칭시작: <s:property value="matching_Time" />
+	                                        	<s:if test="ground_Hold == 1">
+	                                        		<br>경기장 유무: 있음
+	                                        	</s:if>
+	                                        	<s:else>
+	                                        		<br>경기장 유무: 없음
+	                                        	</s:else>
+	                                        	<s:if test="game_Time == 1">
+	                                        		<br>경기시간: 06시~09시
+	                                        	</s:if>
+	                                        	<s:elseif test="game_Time == 2">
+	                                        		<br>경기시간: 09시~12시
+	                                        	</s:elseif>
+	                                        	<s:elseif test="game_Time == 3">
+	                                        		<br>경기시간: 12시~15시
+	                                        	</s:elseif>
+	                                        	<s:elseif test="game_Time == 4">
+	                                        		<br>경기시간: 15시~18시
+	                                        	</s:elseif>
+	                                        	<s:elseif test="game_Time == 5">
+	                                        		<br>경기시간: 18시~21시
+	                                        	</s:elseif>
 	                                    </p>
-	                                    <time class="help-block">매칭시작시간 : <s:property value="matching_Time" /></time>
+		                                    
+	                                    <time class="help-block">매칭종료시간 : <div id="countdown<s:property value="matching_Id" />"></div></time>
 	                                </div>
 	                            </li>
 	                            

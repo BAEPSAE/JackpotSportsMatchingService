@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getBoard" parameterType="int" resultType="Board">
 		SELECT * from Board where boardNum=#{boardNum}
 	</select>
-	<delete parameterType="int" id="delete">
+	<delete parameterType="int" id="deleteBoard">
 		DELETE FROM Board WHERE boardNum=#{boardNum}
 	</delete>
 	<update parameterType="map" id="updateboard">

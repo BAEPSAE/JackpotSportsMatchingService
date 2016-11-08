@@ -59,10 +59,10 @@
 						<p>3rd Web Project &nbsp;&bull;&nbsp; B-class &nbsp;&bull;&nbsp; Never asked for this</p>
 						<nav>
 							<ul><!-- 인덱스 분기_MatchingAction -->
-								<li><s:a action="index_matching?sports=1" class="fa fa-circle" id="soccer"><span>Soccer</span></s:a></li>
-								<li><s:a action="index_matching?sports=2" class="fa fa-dribbble" id="baseball"><span>Baseball</span></s:a></li>
-								<li><s:a action="index_matching?sports=3" class="fa fa-circle-o" id="tableTennis"><span>Table Tennis</span></s:a></li>
-								<li><s:a action="index_matching?sports=4" class="fa fa-dot-circle-o" id="bowling"><span>Bowling</span></s:a></li>
+								<li><s:a action="index_matching" class="fa fa-circle" id="soccer"><span>Soccer</span></s:a></li>
+								<li><s:a action="index_matching" class="fa fa-dribbble" id="baseball"><span>Baseball</span></s:a></li>
+								<li><s:a action="index_matching" class="fa fa-circle-o" id="tableTennis"><span>Table Tennis</span></s:a></li>
+								<li><s:a action="index_matching" class="fa fa-dot-circle-o" id="bowling"><span>Bowling</span></s:a></li>
 							</ul>
 						</nav>
 					</header>
