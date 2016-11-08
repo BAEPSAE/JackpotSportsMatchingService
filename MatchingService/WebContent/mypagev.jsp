@@ -330,7 +330,7 @@
                 <s:iterator value="prevgamelist">
 		            	<section class="search-result-item">
 			            	<s:if test="game_Type == '축구'">
-			            		<a class="image-link"><img class="image" src="../demo/img/pictures/555.jpg"></a>
+			            		<a class="image-link"><img class="image" src="/demo/img/pictures/555.jpg"></a>
 			            	</s:if>
 			            	<s:elseif test="game_Type == '야구'">
 			            		<a class="image-link"><img class="image" src="../demo/img/pictures/666.jpg"></a>
