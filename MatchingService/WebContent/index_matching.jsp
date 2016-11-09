@@ -180,7 +180,8 @@
 	    		  url: 'matching/insertMatching',
 	    		  data: data(),
 	    		  success: function(response) {
-	    			  location.href = "mypagev"
+	    			  alert('매칭 신청이 완료되었습니다.');
+	    			  location.href = "intro.jsp";
 	    		  },
 	    		  error:function(request,status,error){
 	    		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

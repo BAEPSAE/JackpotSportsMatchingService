@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="mapper.MatchingMapper">
 	<!-- 매칭풀에 등록하기 -->
 	<insert id="insertMatching" parameterType="Matching">
-		insert into matching values(SEQ_MATCHING.NEXTVAL, #{player}, #{score}, #{game_Type}, to_date(#{game_Date}), #{game_Time}, #{ground_Hold}, #{latitude}, #{longitude}, SYSDATE)
+		insert into matching values(SEQ_MATCHING.NEXTVAL, #{player}, #{score}, #{game_Type}, to_date(#{game_Date}), #{game_Time}, #{ground_Hold}, #{latitude}, #{longitude}, SYSDATE+1)
 	</insert>
 
 <!-- 그라운드를 뒤져서 위도, 경도, GroundID를 가지고 오기 -->
@@ -165,5 +165,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchGame" parameterType="Games" resultType="Games">
 		SELECT * FROM GAMES WHERE GAME_ID = #{game_Id}
 	</select>
+	
+	<update id="score1"> <!-- 이거는 수동으로 점수 올려주는거라 나중에 삭제해야함 -->
+		update team set team_score=team_score+5 where team_id=1
+	</update>	
+	
+	<update id="score2">
+		update team set team_score=team_score-5 where team_id=2
+	</update>
 
 </mapper>

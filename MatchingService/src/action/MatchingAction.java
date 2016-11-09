@@ -53,9 +53,16 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 	private int ground_Id1;
 	  private ArrayList<Item> home_list=new ArrayList<>();
 	   private ArrayList<Item> away_list=new ArrayList<>();
-	   
+	String key;
 
 
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
 	String ground_name; // Hold가 1일 경우 그라운드 이름으로 위도 경도를 검색
 	Grounds getGround;
 
@@ -211,6 +218,20 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 	public void setValidGame(String validGame) {
 		this.validGame = validGame;
 	}
+	
+	public String gameResultv(){
+		games.setGame_Id(Integer.parseInt(ground_Id));
+		MessageDAO mdao = new MessageDAO();
+		Games g1 = mdao.searchGame(games);
+		if(session.get("user_Id").equals(g1.getPlayer1())){
+			key = g1.getPlayer1_Key();
+		}else{
+			key = g1.getPlayer2_Key();
+		}
+		
+		return SUCCESS;
+	}
+	
 
 	// method
 	// 인덱스 분기를 위한 메소드

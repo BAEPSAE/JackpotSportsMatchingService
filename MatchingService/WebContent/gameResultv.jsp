@@ -62,6 +62,9 @@
                             <fieldset style="text-align: center;">
                             	<legend style="height: 25px;"><strong>결과 입력</strong></legend>
                             </fieldset>
+                            	<!-- 인증키 -->
+                            	<s:property value="key"/>
+                            
                                 <!-- 인증번호 받기 -->
                                 <div class="form-group row" style="text-align: center;">
                                     <div class="form-group" style="width: 45%; position: relative; display: inline-block;">

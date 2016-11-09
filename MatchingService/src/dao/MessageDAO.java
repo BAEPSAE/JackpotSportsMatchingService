@@ -176,6 +176,7 @@ public class MessageDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		score();
 	}
 	
 	public void draw(Item item) {
@@ -209,6 +210,16 @@ public class MessageDAO {
 		return g;
 	}
 	
+	public void score() {
+		try {
+			sqlSession.update("mapper.MatchingMapper.score1");
+			sqlSession.update("mapper.MatchingMapper.score2");
+			sqlSession.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 
 }

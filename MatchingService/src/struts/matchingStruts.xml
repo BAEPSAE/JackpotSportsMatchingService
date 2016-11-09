@@ -50,7 +50,7 @@
 			<result type="chain">gamepage</result>
 		</action>
 		
-		<action name="gameResultv" class="action.MatchingAction">
+		<action name="gameResultv" class="action.MatchingAction" method="gameResultv">
 			<result>../gameResultv.jsp</result>
 		</action>
 		

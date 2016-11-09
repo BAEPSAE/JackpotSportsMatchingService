@@ -17,28 +17,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
    <!-- 종목별 경기장 정보 가져오기 -->
    <select id="getUserGround" parameterType="HashMap" resultType="Grounds">
-      SELECT G.GROUND_NAME
-      , G.GROUND_PHONE
-      , G.GROUND_ADDRESS
-      , G.GROUND_TYPE
-      FROM GROUNDS G, 
-        (SELECT GROUND_ID, COUNT(GROUND_ID)AS GROUNDS
-        <if test="sports==1">
-        	FROM (SELECT GAME_TYPE, GROUND_ID, WINNER_ID FROM GAMES WHERE WINNER_ID=#{user_Id} AND GAME_TYPE=1)
-        </if>
-        <if test="sports==2">
-        	FROM (SELECT GAME_TYPE, GROUND_ID, WINNER_ID FROM GAMES WHERE WINNER_ID=#{user_Id} AND GAME_TYPE=2)
-        </if>
-        <if test="sports==3">
-        	FROM (SELECT GAME_TYPE, GROUND_ID, WINNER_ID FROM GAMES WHERE WINNER_ID=#{user_Id} AND GAME_TYPE=3)
-        </if>
-        <if test="sports==4">
-        	FROM (SELECT GAME_TYPE, GROUND_ID, WINNER_ID FROM GAMES WHERE WINNER_ID=#{user_Id} AND GAME_TYPE=4)
-        </if>
-        WHERE ROWNUM=1
-        GROUP BY GROUND_ID
-        ORDER BY GROUNDS DESC) GA 
-      WHERE GA.GROUND_ID=G.GROUND_ID
+     select * from grounds 
+      where ground_id=
+      <if test="sports==1">
+         (select ground_id from (select rownum, t.* from (
+      SELECT GROUND_ID, COUNT(*) GROUNDS
+      FROM (SELECT GAME_TYPE, GROUND_ID, WINNER_ID FROM GAMES WHERE WINNER_ID=#{user_Id} AND GAME_TYPE='축구')
+      WHERE ROWNUM=1 GROUP BY GROUND_ID ORDER BY GROUNDS DESC) t 
+      where rownum=1))
+      </if>
+      <if test="sports==2">
+         (select ground_id from (select rownum, t.* from (
+      SELECT GROUND_ID, COUNT(*) GROUNDS
+      FROM (SELECT GAME_TYPE, GROUND_ID, WINNER_ID FROM GAMES WHERE WINNER_ID=#{user_Id} AND GAME_TYPE='야구')
+      WHERE ROWNUM=1 GROUP BY GROUND_ID ORDER BY GROUNDS DESC) t 
+      where rownum=1))
+      </if>
+      <if test="sports==3">
+         (select ground_id from (select rownum, t.* from (
+      SELECT GROUND_ID, COUNT(*) GROUNDS
+      FROM (SELECT GAME_TYPE, GROUND_ID, WINNER_ID FROM GAMES WHERE WINNER_ID=#{user_Id} AND GAME_TYPE='탁구')
+      WHERE ROWNUM=1 GROUP BY GROUND_ID ORDER BY GROUNDS DESC) t 
+      where rownum=1))
+      </if>
+      <if test="sports==4">
+         (select ground_id from (select rownum, t.* from (
+      SELECT GROUND_ID, COUNT(*) GROUNDS
+      FROM (SELECT GAME_TYPE, GROUND_ID, WINNER_ID FROM GAMES WHERE WINNER_ID=#{user_Id} AND GAME_TYPE='볼링')
+      WHERE ROWNUM=1 GROUP BY GROUND_ID ORDER BY GROUNDS DESC) t 
+      where rownum=1))
+      </if>
    </select>
 
 

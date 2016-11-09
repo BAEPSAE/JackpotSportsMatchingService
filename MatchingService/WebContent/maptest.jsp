@@ -20,7 +20,7 @@
 <script src="../js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
 
-	/* $(function() {
+	/*  $(function() {
 
 		//아래는 채팅
 		$('#send')
@@ -71,11 +71,11 @@
 					});
 				}
 			});
-			if(count++ > 20) {
+			if(count++ > 60) {
 				clearInterval(it);
 			}
 			
-		}, 3000);
+		}, 1000);
 
 	}); */
 	//

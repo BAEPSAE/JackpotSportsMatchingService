@@ -183,7 +183,7 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 
 		schedule = dao.getMatchingList(plr);
 
-		for (Matching m : schedule) {
+		/*for (Matching m : schedule) {
 			cal1 = new GregorianCalendar();
 			Date to = transFormat.parse(m.getMatching_Time());
 			cal1.setTime(to);
@@ -194,7 +194,26 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 			m.setMatching_End(sdf.format(cal1.getTime()));
 			Date dd = transFormat.parse(m.getGame_Date());
 			m.setGame_Date(sdf2.format(dd));
-		}
+		}*/
+		for (Matching m : schedule) {
+	         cal1 = new GregorianCalendar();
+	         Date to = transFormat.parse(m.getMatching_Time());
+	         cal1.setTime(to);
+	         cal1.add(Calendar.DAY_OF_YEAR, -1);
+	         
+	         
+	         cal2 = new GregorianCalendar();
+	         cal2.add(Calendar.DAY_OF_YEAR, 1);
+	         
+	         int i = cal1.compareTo(cal2);
+	         m.setOnoff(i);
+	         
+	         cal1.add(Calendar.DAY_OF_YEAR, 1);
+	         m.setMatching_End(sdf.format(cal1.getTime()));
+	         
+	         Date dd = transFormat.parse(m.getGame_Date());
+	         m.setGame_Date(sdf2.format(dd));
+	      }
 		return SUCCESS;
 		
 	}
