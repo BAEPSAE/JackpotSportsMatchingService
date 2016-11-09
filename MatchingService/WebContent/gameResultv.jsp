@@ -51,20 +51,19 @@
 <body>
 <div class="content-wrap">
     <!-- main page content. the place to put widgets in. usually consists of .row > .col-md-* > .widget.  -->
-    <main id="content" class="content" role="main">
-        <div class="row">
+   <!--  <main id="content" class="content" role="main"> -->
+        <!-- <div class="row"> -->
             <!-- <div class="col-lg-8"> -->
-            <div class="col-xl-4 col-md-6 col-xs-10 col-xl-offset-4 col-md-offset-3 col-xs-offset-1">
-                <section class="widget">
+            <!-- <div class="col-xl-4 col-md-6 col-xs-10 col-xl-offset-4 col-md-offset-3 col-xs-offset-1"> -->
+                <%-- <section class="widget"> --%>
                     <!-- 회원가입 폼 -->
                     <div class="widget-body">
                         <form class="form-horizontal" role="form" onsubmit="return formCheck()">
-                            <fieldset style="text-align: center;">
-                            	<legend style="height: 25px;"><strong>결과 입력</strong></legend>
+                            <fieldset style="text-align: center; margin-top: 10px;">
+                            	<legend style="height: 25px"><strong>결과 입력</strong></legend>
                             </fieldset>
                             	<!-- 인증키 -->
-                            	<s:property value="key"/>
-                            
+                            	<h5 align="center"><s:property value="key"/></h5>
                                 <!-- 인증번호 받기 -->
                                 <div class="form-group row" style="text-align: center;">
                                     <div class="form-group" style="width: 45%; position: relative; display: inline-block;">
@@ -76,7 +75,7 @@
                                 </div>
                             <div class="form-actions">
                                 <div class="row">
-                                    <div class="col-md-offset-4 col-md-7" style="margin-left: 33.8%;">
+                                    <div class="col-md-offset-4 col-md-7" style="margin-left: 30.8%;">
                                         <button type="submit" formaction="win" class="btn btn-primary">승리</button>
                                         <s:hidden value="%{ground_Id}" name="item.ground_phone" />
                                         <button type="submit" formaction="draw" class="btn btn-inverse">무승부</button>
@@ -85,10 +84,10 @@
                             </div>
                         </form>
                     </div>
-                </section>
-            </div>
-        </div>
-    </main>
+                <%-- </section> --%>
+            <!-- </div> -->
+        <!-- </div> -->
+    <!-- </main> -->
 </div>
 <!-- The Loader. Is shown when pjax happens -->
 <div class="loader-wrap hiding hide">

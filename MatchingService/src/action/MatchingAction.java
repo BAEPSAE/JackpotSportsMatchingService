@@ -220,6 +220,7 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 	}
 	
 	public String gameResultv(){
+		games = new Games();
 		games.setGame_Id(Integer.parseInt(ground_Id));
 		MessageDAO mdao = new MessageDAO();
 		Games g1 = mdao.searchGame(games);
