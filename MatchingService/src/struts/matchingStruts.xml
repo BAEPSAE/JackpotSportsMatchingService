@@ -26,7 +26,7 @@
 			<result type="json"></result>
 		</action>
 
-		<action name="getMsg" class="action.MatchingAction" method="getMsg">
+		<action name="getMsg" class="action.MatchingAction" method="arrivedMsg">
 			<result type="json"></result>
 		</action>
 

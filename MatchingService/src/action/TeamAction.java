@@ -13,27 +13,80 @@ import vo.Player;
 import vo.Team;
 
 public class TeamAction extends ActionSupport implements SessionAware {
-	
-	Map<String, Object> session;
-	Player player;	//유저..?
-	String user_Id;
-	int selector;	//축구팀인지 야구팀인지.. 축구1 야구2
+	Player player;
 	Team team;
+	
 	int team_Id;
+	int selector;	//축구1, 야구2
+	
 	List<Player> memberList;	//멤버리스트
 	List<Player> applyList;
-
 	List<Team> teamlist;
 	double team_winrate;	//승률
 	
-	@Override
-	public void setSession(Map<String, Object> session) {
-		this.session = session;
-	}
+	String user_Id;			//session
+	Map<String, Object> session;
 	
+	
+	//getter&setter
+	public Player getPlayer() {
+		   return player;
+	}
+	public void setPlayer(Player player) {
+		   this.player = player;
+	}
+	public int getSelector() {
+		   return selector;
+	}
+	public void setSelector(int selector) {
+		   this.selector = selector;
+	}
+	public Team getTeam() {
+		   return team;
+	}
+	public void setTeam(Team team) {
+		   this.team = team;
+	}
+	public int getTeam_Id() {
+		   return team_Id;
+	}
+	public void setTeam_Id(int team_Id) {
+		   this.team_Id = team_Id;
+	}
+	public List<Player> getMemberList() {
+		   return memberList;
+	}
+	public void setMemberList(List<Player> memberList) {
+		   this.memberList = memberList;
+	}
+	public List<Team> getTeamlist() {
+		   return teamlist;
+	}
+	public void setTeamlist(List<Team> teamlist) {
+		   this.teamlist = teamlist;
+	}
+	public double getTeam_winrate() {
+		   return team_winrate;
+	}
+	public void setTeam_winrate(double team_winrate) {
+		   this.team_winrate = team_winrate;
+	}	
+	public List<Player> getApplyList() {
+		return applyList;
+	}
+	public void setApplyList(List<Player> applyList) {
+		this.applyList = applyList;
+	}
+	public String getUser_Id() {
+		return user_Id;
+	}
+	public void setUser_Id(String user_Id) {
+		this.user_Id = user_Id;
+	}
+		
+	
+	//method
 	public String soccerteampage() throws Exception{
-	      System.out.println("in");
-	      
 	      user_Id = (String) session.get("user_Id");
 	      PlayerDAO pdao = new PlayerDAO();
 	      player = pdao.getUserInfo(user_Id);
@@ -46,12 +99,10 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	      team = tdao.getTeam(team_Id);
 	      team_winrate = Math.ceil(team.getTeam_WinGame()/(double)team.getTeam_TotalGame()*100);
 	      
-	      
 	      //팀원 목록 가져오기
 	      int type=1;   //1이면 정식 0이면 대기
 	      pdao = new PlayerDAO();//?????
 	      memberList = pdao.getPlayerList(1, type, team_Id);
-	      System.out.println("memberlist size: "+memberList.size());
 	      pdao = new PlayerDAO();
 	      applyList = pdao.getPlayerList(1, 0, team_Id);
 	      
@@ -60,13 +111,11 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	      else session.put("isSCLeader", "false");*/
 	      
 	      session.put("t1Leader", team.getTeam_Leader());
-	      
-	      
 	      return SUCCESS;
 	   }
+	
+		//야구 페이지
 	   public String baseballteampage() throws Exception{
-	      System.out.println("in");
-	      
 	      user_Id = (String) session.get("user_Id");
 	      PlayerDAO pdao = new PlayerDAO();
 	      player = pdao.getUserInfo(user_Id);
@@ -92,14 +141,12 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	      else session.put("isBBLeader", "false");
 	      */
 	      session.put("t2Leader", team.getTeam_Leader());
-	      
-	      
 	      return SUCCESS;
 	   }
 	   
 	   
+	   //축구팀 만들기
 	   public String makesoccerteam() throws Exception{   
-		   System.out.println(team);
 	      team.setTeam_Leader((String)session.get("user_Id"));
 	      team.setTeam_GameType("축구");
 	      if(team.getTeam_Score() == 1){
@@ -120,11 +167,11 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	    		  new TeamDAO().insertscleader(t);
 	    	  }
 	      }
-	      
 	      return SUCCESS;
 	   }
+	   
+	   //야구팀 만들기
 	   public String makebaseballteam() throws Exception{
-		   
 	      team.setTeam_Leader((String)session.get("user_Id"));
 	      team.setTeam_GameType("야구");
 	      if(team.getTeam_Score() == 1){
@@ -140,26 +187,21 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	      }
 	      new TeamDAO().maketeam(team);
 	      teamlist = new TeamDAO().getmyteam((String)session.get("user_Id"));
-	      System.out.println(teamlist);
 	      for(Team t : teamlist){
 	    	  if(t.getTeam_GameType().equals("야구")){
 	    		  new TeamDAO().insertbaleader(t);
 	    	  }
 	      }
-	      
 	      return SUCCESS;
 	   }
 	
+	//팀 해체하기
 	public String t_delete() throws Exception{
 		//해체하기
 		//한번 더 확인?
 		//세션에서 가지고 있는 유저 아이디로 불러와서?
-		
+		//TODO: 
 		team_Id=3;
-		System.out.println(team_Id);
-		/*TeamDAO tdao = new TeamDAO();
-		tdao.deleteTeam(team_Id);*/
-
 		return SUCCESS;
 	}
 	
@@ -173,9 +215,8 @@ public class TeamAction extends ActionSupport implements SessionAware {
 		return SUCCESS;
 	}
 	
+	//리더넘기기
 	public String t_giveLeader() throws Exception{
-		//리더넘기기
-		System.out.println("leaddd");
 		PlayerDAO pdao = new PlayerDAO();
 		String sessionid="aaa";
 		player = pdao.getUserInfo(sessionid);
@@ -189,23 +230,23 @@ public class TeamAction extends ActionSupport implements SessionAware {
 		return SUCCESS;
 	}
 	
+	//퇴출하기
 	public String t_kick() throws Exception{
-		System.out.println("kick");
 		PlayerDAO pdao = new PlayerDAO();
 		player = pdao.getUserInfo(user_Id);
-		System.out.println("player"+player);
 		selector=1;
 		pdao.updateTeam(selector, -1, -1, user_Id);
-		System.out.println("kick_success");
 		return SUCCESS;
 	}
-
+	
+	//팀원 리스트
 	public String getTeamList(){
 	    teamlist = new TeamDAO().getTeamList(team);
 	    player = new PlayerDAO().getUserInfo((String)session.get("user_Id"));
 	    return SUCCESS;
 	}
-	   
+	
+	//팀 요청
 	public String t_joinApply(){
 	   String rst = SUCCESS;
 		int result = new TeamDAO().t_joinApply(player);
@@ -217,12 +258,13 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	   return rst;
 	}
 	
+	//요청 대기중
 	public String t_waiting(){
 		memberList = new TeamDAO().t_waiting(team);
-		
 		return SUCCESS;
 	}
 	
+	//팀 요청 수락
 	public String t_joinAccept(){
 		int result = new TeamDAO().t_joinAccept(player);
 		if(result == 1){
@@ -231,6 +273,8 @@ public class TeamAction extends ActionSupport implements SessionAware {
 			return ERROR;
 		}
 	}
+	
+	//팀 요청 거절
 	public String t_joinDeny(){
 		int result = new TeamDAO().t_joinDeny(player);
 		if(result == 1){
@@ -239,79 +283,11 @@ public class TeamAction extends ActionSupport implements SessionAware {
 			return ERROR;
 		}
 	}   
+		
 	
-	
-	//getter&setter
-	
-	   
-	   public Player getPlayer() {
-		   return player;
-	   }
-	   
-	   public void setPlayer(Player player) {
-		   this.player = player;
-	   }
-	   
-	   public int getSelector() {
-		   return selector;
-	   }
-	   
-	   public void setSelector(int selector) {
-		   this.selector = selector;
-	   }
-	   
-	   public Team getTeam() {
-		   return team;
-	   }
-	   
-	   public void setTeam(Team team) {
-		   this.team = team;
-	   }
-	   
-	   public int getTeam_Id() {
-		   return team_Id;
-	   }
-	   
-	   public void setTeam_Id(int team_Id) {
-		   this.team_Id = team_Id;
-	   }
-	   
-	   public List<Player> getMemberList() {
-		   return memberList;
-	   }
-	   
-	   public void setMemberList(List<Player> memberList) {
-		   this.memberList = memberList;
-	   }
-	   
-	   public List<Team> getTeamlist() {
-		   return teamlist;
-	   }
-	   
-	   public void setTeamlist(List<Team> teamlist) {
-		   this.teamlist = teamlist;
-	   }
-	   
-	   public double getTeam_winrate() {
-		   return team_winrate;
-	   }
-	   
-	   public void setTeam_winrate(double team_winrate) {
-		   this.team_winrate = team_winrate;
-	   }	
-		public List<Player> getApplyList() {
-			return applyList;
-		}
-
-		public void setApplyList(List<Player> applyList) {
-			this.applyList = applyList;
-		}
-
-		public String getUser_Id() {
-			return user_Id;
-		}
-
-		public void setUser_Id(String user_Id) {
-			this.user_Id = user_Id;
-		}
+	//session
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
+	}
 }

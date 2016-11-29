@@ -59,11 +59,11 @@
 			<result type="json"></result>
 		</action>
 		<!-- 캘린더페이지 열기 -->
-		<action name="Matching" class="action.PlayerAction" method="getScheduler">
+		<action name="Matching" class="action.PlayerAction" method="listOfScheduler">
 			<result name="success">../Matching.jsp</result>
 		</action>
 		<!-- 갤린더에넣을 스케줄 리스트 불러오기 -->
-		<action name="schedulelist" class="action.PlayerAction" method="getScheduler">
+		<action name="schedulelist" class="action.PlayerAction" method="listOfScheduler">
 			<result type="json"></result>
 		</action>
 		<!-- 매치된게임페이지에서 게임룸 들어가는 버튼 -->
@@ -79,22 +79,22 @@
 			<result type="json"></result>
 		</action>
 		<!-- 랭킹페이지 -->
-      <action name="ppranking" class="action.PlayerAction" method="getpprankinglist">
+      <action name="ppranking" class="action.PlayerAction" method="ppRankingList">
          <result name="success">../ppranking.jsp</result>
       </action>
       <action name="ppranksearch" class="action.PlayerAction" method="ppranksearch">
          <result name="success">../ppranking.jsp</result>
       </action>
-      <action name="blranking" class="action.PlayerAction" method="getblrankinglist">
+      <action name="blranking" class="action.PlayerAction" method="blRankingList">
          <result name="success">../blranking.jsp</result>
       </action>
       <action name="blranksearch" class="action.PlayerAction" method="blranksearch">
          <result name="success">../blranking.jsp</result>
       </action>
-      <action name="scranking" class="action.PlayerAction" method="getscrankinglist">
+      <action name="scranking" class="action.PlayerAction" method="scRankingList">
          <result name="success">../scranking.jsp</result>
       </action>
-      <action name="baranking" class="action.PlayerAction" method="getbarankinglist">
+      <action name="baranking" class="action.PlayerAction" method="baRankingList">
          <result name="success">../baranking.jsp</result>
       </action>
       

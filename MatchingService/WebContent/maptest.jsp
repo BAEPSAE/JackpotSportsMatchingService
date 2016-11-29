@@ -20,7 +20,7 @@
 <script src="../js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
 
-	/*  $(function() {
+	  $(function() {
 
 		//아래는 채팅
 		$('#send')
@@ -77,7 +77,7 @@
 			
 		}, 1000);
 
-	}); */
+	}); 
 	//
 
 	
@@ -697,7 +697,7 @@ body {
 			<div class="row">
 				<div class="col-lg-12">
 				
-				<s:a href='javascript:window.open("gameResultv.action?ground_Id=%{games.game_Id}","result", "width =350px, height=220px")'>
+				<s:a href='javascript:window.open("gameResultv.action?ground_Id=%{games.game_Id}","result", "scrollbars=no, top=200, left=200, width =350px, height=220px")'>
 				<button type="button" class="btn btn-info btn-block"  style="height: 50px;">결과를 입력해주세요</button></s:a>
 				</div>
 			</div>
