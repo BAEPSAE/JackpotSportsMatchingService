@@ -26,6 +26,7 @@ public class PlayerDAO {
 			// TODO: handle exception
 		e.printStackTrace();
 		}
+		sqlSession.close();
 		return getInfo;
 	}
 		
@@ -39,6 +40,7 @@ public class PlayerDAO {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		sqlSession.close();
 		return getRecord;
 	}
 	
@@ -55,6 +57,7 @@ public class PlayerDAO {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		sqlSession.close();
 		return getGrounds;
 	}
 	
@@ -68,6 +71,7 @@ public class PlayerDAO {
 		
 		List<Player> result = new ArrayList<Player>();
 		result = sqlSession.selectList("mapper.PlayerMapper.getPlayerList", map);
+		sqlSession.close();
 		return result;
 	}
 	
@@ -91,6 +95,7 @@ public class PlayerDAO {
 		}
 		
 		System.out.println("updated");
+		sqlSession.close();
 	}
 	
 	//회원가입
@@ -105,6 +110,7 @@ public class PlayerDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		sqlSession.close();
 	}
 	
 	public Player getUser(Player player) {
@@ -118,6 +124,7 @@ public class PlayerDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		sqlSession.close();
 		return p;
 	}
 	
@@ -162,9 +169,10 @@ public class PlayerDAO {
 			}for(Games g : result3){
 				result1.add(g);
 			}
-			System.out.println();
+			sqlSession.close();
 			return result1;
 		}
+
 		//매칭시작시간을 현재시간으로 다시 넣기
 		public int tobecontinue(Matching matching) throws Exception{
 			int result = 0;
@@ -189,36 +197,42 @@ public class PlayerDAO {
 	         sqlSession = MybatisConfig.getSqlSessionFactory().openSession();
 	         List<Player> plist = new ArrayList<>();
 	         plist = sqlSession.selectList("mapper.PlayerMapper.getpprankinglist");
+	         sqlSession.close();
 	         return plist;
 	      }
 	      public List<Player> ppsearch(Player player){
 	         sqlSession = MybatisConfig.getSqlSessionFactory().openSession();
 	         List<Player> plist = new ArrayList<>();
 	         plist = sqlSession.selectList("mapper.PlayerMapper.ppsearch", player);
+	         sqlSession.close();
 	         return plist;
 	      }
 	      public List<Player> getblrankinglist(){
 	         sqlSession = MybatisConfig.getSqlSessionFactory().openSession();
 	         List<Player> plist = new ArrayList<>();
 	         plist = sqlSession.selectList("mapper.PlayerMapper.getblrankinglist");
+	         sqlSession.close();
 	         return plist;
 	      }
 	      public List<Player> blsearch(Player player){
 	         sqlSession = MybatisConfig.getSqlSessionFactory().openSession();
 	         List<Player> plist = new ArrayList<>();
 	         plist = sqlSession.selectList("mapper.PlayerMapper.blsearch", player);
+	         sqlSession.close();
 	         return plist;
 	      }
 	      public List<Team> getscrankinglist(){
 	         sqlSession = MybatisConfig.getSqlSessionFactory().openSession();
 	         List<Team> tlist = new ArrayList<>();
 	         tlist = sqlSession.selectList("mapper.PlayerMapper.getscrankinglist");
+	         sqlSession.close();
 	         return tlist;
 	      }
 	      public List<Team> getbarankinglist(){
 	         sqlSession = MybatisConfig.getSqlSessionFactory().openSession();
 	         List<Team> tlist = new ArrayList<>();
 	         tlist = sqlSession.selectList("mapper.PlayerMapper.getbarankinglist");
+	         sqlSession.close();
 	         return tlist;
 	      }
 }

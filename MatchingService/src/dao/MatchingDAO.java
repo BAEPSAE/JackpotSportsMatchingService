@@ -24,6 +24,7 @@ public class MatchingDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		sqlSession.close();
 	}
 	
 	//대상이 이미 매칭 대기 상태인지 아닌지를 확인
@@ -40,6 +41,7 @@ public class MatchingDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		sqlSession.close();
 		return getMatching;
 	}
 	
@@ -83,7 +85,7 @@ public class MatchingDAO {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		/*sqlSession.close();*/
+		sqlSession.close();
 		return result;
 	}
 
@@ -100,6 +102,7 @@ public class MatchingDAO {
 		sqlSession = MybatisConfig.getSqlSessionFactory().openSession();
 		sqlSession.delete("mapper.MatchingMapper.deleteMatching", matching_Id);
 		sqlSession.commit();
+		sqlSession.close();
 	}
 
 	public void insertGame(Games game) {
@@ -114,6 +117,7 @@ public class MatchingDAO {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		sqlSession.close();
 	}
 
 	// 매칭풀 감시하기

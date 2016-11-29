@@ -15,12 +15,14 @@ public class NoticeDAO {
       sqlSession=MybatisConfig.getSqlSessionFactory().openSession();
       sqlSession.delete("mapper.MatchingMapper.insertNotice", notice);
       sqlSession.commit();
+      sqlSession.close();
    }
    
    public List<Notice> getNotices(String user_Id){
       List<Notice> result = new ArrayList<Notice>();
       sqlSession=MybatisConfig.getSqlSessionFactory().openSession();
       result = sqlSession.selectList("mapper.NoticeMapper.getNoticeList", user_Id);
+      sqlSession.close();
       return result;
    }
 
@@ -28,6 +30,7 @@ public class NoticeDAO {
       sqlSession=MybatisConfig.getSqlSessionFactory().openSession();
       sqlSession.delete("mapper.NoticeMapper.deleteNotice", noticenum);
       sqlSession.commit();
+      sqlSession.close();
    }
    
    
