@@ -444,7 +444,7 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	}
 	
 	//축구 랭킹
-	public String baRankingList() throws Exception {
+	public String scRankingList() throws Exception {
 		dao = new PlayerDAO();
 		player = dao.getUserInfo((String) session.get("user_Id"));
 		dao = new PlayerDAO();
@@ -453,7 +453,7 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	}
 	
 	//야구 랭킹
-	public String getbarankinglist() throws Exception {
+	public String baRankingList() throws Exception {
 		dao = new PlayerDAO();
 		player = dao.getUserInfo((String) session.get("user_Id"));
 		dao = new PlayerDAO();
