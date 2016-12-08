@@ -406,7 +406,7 @@ body {
                </tbody>
             </table>
 			
-			<s:if test="%{#session.isLeader=='true'}">
+			<s:if test="%{#session.isSCLeader=='true'}">
 				<div id="leaderTab">
 	               <button class="btn btn-gray width-100 mb-xs" role="button" id="kick">퇴출</button>
     	           <button class="btn btn-gray width-100 mb-xs" role="button" id="giveLeader">팀장위임</button>

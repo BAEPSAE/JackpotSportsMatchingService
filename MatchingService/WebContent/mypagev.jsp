@@ -259,7 +259,15 @@
                             </div>
                              <div class="post-user post-user-profile">
                                     <span class="thumb-xlg">
+                                    <s:if test="#session.user_Id =='USER110'">
                                         <img class="img-circle" src="../css/images/logo.jpg" alt="...">
+                                    </s:if>
+                                    <s:if test="#session.user_Id =='USER1'">
+                                        <img class="img-circle" src="../css/images/hand.png" alt="...">
+                                    </s:if>
+                                    <s:if test="#session.user_Id =='USER2'">
+                                        <img class="img-circle" src="../css/images/chat.jpg" alt="...">
+                                    </s:if>
                                     </span><br><br>
                                     <h5 class="fw-normal" style="text-align: center; margin-left: 1%;"><s:property value="%{player.user_Name}"/><span class="fw-semi-bold" id="user_Id"></span></h5>
                                     <%-- <p style="text-align: center; margin-left: -5%;" id="team_Name">[<s:property value="%{player.user_Id}"/>]</p> --%>
