@@ -246,10 +246,11 @@ public class TeamAction extends ActionSupport implements SessionAware {
 	    return SUCCESS;
 	}
 	
-	//팀 요청
+	//팀 가입 요청
 	public String t_joinApply(){
 	   String rst = SUCCESS;
-		int result = new TeamDAO().t_joinApply(player);
+	   player.setUser_Id((String)session.get("user_Id"));
+	   int result = new TeamDAO().t_joinApply(player);
 	   if(result == 1){
 		   rst = SUCCESS;   
 	   }else{

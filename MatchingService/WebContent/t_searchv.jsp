@@ -69,8 +69,7 @@
 								url: 't_joinApply'
 								, method: 'post'
 								, data: {
-									"player.user_Id" : "USER110"
-									, "player.team1" : teamId
+									"player.team1" : teamId
 								}
 								, success: function(response) {
 									
@@ -86,8 +85,7 @@
 								url: 't_joinApply'
 								, method: 'post'
 								, data: {
-									"player.user_Id" : "USER110"
-									, "player.team2" : teamId
+									"player.team2" : teamId
 								}
 								, success: function(response) {
 									
