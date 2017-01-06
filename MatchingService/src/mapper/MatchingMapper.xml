@@ -166,12 +166,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM GAMES WHERE GAME_ID = #{game_Id}
 	</select>
 	
-	<update id="score1" parameterType="HashMap"> <!-- 이거는 수동으로 점수 올려주는거라 나중에 삭제해야함 -->
-		update team set team_score=#{newScore} where team_id=#{winTeam}
+	<update id="updateScore" parameterType="HashMap"> <!-- 이거는 수동으로 점수 올려주는거라 나중에 삭제해야함 -->
+		update team set team_score=#{score} where team_id=#{team_Id}
 	</update>	
 	
-	<update id="score2">
-		update team set team_score=#{newScore} where team_id=#{loseTeam}
-	</update>
-
 </mapper>
