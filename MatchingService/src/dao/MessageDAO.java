@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -9,6 +10,8 @@ import vo.Games;
 import vo.Ground_Review;
 import vo.Item;
 import vo.Message;
+import vo.Player;
+import vo.Team;
 
 public class MessageDAO {
 	SqlSession sqlSession = null;
@@ -140,7 +143,7 @@ public class MessageDAO {
 		String key2 = games.getPlayer2_Key();
 		if(item.getGround_id().equals(key1)) {
 			if(item.getGround_name().equals(key2)) {
-				winner(item);
+				winner(item, games);
 				deleteChat(item);
 				return true;
 			}
@@ -148,7 +151,7 @@ public class MessageDAO {
 		
 		if(item.getGround_id().equals(key2)) {
 			if(item.getGround_name().equals(key1)) {
-				winner(item);
+				winner(item, games);
 				deleteChat(item);
 				return true;
 			}
@@ -187,7 +190,7 @@ public class MessageDAO {
 		return false;
 	}
 	
-	public void winner(Item item) {
+	public void winner(Item item, Games games) {
 		sqlSession = MybatisConfig.getSqlSessionFactory().openSession();
 		try {
 			sqlSession.update("mapper.MatchingMapper.winner", item);
@@ -195,7 +198,7 @@ public class MessageDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		score();
+		score(games);
 		sqlSession.close();
 	}
 	
@@ -236,11 +239,67 @@ public class MessageDAO {
 		return g;
 	}
 	
-	public void score() {
+	public void score(Games games) {
+		
+		//게임아이디만 받아와서 플레이어 빼서 팀 증감 점수 계산하고
+		//아이디 들어가는 hashmap으로 바꿔서 넣기
+		
+		String winner = null;
+		String loser = null;
+		HashMap<String, Object> winset = new HashMap<>();
+		HashMap<String, Object> loseset = new HashMap<>();
+		
 		sqlSession = MybatisConfig.getSqlSessionFactory().openSession();
+		
+		winner = games.getWinner_Id();
+		if(winner.equals(games.getPlayer1())){
+			loser = games.getPlayer2();
+		}else{
+			loser = games.getPlayer1();
+		}
+		
+		//둘 승점 가져오기
+		
+		Player winp = null;
+		Player losep = null;
+		
+		winp = sqlSession.selectOne("mapper.PlayerMapper.getUserInfo", winner);
+		losep = sqlSession.selectOne("mapper.PlayerMapper.getUserInfo", loser);
+		
+		if(games.getGame_Type().equals("축구")){
+			
+			//축구면 팀스코어 가져와야됨
+			Team wint = null;
+			Team loset = null;
+			
+			wint = sqlSession.selectOne("mapper.TeamMapper.getTeam", winp.getTeam1());
+			loset = sqlSession.selectOne("mapper.TeamMapper.getTeam", losep.getTeam1());
+			
+			int wins = wint.getTeam_Score();
+			int loses = loset.getTeam_Score();
+			
+			if(wins-loses<=0){
+				//승점 더 낮은팀이 이겼으면 +-5
+				winset.put("team_Id", wint.getTeam_Id());
+				winset.put("score", wins+5);
+				loseset.put("team_Id", loset.getTeam_Id());
+				loseset.put("score", loses-5);
+				
+			}else{
+				//걍 잘하는 팀이 이겼으면 +-3
+				winset.put("team_Id", wint.getTeam_Id());
+				winset.put("score", wins+3);
+				loseset.put("team_Id", loset.getTeam_Id());
+				loseset.put("score", loses-3);
+			}
+			
+			
+		}
+		
+		
 		try {
-			sqlSession.update("mapper.MatchingMapper.score1");
-			sqlSession.update("mapper.MatchingMapper.score2");
+			sqlSession.update("mapper.MatchingMapper.updateScore", winset);
+			sqlSession.update("mapper.MatchingMapper.updateScore", loseset);
 			sqlSession.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
