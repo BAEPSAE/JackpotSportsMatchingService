@@ -150,7 +150,6 @@
 <body>
    <!--
   Main sidebar seen on the left. may be static or collapsing depending on selected state.
-
     * Collapsing - navigation automatically collapse when mouse leaves it and expand when enters.
     * Static - stays always open.
 -->
@@ -368,8 +367,9 @@ body {
                               <div class="stats-row stats-row-profile mt text-xs-right">
                               	<!-- 썸넬들어가는부분 -->
                                  <!-- <img class="img-circle" src="../demo/img/pictures/3.jpg" alt="..."
-                                    style="float: left;"> --> <br> <br> <br>
-                                 <div style="float: right;">
+                                    style="float: left;"> -->
+                                 <div align="center" style="margin-right: 50px">
+                                 <div style="margin-left:-30%;margin-right: 30%">
                                     <div class="stat-item">
                                        <p class="value text-xs-right">
                                           <s:property value="team_winrate" />
@@ -389,6 +389,7 @@ body {
                                        </p>
                                        <h6 class="name">매너점수</h6>
                                     </div>
+                                 </div>
                                  </div>
                               </div>
                            </div>
@@ -454,7 +455,7 @@ body {
                      <th>아이디</th>
                      <th>이름</th>
                      <th>지역</th>
-                     <th>승인/거절</th>
+                     <th style="width:30%">승인/거절</th>
                   </tr>
                </thead>
                <tbody id="teamapplies">
