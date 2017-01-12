@@ -11,6 +11,7 @@
     <link href="css/application-ie9-part2.css" rel="stylesheet">
     <![endif]-->
 <link rel="shortcut icon" href="img/favicon.png">
+<link rel="stylesheet" href="../css/jquery.confirm.css">
 <meta name="viewport"
    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="description" content="">
@@ -84,37 +85,61 @@
 				var here=$(this);
 				var playerId=$(this).parent().parent().children().first().text();
 				if(here.attr('id')=='go'){
-					if(confirm("팀원으로 등록하시겠습니까?")){
-						$.ajax({
-							url: 't_joinAccept'
-							, method: 'post'
-							, data: {
-								"player.user_Id" : playerId
-							}
-							, success: function(response) {
-								location.href="soccerteampage";
-							}
-							, error: function(request, status, error) {
-								location.href="soccerteampage";
-							}
-						}); //$ajax
-					}
+					
+					$.confirm({
+						'title'	: '팀에 합류시키겠습니까?'
+						,'acceptTitle' : '예'
+						,'rejectTitle' : '아니오'
+						, 'acceptAction' : function(){
+							
+							$.ajax({
+								url: 't_joinAccept'
+								, method: 'post'
+								, data: {
+									"player.user_Id" : playerId
+								}
+								, success: function(response) {
+									location.href="soccerteampage";
+								}
+								, error: function(request, status, error) {
+									location.href="soccerteampage";
+								}
+							}); //$ajax
+							
+							
+						}
+					})
+					
+					//여기다붙여
 				}else{
-					if(confirm("팀합류 요청을 거부하시겠습니까?")){
-						$.ajax({
-							url: 't_joinDeny'
-							, method: 'post'
-							, data: {
-								"player.user_Id" : playerId
-							}
-							, success: function(response) {
-								location.href="soccerteampage";
-							}
-							, error: function(request, status, error) {
-								location.href="soccerteampage";
-							}
-						}); //$ajax
-					}
+					
+					
+					$.confirm({
+						'title'	: '요청을 거절하시겠습니까?'
+						,'acceptTitle' : '예'
+						,'rejectTitle' : '아니오'
+						, 'acceptAction' : function(){
+							
+							$.ajax({
+								url: 't_joinDeny'
+								, method: 'post'
+								, data: {
+									"player.user_Id" : playerId
+								}
+								, success: function(response) {
+									location.href="soccerteampage";
+								}
+								, error: function(request, status, error) {
+									location.href="soccerteampage";
+								}
+							}); //$ajax
+							
+							
+						}
+					})
+					
+				
+				
 				}
 			});
         	
@@ -125,7 +150,6 @@
 <body>
    <!--
   Main sidebar seen on the left. may be static or collapsing depending on selected state.
-
     * Collapsing - navigation automatically collapse when mouse leaves it and expand when enters.
     * Static - stays always open.
 -->
@@ -343,8 +367,9 @@ body {
                               <div class="stats-row stats-row-profile mt text-xs-right">
                               	<!-- 썸넬들어가는부분 -->
                                  <!-- <img class="img-circle" src="../demo/img/pictures/3.jpg" alt="..."
-                                    style="float: left;"> --> <br> <br> <br>
-                                 <div style="float: right;">
+                                    style="float: left;"> -->
+                                 <div align="center" style="margin-right: 50px">
+                                 <div style="margin-left:-30%;margin-right: 30%">
                                     <div class="stat-item">
                                        <p class="value text-xs-right">
                                           <s:property value="team_winrate" />
@@ -364,6 +389,7 @@ body {
                                        </p>
                                        <h6 class="name">매너점수</h6>
                                     </div>
+                                 </div>
                                  </div>
                               </div>
                            </div>
@@ -429,7 +455,7 @@ body {
                      <th>아이디</th>
                      <th>이름</th>
                      <th>지역</th>
-                     <th>승인/거절</th>
+                     <th style="width:30%">승인/거절</th>
                   </tr>
                </thead>
                <tbody id="teamapplies">
@@ -481,12 +507,12 @@ body {
    <script src="../vendor/jquery-ui/ui/widget.js"></script>
    <script src="../vendor/jquery-ui/ui/mouse.js"></script>
    <script src="../vendor/jquery-ui/ui/sortable.js"></script>
-   <script
-      src="../vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+   <script src="../vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
    <script src="../vendor/jquery.nestable/jquery.nestable.js"></script>
 
    <!-- page specific js -->
    <script src="../js/ui-list-groups.js"></script>
+   <script src="../js/jquery.confirm.js"></script>
 </body>
 </html><%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
