@@ -20,7 +20,7 @@
 <script src="../js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
 
-	  $(function() {
+	  /* $(function() {
 
 		//아래는 채팅
 		$('#send')
@@ -77,7 +77,7 @@
 			
 		}, 1000);
 
-	}); 
+	});  */
 	//
 
 	

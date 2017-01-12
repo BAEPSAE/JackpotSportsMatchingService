@@ -131,10 +131,12 @@ public class MessageDAO {
 	}
 	
 	public boolean key(Item item) {
+		
 		sqlSession = MybatisConfig.getSqlSessionFactory().openSession();
 		Games games = null;
 		try {
 			games = sqlSession.selectOne("mapper.MatchingMapper.key", item);
+			
 			sqlSession.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -241,6 +243,8 @@ public class MessageDAO {
 	
 	public void score(Games games) {
 		
+		System.out.println("score");
+		
 		//게임아이디만 받아와서 플레이어 빼서 팀 증감 점수 계산하고
 		//아이디 들어가는 hashmap으로 바꿔서 넣기
 		
@@ -258,6 +262,8 @@ public class MessageDAO {
 			loser = games.getPlayer1();
 		}
 		
+		System.out.println("winner : "+winner);
+		
 		//둘 승점 가져오기
 		
 		Player winp = null;
@@ -265,6 +271,9 @@ public class MessageDAO {
 		
 		winp = sqlSession.selectOne("mapper.PlayerMapper.getUserInfo", winner);
 		losep = sqlSession.selectOne("mapper.PlayerMapper.getUserInfo", loser);
+		
+		System.out.println("winp : "+winp);
+		System.out.println("losep : "+losep);
 		
 		if(games.getGame_Type().equals("축구")){
 			
@@ -277,6 +286,9 @@ public class MessageDAO {
 			
 			int wins = wint.getTeam_Score();
 			int loses = loset.getTeam_Score();
+			
+			System.out.println("score updating");
+			
 			
 			if(wins-loses<=0){
 				//승점 더 낮은팀이 이겼으면 +-5
@@ -296,6 +308,7 @@ public class MessageDAO {
 			
 		}
 		
+		System.out.println("score winset");
 		
 		try {
 			sqlSession.update("mapper.MatchingMapper.updateScore", winset);
