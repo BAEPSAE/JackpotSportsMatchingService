@@ -19,7 +19,8 @@
 		</action>
 		
 		<action name="gamepage" class="action.MatchingAction" method="select_Ground">
-			<result>../maptest.jsp</result>
+			<result name="m">../maptest_m.jsp</result>
+			<result name="p">../maptest_p.jsp</result>
 		</action>
 
 		<action name="sendMsg" class="action.MatchingAction" method="sendMsg">

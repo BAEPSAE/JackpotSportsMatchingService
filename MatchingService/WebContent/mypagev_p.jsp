@@ -17,6 +17,7 @@
 	<link rel="stylesheet" type="text/css" href="../dist/overhang.min.css" />
 	<script type="text/javascript" src="../dist/overhang.min.js"></script>
     <script>
+    
     	//팀의 매너점수 가져오기
    		
    		//막대 그래프 함수
@@ -31,6 +32,7 @@
   
     	
    		$(document).ready(function() {
+   			
    			viewGraph();
    		});
     </script>
@@ -463,6 +465,11 @@
 <div class="loader-wrap hiding hide">
     <i class="fa fa-circle-o-notch fa-spin-fast"></i>
 </div>
+
+
+
+
+
 <!-- common libraries. required for every page-->
 <script src="../vendor/jquery-pjax/jquery.pjax.js"></script>
 <script src="../vendor/tether/dist/js/tether.js"></script>

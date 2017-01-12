@@ -45,8 +45,9 @@
          <result>/intro.jsp</result>
       	</action>
       	
-      	<action name="index_matching">
-      		<result>/index_matching.jsp</result>
+      	<action name="index_matching" class="action.MatchingAction" method="resolution">
+      		<result name="m">/index_matching_m.jsp</result>
+      		<result name="p">/index_matching_p.jsp</result>
       	</action>
       	
 		

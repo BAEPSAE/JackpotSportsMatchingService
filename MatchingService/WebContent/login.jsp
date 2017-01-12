@@ -11,7 +11,20 @@
     <meta name="author" content="">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <script src="../js/jquery-3.1.1.min.js"></script>
     <script>
+    var resol = screen.width;
+    
+    $(document).ready(function() {
+    	var reso1 = document.getElementById("reso");
+    	reso1.value = resol;
+    });
+    
+    var reso1 = document.getElementById("reso");
+    reso1.value = resol;
+    
+    
+    
     </script>
 </head>
 <body class="login-page">
@@ -31,8 +44,11 @@
                     </header>
                     <div class="widget-body">
                         <form class="login-form mt-lg" action="login" method="post">
+                        	
                             <div class="form-group">
+                               
                                 <input type="text" class="form-control" id="id" name="player.user_Id" placeholder="아이디">
+                                <input type="hidden" id="reso" name="resolution" />
                             </div>
                             <div class="form-group">
                                 <input class="form-control" id="password" name="player.user_Pw" type="password" placeholder="비밀번호">

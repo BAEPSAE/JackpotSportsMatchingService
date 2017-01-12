@@ -16,7 +16,11 @@
 
     <script src="../js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript">
+	
 		$(document).ready(function() {
+			
+			
+			
 			$('#searchbtn').click(function() {
 				
 				var teamname = $('#search-input').val();
@@ -105,6 +109,7 @@
 	</script>
 </head>
 <body>
+
 <!--
   Main sidebar seen on the left. may be static or collapsing depending on selected state.
 
@@ -318,6 +323,7 @@
 <div class="loader-wrap hiding hide">
     <i class="fa fa-circle-o-notch fa-spin-fast"></i>
 </div>
+
 
 <!-- common libraries. required for every page-->
 <script src="../vendor/jquery/dist/jquery.min.js"></script>

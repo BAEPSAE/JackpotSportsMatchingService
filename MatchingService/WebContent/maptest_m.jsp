@@ -1007,39 +1007,38 @@ body {
 				</div>
 			</div>
 
-
+			<!-- HOME, AWAY 경기장 목록-->
 			<div class="row">
 				<div class="col-lg-12">
 					<section class="widget">
 						<div class="widget-body">
-							<table class="table">
+							<table class="table" style="width: 100%;">
 								<thead>
 									<tr>
-										<th>경기장 이름</th>
-										<th class="hidden-sm-down">위치</th>
-										<th class="hidden-sm-down">전화번호</th>
-										<th></th>
+										<th width="500">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이름</th>
+										<th width="50">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전화번호</th>
+										<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기타</th>
 									</tr>
 								</thead>
-								 <tbody>      
-                        <tr style="background-color: white;"><td>HOME　</td><td></td><td></td><td></td></tr>
-                     
+								<tbody>      
+                        <tr style="background-color: white; font-weight: bold;"><td colspan="3">HOME</td></tr>
                            <s:iterator value="home_list">
                               <tr>
+                              <!-- 이름 -->
                                  <td>
-                                       <h4>
-                                          <s:property value="ground_name" />
-                                       </h4>
-                              </td>
-                                 <td><h4>
-                                       <s:property value="ground_address" />
-                                    </h4></td>
-                                 <td><span
-                                    class="label label-pill bg-gray-lighter text-gray">
-                                       <h4>
-                                          <s:property value="ground_phone" />
-                                       </h4>
-                                 </span></td>
+	                                 <h5>
+	                                    <s:property value="ground_name" />
+	                                 </h5>
+                              	</td>
+                      			<!-- 전화번호 -->
+                                <td>
+	                                 <span class="label label-pill bg-gray-lighter text-gray">
+	                                       <h6>
+	                                          <s:property value="ground_phone" />
+	                                       </h6>
+	                                 </span>
+	                             </td>
+	                             <!-- 버튼 -->
                                  <td><s:a
                                        href="select.action?games.ground_Id=%{ground_id}&games.game_Id=%{games.game_Id}">
                                        <button id="select" style="width: 100%" class="btn btn-inverse width-100 mb-xs"
@@ -1051,33 +1050,32 @@ body {
                                     </s:a>
                                     <s:a
                                        href='javascript:window.open("review.action?ground_Id=%{ground_id}","review","resizable=yes, width =500, height=550")'>
-                                    <button class="btn btn-warning btn-block"
-                                        role="button">
-                                       <i class="glyphicon glyphicon-tree-conifer text-success"></i>
-                                       한줄평
-                                    </button>
+	                                    <button class="btn btn-warning btn-block"
+	                                        role="button" style="width: 100%">
+	                                       <i class="glyphicon glyphicon-tree-conifer text-success"></i>
+	                                       한줄평
+	                                    </button>
                                     </s:a>
                                     </td>
-
                               </tr>
                            </s:iterator> <!-- 홈 -->
-                           <tr style="background-color: white;"><td>AWAY　</td><td></td><td></td><td></td></tr>
+                           <tr style="background-color: white; font-weight: bold;"><td colspan="3">AWAY</td></tr>
                            <s:iterator value="away_list"><!-- 어웨이 -->
                               <tr>
+                              <!-- 이름 -->
                                  <td>
-                                       <h4>
-                                          <s:property value="ground_name" />
-                                       </h4>
-                              </td>
-                                 <td><h4>
-                                       <s:property value="ground_address" />
-                                    </h4></td>
+	                                 <h5>
+	                                    <s:property value="ground_name" />
+	                                 </h5>
+                              	 </td>
+                              	 <!-- 전화 -->
                                  <td><span
                                     class="label label-pill bg-gray-lighter text-gray">
-                                       <h4>
+                                       <h6>
                                           <s:property value="ground_phone" />
-                                       </h4>
+                                       </h6>
                                  </span></td>
+                                 <!-- 버튼 -->
                                  <td><s:a
                                        href="select.action?games.ground_Id=%{ground_id}">
                                        <button id="select" style="width: 100%" class="btn btn-inverse width-100 mb-xs"
@@ -1090,7 +1088,7 @@ body {
                                     <s:a
                                        href='javascript:window.open("review.action?ground_Id=%{ground_id}","review","resizable=yes, width =500, height=550")'>
                                     <button class="btn btn-warning btn-block"
-                                        role="button">
+                                        role="button" style="width: 100%;">
                                        <i class="glyphicon glyphicon-tree-conifer text-success"></i>
                                        한줄평
                                     </button>
@@ -1106,6 +1104,7 @@ body {
 					</section>
 				</div>
 			</div>
+			<!-- 경기장 리스트 -->
 		</s:else>
 
 		<!-- row --> <!-- 경기장 리스트 --> </main>

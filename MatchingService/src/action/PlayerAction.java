@@ -48,6 +48,8 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	Calendar cal1;
 	Calendar cal2;
 	
+	int resolution;
+	
 	int noticenum;
 	int sports; // 축구==1, 야구==2, 탁구==3, 볼링==4
 	String loginId; // session 확인용
@@ -238,8 +240,12 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 	public void setTeamlist(List<Team> teamlist) {
 		this.teamlist = teamlist;
 	}
-	
-	
+	public int getResolution() {
+		return resolution;
+	}
+	public void setResolution(int resolution) {
+		this.resolution = resolution;
+	}
 	// method
 	// 화면 가져오기
 	public String mypagev() {
@@ -275,7 +281,14 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 		
 		dao = new PlayerDAO();
 		prevgamelist = dao.prevgamelist(player);
-		return SUCCESS;
+		
+		int r = (int) session.get("resolution");
+
+		if (r < 500) {
+			return "m";
+		} else {
+			return "p";
+		}
 	}
 
 	//Game확인
@@ -302,6 +315,8 @@ public class PlayerAction extends ActionSupport implements SessionAware {
 
 	//로그인
 	public String login() throws Exception {
+		session.put("resolution", resolution);
+		
 		player = dao.getUser(player);
 		if (player == null) {
 			return INPUT;

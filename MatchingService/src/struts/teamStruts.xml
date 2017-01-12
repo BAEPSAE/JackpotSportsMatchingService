@@ -56,8 +56,10 @@
        </action>
        
        <!-- 팀 찾기 페이지 -->
-       <action name="t_searchv">
-			<result>../t_searchv.jsp</result>
+       <action name="t_searchv" class="action.MatchingAction" method="resolution">
+			<result name="m">../t_searchv_m.jsp</result>
+			<result name="p">../t_searchv_p.jsp</result>
+			
 		</action>
 		
 		<action name="t_search" class="action.TeamAction" method="getTeamList">

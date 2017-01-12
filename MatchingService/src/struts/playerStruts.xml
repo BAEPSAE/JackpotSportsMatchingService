@@ -13,7 +13,8 @@
 		
     	<action name="mypagev" class="action.PlayerAction" method="mypagev">
     		<interceptor-ref name="loginInterceptorStack"></interceptor-ref>
-			<result>../mypagev.jsp</result>
+			<result name="m">../mypagev_m.jsp</result>
+			<result name="p">../mypagev_p.jsp</result>
 		</action>
 		
 		<!-- 회원가입 뷰 -->
