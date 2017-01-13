@@ -8,6 +8,9 @@ import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
 
+import com.google.android.gcm.server.MulticastResult;
+import com.google.android.gcm.server.Result;
+import com.google.android.gcm.server.Sender;
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.GroundDAO;
@@ -396,6 +399,42 @@ public class MatchingAction extends ActionSupport implements SessionAware {
 		Matching rival = searchMatching(matching, 1);
 		if (rival != null) {
 			System.out.println("!!!매칭됨!!!");
+			//여기부터!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			String OriToken = "fEr9XhN3tok:APA91bEuZdy1yV9DN3_i_pojxqGqYBTaY9Ht_BQDAEP7mBqDY5P_OOFTvqoMbKva-k58_jNv-q_lrqcP3ZIRJ_BZ9930HMgFkS1DOK_Inx6QVEOWPl--9aum-mqex3Xhu_pTImzlMz8I";
+	         ArrayList<String> token = new ArrayList<String>();    //token값을 ArrayList에 저장
+	         token.add(OriToken);
+	         
+	          String MESSAGE_ID = String.valueOf(Math.random() % 100 + 1);    //메시지 고유 ID
+	          boolean SHOW_ON_IDLE = false;    //옙 활성화 상태일때 보여줄것인지
+	          int LIVE_TIME = 1;    //옙 비활성화 상태일때 FCM가 메시지를 유효화하는 시간
+	          int RETRY = 2;    //메시지 전송실패시 재시도 횟수
+	         
+	          
+	          String simpleApiKey = "AAAAjp_so94:APA91bF5SUVKX988J0n5AiwwZF-Rl6pYMZuHeVhZPaVg2eX9xlapvmAxlygoeFj5Bu84v151IsMbtGc3DHbwTNy1WCBjNmukzmTuNAa2UmcLfP8bLmcujI6UtBxp7vEcTvRRO9urOi79N5MVG9TnHzItxBqS8GgVmA";
+	          String gcmURL = "https://android.googleapis.com/fcm/send";    
+	          
+	          String msg = "새로운 매칭이 성사되었습니다.";
+	          
+	          try {
+	            // msg = new String(msg.getBytes("UTF-8"), "UTF-8");   //메시지 한글깨짐 처리
+	              Sender sender = new Sender(simpleApiKey);
+	              com.google.android.gcm.server.Message message = new com.google.android.gcm.server.Message.Builder()
+	              .collapseKey(MESSAGE_ID)
+	              .delayWhileIdle(SHOW_ON_IDLE)
+	              .timeToLive(LIVE_TIME)
+	              .addData("message",msg)
+	              .build();
+	              MulticastResult result1 = sender.send(message,token,RETRY);
+	              if (result1 != null) {
+	                  List<Result> resultList = result1.getResults();
+	                  for (Result result : resultList) {
+	                      System.out.println(result.getErrorCodeName()); 
+	                  }
+	              }
+	          }catch (Exception e) {
+	              e.printStackTrace();
+	          }
+			//여기까지!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			openGameRoom(matching, rival);
 		} else {
 			// Matching으로 이동
